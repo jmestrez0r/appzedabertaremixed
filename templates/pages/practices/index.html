@@ -1,0 +1,89 @@
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Treinos
+        </h1>
+      </div>
+      <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li class="active">
+                <i class="fa fa-dashboard"></i> Dashboard / Treinos - <small>{{practice.id}}</small>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <i class="fa fa-info-circle"></i> Implementa o teu treino.
+        </div>
+    </div>
+</div>
+
+  <div class='contentWrapper ng-cloak'>
+    <div class='content'>
+      <div class="row-fluid">
+        <h3><small>Icones<small></h3>
+        <!-- icons area -->
+        <div class="thumbnail" data-drop="true" ng-model='icons' jqyoui-droppable="{multiple:true}">
+          <div class="caption">
+            <div class="btn btn-info btn-draggable" ng-repeat="icon in icons"
+                  ng-show="icon.component" data-drag="true"
+                  data-jqyoui-options="{revert: 'invalid'}" ng-model="icons"
+                  jqyoui-draggable="{index: {{$index}},animate:true}">
+                  {{icon.component}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='contentWrapper ng-cloak'>
+    <div class='content'>
+      <div class="row-fluid">
+        <h3><small>Jogadores<small></h3>
+        <!-- players area -->
+        <div class="thumbnail" data-drop="true" ng-model='players' jqyoui-droppable="{multiple:true}">
+          <div class="caption">
+            <div class="btn btn-info btn-draggable" ng-repeat="player in players"
+                  ng-show="player.name" data-drag="true"
+                  data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
+                  jqyoui-draggable="{index: {{$index}},animate:true}">
+                  {{player.name}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="float: right" width="25%">
+  <h3><small>Quadro Tactico<small></h3>
+  <!-- drop area -->
+  <div class="caption">
+    <div class="col-md-3"  data-drop="true" jqyoui-droppable="{multiple:true}">
+        <div data-drag="true">
+          <img src="../../../images/board.jpeg" jqyoui-draggable="{index: {{$index}},animate:true}"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!--
+<div class="caption">
+  <div class="btn btn-info btn-draggable" ng-repeat="all in allList"
+        ng-show="all" data-drag="true"
+        data-jqyoui-options="{revert: 'invalid'}" ng-model="all"
+        jqyoui-draggable="{index: {{$index}},animate:true}">
+        {{all}}
+  </div>
+</div>-->

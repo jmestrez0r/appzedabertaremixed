@@ -1,0 +1,26 @@
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Calendário
+        </h1>
+      </div>
+      <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li class="active">
+                <i class="fa fa-dashboard"></i> Dashboard / Calendário
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <i class="fa fa-info-circle"></i> Organiza o teu Calendário.
+        </div>
+    </div>
+</div>
+
+<div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
