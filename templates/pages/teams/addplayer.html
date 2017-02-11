@@ -1,0 +1,103 @@
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">
+          <i><img src="{{effectiveTeam.crestUrl}}" height="50px" width="50px"></img></i> Adicionar Jogador
+      </h1>
+    </div>
+    <div class="col-lg-12">
+      <ol class="breadcrumb">
+          <li>
+              <i class="fa fa-dashboard"></i> Dashboard / Plantel - <b>{{effectiveTeam.name}}</b> / Adicionar Jogador
+          </li>
+      </ol>
+    </div>
+
+    <div class="row">
+
+      <!-- coluna 1 -->
+      <div class="col-lg-2">
+          <div class="form-group">
+              <label>Nome:</label>
+              <input class="form-control">
+              <p class="help-block">Primeiro e Ultimo</p>
+          </div>
+
+          <div class="form-group">
+              <label>Nacionalidade:</label>
+              <input class="form-control">
+          </div>
+
+          <div class="form-group">
+              <label>Data de Nascimento:</label>
+              <div >
+                <div >
+                    <input type='text' class="form-control" id='datetimepicker4' />
+                </div>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#datetimepicker4').datetimepicker();
+                    });
+                </script>
+              </div>
+          </div>
+      </div>
+
+      <!-- coluna 2 -->
+      <div class="col-lg-3">
+        <div class="row">
+          <div class="form-group">
+              <label>Posição de Jogo:</label>
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Selecione a posição
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-header">Defesa</li>
+                  <li><a>Esquerdo</a></li>
+                  <li><a>Centro</a></li>
+                  <li><a>Direito</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Médio</li>
+                  <li><a>Trinco</a></li>
+                  <li><a>Centro</a></li>
+                  <li><a>Atacante</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Atacante</li>
+                  <li><a>Extremo</a></li>
+                  <li><a>Avançado</a></li>
+                  <li><a>Ponta de Lança</a></li>
+                </ul>
+              </div>
+              <p />
+          </div>
+
+          <div>
+
+          </div>
+
+        </div>
+        <p></p>
+        <div class="form-group">
+            <label>Número:</label>
+            <input class="form-control">
+        </div>
+      </div>
+
+      <!-- coluna 3 -->
+      <div class="col-lg-3">
+        <!-- the avatar markup -->
+        <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+        <form class="text-center" action="/avatar_upload.php" method="post" enctype="multipart/form-data">
+            <div class="kv-avatar center-block" style="width:200px">
+                <input id="avatar-2" name="avatar-2" type="file" class="file-loading">
+            </div>
+            <!-- include other inputs if needed and include a form submit (save) button -->
+        </form>
+        <!-- your server code `avatar_upload.php` will receive `$_FILES['avatar']` on form submission -->
+
+        <!-- the fileinput plugin initialization -->
+        <script type="text/javascript" src="js/avatar.js"></script>
+
+      </div>
+  </div>
+</div>

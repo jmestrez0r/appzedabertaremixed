@@ -47,19 +47,40 @@ angular.module("Elifoot").controller('PracticesController',
 
     //component area
     $scope.icons = [
-      { 'component': 'Item 1', 'drag': true },
-      { 'component': 'Item 2', 'drag': true },
-      { 'component': 'Item 3', 'drag': true },
-      { 'component': 'Item 4', 'drag': true },
-      { 'component': 'Item 5', 'drag': true },
-      { 'component': 'Item 6', 'drag': true },
-      { 'component': 'Item 7', 'drag': true },
-      { 'component': 'Item 8', 'drag': true }
+      { 'component': 'glyphicon glyphicon-upload', 'drag': true },
+      { 'component': 'glyphicon glyphicon-map-marker', 'drag': true },
+      { 'component': 'glyphicon glyphicon-move', 'drag': true },
+      { 'component': 'glyphicon glyphicon-arrow-left', 'drag': true },
+      { 'component': 'glyphicon glyphicon-arrow-right', 'drag': true },
+      { 'component': 'glyphicon glyphicon-arrow-up', 'drag': true },
+      { 'component': 'glyphicon glyphicon-arrow-down', 'drag': true },
+      { 'component': 'glyphicon glyphicon-exclamation-sign', 'drag': true }
     ];
 
     //available players
     TeamPlayers.all().success(function(data) {
-        $scope.players = data.players;
+        var playerSpecs = [];
+
+        for(var i = 0; i < data.players.length; i++) {
+            var object = data.players[i];
+
+            var playerName = object.name;
+            var colorPosition = object.position.toLowerCase();
+            if(colorPosition.includes('keeper')) {
+                colorPosition = 'color:black';
+            } else if (colorPosition.includes('centre') || colorPosition.includes('central')) {
+                colorPosition = 'color:#f0ad4e';
+            } else if (colorPosition.includes('defensive') || colorPosition.includes('back')) {
+                colorPosition = 'color:#5cb85c';
+            } else if (colorPosition.includes('striker') || colorPosition.includes('wing')) {
+                colorPosition = 'color:red';
+            }
+            playerSpecs.push({
+              'name': playerName, 'colorPosition': colorPosition
+            })
+        }
+
+        $scope.players = playerSpecs;
     });
 
     //final list

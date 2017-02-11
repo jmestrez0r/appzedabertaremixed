@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">
-            <i><img src="{{effectiveTeam.crestUrl}}" height="50px" width="50px"></img></i> Plantel
+            Plantel
         </h1>
       </div>
       <div class="col-lg-12">
@@ -18,7 +18,7 @@
     <div class="col-lg-12">
         <div class="alert alert-info alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-             <i class="fa fa-info-circle"></i> Aqui podes gerir o teu plantel.<p/>
+            <i><img src="{{effectiveTeam.crestUrl}}" height="25px" width="25px"></img></i> Aqui podes gerir o teu plantel.<p/>
         </div>
     </div>
 </div>
@@ -32,9 +32,6 @@
           <h4 class="card-title">{{player.name}}
             <i class="glyphicon glyphicon-pencil">
               <a href="#/editPlayer"/>
-            </i>
-            <i class="glyphicon glyphicon-remove">
-              <a href="#/deletePlayer"/>
             </i>
           </h4>
           <p class="card-text">Número: {{player.jerseyNumber}}</p>
