@@ -23,25 +23,37 @@
     </div>
 </div>
 
-
 <div class="row">
-  <div class="card" ng-repeat="player in teamPlayers.players">
-      <div class="col-lg-3 list-group">
-        <img class="card-img-top" src="https://dummyimage.com/200x200/000/fff" alt="{{player.name}}">
-        <div class="card-block">
-          <h4 class="card-title">{{player.name}}
-            <i class="glyphicon glyphicon-pencil">
-              <a href="#/editPlayer"/>
-            </i>
-            <i class="glyphicon glyphicon-remove">
-              <a href="#/deletePlayer"/>
-            </i>
-          </h4>
-          <p class="card-text">Número: {{player.jerseyNumber}}</p>
-          <p class="card-text">Nacionalidade: {{player.nationality}}</p>
-          <p class="card-text">Posição: {{player.position}}</p></p>
-        </div>
-        <p/>
-    </div>
-  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th align="center">#</th>
+        <th align="center">Número</th>
+        <th align="center">Nome</th>
+        <th align="center">Posição</th>
+        <th align="center">Finalização</th>
+        <th align="center">Resistência</th>
+        <th align="center">Espirito de Equipa</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="player in teamPlayers.players">
+        <th scope="row" align="center"><img src="https://dummyimage.com/40x40/000/fff"></th>
+        <th>{{player.jerseyNumber}}</th>
+        <th>{{player.name}}</th>
+        <td>{{player.position}}</td>
+        <td align="center"><i class="glyphicon glyphicon-ok-sign" style="color:#5cb85c"></i></td>
+        <td align="center"><i class="glyphicon glyphicon-info-sign" style="color:blue"></i></td>
+        <td align="center"><i class="glyphicon glyphicon-question-sign" style="color:red"></i></td>
+        <td align="center"><i class="glyphicon glyphicon-pencil">
+          <a href="#/editPlayer"/>
+        </i></td>
+        <td><i class="glyphicon glyphicon-remove">
+          <a href="#/deletePlayer"/>
+        </i></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

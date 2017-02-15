@@ -1,1 +1,1 @@
-angular.module("Elifoot", ['ngRoute', 'ui.calendar', 'ngDragDrop']);
+angular.module("Elifoot", ['ngRoute', 'ui.calendar', 'kendo.directives', 'ngDragDrop']);
