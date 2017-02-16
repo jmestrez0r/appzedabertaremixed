@@ -103,14 +103,22 @@
       <!-- coluna de baixo -->
       <div class="col-lg-6" >
           <h3>Finalização</h3>
-          <div kendo-progress-bar="progressBar" k-min="0" k-max="100" ng-model="progress" style="width: 100%;"></div>
+          <div kendo-progress-bar="finalBar" k-min="0" k-max="100" ng-model="dynamicFinal" ng-click="progress('final')" style="width: 100%;"></div>
+          <p class="help-block" style="color:red" ng-if="dynamicFinal >= 0 && dynamicFinal < 50">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
+          <p class="help-block" style="color:blue" ng-if="dynamicFinal >= 50 && dynamicFinal < 75">Médio <i class="glyphicon glyphicon-link"></i></p>
+          <p class="help-block" style="color:#5cb85c" ng-if="dynamicFinal >= 75 && dynamicFinal <= 100">Excelente <i class="glyphicon glyphicon-ok"></i></p>
 
           <h3>Resistência</h3>
-          <div kendo-progress-bar="progressBar" k-min="0" k-max="100" ng-model="progress" style="width: 100%;"></div>
+          <div kendo-progress-bar="resistBar" k-min="0" k-max="100" ng-model="dynamicResist" ng-click="progress('resist')" style="width: 100%;"></div>
+          <p class="help-block" style="color:red" ng-if="dynamicResist >= 0 && dynamicResist < 50">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
+          <p class="help-block" style="color:blue" ng-if="dynamicResist >= 50 && dynamicResist < 75">Médio <i class="glyphicon glyphicon-link"></i></p>
+          <p class="help-block" style="color:#5cb85c" ng-if="dynamicResist >= 75 && dynamicResist <= 100">Excelente <i class="glyphicon glyphicon-ok"></i></p>
 
           <h3>Espirito de Equipa</h3>
-          <div kendo-progress-bar="progressBar" k-min="0" k-max="100" ng-model="progress" style="width: 100%;"></div>
-
+          <div kendo-progress-bar="teamBar" k-min="0" k-max="100" ng-model="dynamicEquipa" ng-click="progress('equipa')" style="width: 100%;"></div>
+          <p class="help-block" style="color:red" ng-if="dynamicEquipa >= 0 && dynamicEquipa < 50">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
+          <p class="help-block" style="color:blue" ng-if="dynamicEquipa >= 50 && dynamicEquipa < 75">Médio <i class="glyphicon glyphicon-link"></i></p>
+          <p class="help-block" style="color:#5cb85c" ng-if="dynamicEquipa >= 75 && dynamicEquipa <= 100">Excelente <i class="glyphicon glyphicon-ok"></i></p>
       </div>
     </div>
   </div>
