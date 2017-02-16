@@ -32,6 +32,10 @@ angular.module("Elifoot").config( ['$routeProvider', function($routeProvider) {
       templateUrl: '/templates/pages/teams/edit.html',
       controller: 'TeamPlayersController'
     })
+    .when('/tactics', {
+      templateUrl: '/templates/pages/tactics/index.html',
+      controller: 'TacticalController'
+    })
     .when('/classification', {
       templateUrl: '/templates/pages/classification/index.html',
       controller: 'ClassificationController'
