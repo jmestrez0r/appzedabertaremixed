@@ -16,16 +16,20 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
     $scope.events = [
       {
         title: 'Treino Maravilha',
-        start: new Date(y, m, 1)
+        start: new Date(y, m, 1),
+        color: 'orange'
       },{
         title: 'Treino Pré',
         start: new Date(y, m, d - 5),
-        end: new Date(y, m, d - 2)
+        end: new Date(y, m, d - 2),
+        color: 'orange'
       },{
         id: 999,
         title: 'SLBenfica vs Sporting CP',
         start: new Date(y, m, d - 3, 16, 0),
-        url:'#/tactics',allDay: false
+        url:'#/tactics',
+        allDay: false,
+        color: 'red'
       },{
         id: 999,
         title: 'Repeating Event',
