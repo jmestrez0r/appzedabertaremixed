@@ -28,22 +28,99 @@
     <div class="col-lg-2">
       <div class='contentWrapper ng-cloak'>
         <div class='content'>
-          <div class="row-fluid">
             <h3><i class="glyphicon glyphicon-th-list"></i><small>  Icones</small></h3>
             <!-- icons area -->
-            <div data-drop="true" ng-model='icons' jqyoui-droppable="{multiple:true}">
-              <div class="caption">
-                <div class="btn btn-draggable" ng-repeat="icon in icons"
-                      ng-show="icon.component" data-drag="true"
+            <div data-drop="true"
+                ng-model='icons'
+                jqyoui-droppable="{multiple:true}">
+                <div class="btn-draggable col-lg-4" ng-repeat="icon in icons"
+                      data-drag="true"
                       data-jqyoui-options="{revert: 'invalid'}" ng-model="icons"
-                      jqyoui-draggable="{index: {{$index}},animate:true}">
-                      <i class="{{icon.component}} fa-2x"> </i>
+                      jqyoui-draggable="{animate:true}">
+                      <div align="center">
+                        <i class="{{icon.component}} fa-2x"> </i>
+                      </div>
                 </div>
-              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div>
+          <p/>
+        </div>
+
+        <div class='contentWrapper ng-cloak'>
+          <div class='content' ng-model='arrows'>
+            <div data-drop="true" class="col-lg-5" jqyoui-droppable="{multiple:true}" data-drag="true"
+              data-jqyoui-options="{revert: 'invalid'}" ng-repeat="arrow in arrows"
+              jqyoui-draggable="{animate:true}">
+              <img src="../../../images/{{arrow.fileName}}" class="btn-draggable"
+                width="65px" height="65px"/>
             </div>
           </div>
         </div>
       </div>
+
+    <div class="col-lg-7" style="align:center">
+      <h3><i class="glyphicon glyphicon-wrench"></i><small>Quadro Tactico</small></h3>
+      <!-- drop area -->
+      <div class="caption">
+        <div data-drag="true" data-drop="true" jqyoui-droppable="{multiple:true}">
+          <div >
+              <img jqyoui-droppable="{multiple:true}" jqyoui-draggable="{multiple:true, animate:true}"
+                src="../../../images/football_pitch.jpeg" weight="620px" height="320px"/>
+          </div>
+        </div>
+      </div>
+
+      <button ng-click="open()" class="btn btn-primary">Associar Treino</button>
+      <modal title="" visible="showModal">
+
+        </form>
+      </modal>
+
+      <div class="modal" modal="showModal" ng-show="showModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">Associar Treino</h4>
+          </div>
+          <form role="form">
+            <div class="form-group">
+                <label>Descrição:</label>
+                <input class="form-control">
+            </div>
+            <div class="form-group">
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                    Selecione o Jogo a Associar
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a>SLBenfica vs Sporting CP</a></li>
+                    <li><a>FC Porto vs SL Benfica</a></li>
+                    <li><a>Braga vs SL Benfica</a></li>
+                  </ul>
+                </div>
+            </div>
+            <div class="form-group">
+              <div class="dropdown">
+                <button class="btn btn-primary">
+                  Criar novo treino
+                </button>
+              </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Cancelar</button>
+            <button type="button" class="btn btn-primary" ng-click="save()">Guardar</button>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
     </div>
 
     <div class="col-lg-3">
@@ -54,10 +131,10 @@
             <div data-drop="true"
                 ng-model='players'
                 jqyoui-droppable="{multiple:true}">
-                <div class="btnbtn-draggable col-lg-4" ng-repeat="player in players | orderBy: 'colorPosition'"
+                <div class="btn-draggable col-lg-4" ng-repeat="player in players | orderBy: 'colorPosition'"
                       data-drag="true"
                       data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
-                      jqyoui-draggable="{index: {{$index}},animate:true}">
+                      jqyoui-draggable="{animate:true}">
                       <div align="center">
                         <i class="glyphicon glyphicon-user fa-2x" style="{{player.colorPosition}}"></i>
                         <p></p><small>{{player.name}}</small>
@@ -67,32 +144,4 @@
           </div>
         </div>
       </div>
-
-    <div class="col-lg-1">
-    </div>
-    <div class="col-lg-6">
-      <h3><i class="glyphicon glyphicon-wrench"></i><small>Quadro Tactico</small></h3>
-      <!-- drop area -->
-      <div class="caption">
-        <div data-drag="true" data-drop="true" jqyoui-droppable="{multiple:true}">
-            <div jqyoui-draggable="{index: {{$index}},animate:true}" jqyoui-droppable="{multiple:true}">
-              <img src="../../../images/board.jpeg" weight="150%" height="125%"/>
-          </div>
-        </div>
-      </div>
-    </div>
 </div>
-
-
-
-
-
-<!--
-<div class="caption">
-  <div class="btn btn-info btn-draggable" ng-repeat="all in allList"
-        ng-show="all" data-drag="true"
-        data-jqyoui-options="{revert: 'invalid'}" ng-model="all"
-        jqyoui-draggable="{index: {{$index}},animate:true}">
-        {{all}}
-  </div>
-</div>-->
