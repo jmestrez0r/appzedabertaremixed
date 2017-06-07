@@ -14,18 +14,18 @@
     </div>
 </div>
 
-<!-- alert -->
-<div class="row" ng-show="{{validateAlertMessage}}">
-    <div class="col-lg-12">
-        <div class="alert alert-warning alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <i class="fa fa-info-circle"></i> {{message}}
-            <a href="#/practices">
-              Ir para o treino {{identification}}!
-            </a>
-        </div>
+<div class="modal-body" style="padding:0px" ng-init="validateAlertMessage()">
+    <div style="margin-bottom:0px" ng-if="data.nearShow || data.todaysShow">
+        <button type="button" class="close" data-ng-click="close()" >
+            <span class="glyphicon glyphicon-remove-circle"></span>
+        </button>
+        <strong>{{data.message}}</strong>
+        <a href="#/practices#{{data.identification}}" ng-if="data.nearShow">
+          <i class="fa fa-rocket" />
+        </a>
     </div>
 </div>
+
 
 <div class="row">
   <!-- Noticias -->

@@ -1,24 +1,38 @@
-angular.module("Elifoot").controller('PopUpController', function($scope, Practices) {
-
-  $scope.showModal = false;
-  $scope.message = '';
-  $scope.nearPractice;
-  $scope.todaysPractices;
+angular.module("Elifoot").controller('PopUpController', function($scope, ngDialog, Practices) {
+  $scope.data = {
+      message : '',
+      nearPractice : '',
+      nearShow : false,
+      todaysPractices: '',
+      todaysShow : false
+   };
 
   $scope.validateAlertMessage = function() {
-      $scope.nearPractice = Practices.nearPractice(Date.now());
-      $scope.todaysPractices = Practices.todaysPractices(Date.now());
+      Practices.nearPractice(Date.now()).success(
+          function(data) {
+            $scope.data.nearPractice = data;
+            console.log(data);
+          });
 
-      if($scope.nearPractice != null) {
-        $scope.message = "Treino de " + $scope.nearPractice.type + " agora!";
-        $scope.showModal = true;
+      Practices.todaysPractices(Date.now()).success(
+          function(data) {
+            $scope.data.todaysPractices = data;
+            console.log(data);
+          });
+
+      if($scope.data.nearPractice != null && $scope.data.nearPractice != '') {
+        $scope.data.message = "Treino de " + $scope.data.nearPractice.type + " agora!";
+        $scope.data.nearShow = true;
+      } else {
+        if($scope.data.todaysPractice != null && $scope.data.todaysPractice > 0) {
+          $scope.data.message = "Tem um treino hoje às " + $scope.data.todaysPractices.datetime
+            + " de " + $scope.data.todaysPractices.type + "!";
+          $scope.data.todaysShow = true;
+        }
       }
 
-      if($scope.todaysPractice != null && $scope.todaysPractice > 0) {
-        $scope.message = "Tem um treino hoje às " + $scope.todaysPractices.datetime
-          + " de " + $scope.todaysPractices.type + "!";
-        $scope.showModal = true;
-      }
-      return $scope.showModal;
-  };
-});
+      ngDialog.open({ template: 'alertTemplate' });
+
+      return $scope.data;
+      };
+  });
