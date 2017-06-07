@@ -1,4 +1,4 @@
-angular.module("Elifoot").controller('PopUpController', function($scope, ngDialog, Practices) {
+angular.module('Elifoot').controller('PopUpController', function($scope, ngDialog, Practices) {
   $scope.data = {
       message : '',
       nearPractice : '',
@@ -8,13 +8,13 @@ angular.module("Elifoot").controller('PopUpController', function($scope, ngDialo
    };
 
   $scope.validateAlertMessage = function() {
-      Practices.nearPractice(Date.now()).success(
+      Practices.nearPractice().success(
           function(data) {
             $scope.data.nearPractice = data;
             console.log(data);
           });
 
-      Practices.todaysPractices(Date.now()).success(
+      Practices.todaysPractices().success(
           function(data) {
             $scope.data.todaysPractices = data;
             console.log(data);
@@ -31,7 +31,7 @@ angular.module("Elifoot").controller('PopUpController', function($scope, ngDialo
         }
       }
 
-      ngDialog.open({ template: 'alertTemplate' });
+      //ngDialog.open({ template: 'alertTemplate' });
 
       return $scope.data;
       };

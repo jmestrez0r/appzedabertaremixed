@@ -12,6 +12,7 @@ angular.module('Elifoot').factory('Practices', ['$http', function($http) {
     allPractices: function() {
       return allPracticesArray;
     },
+
     checkPractice: function(identification) {
       if(identification == undefined) {
         return;
@@ -19,6 +20,7 @@ angular.module('Elifoot').factory('Practices', ['$http', function($http) {
         allPracticesArray.get(identification);
       }
     },
+
     duplicatePractice: function(identification) {
       if(identification == undefined) {
         return;
@@ -28,6 +30,7 @@ angular.module('Elifoot').factory('Practices', ['$http', function($http) {
         allPracticesArray.add(practice);
       }
     },
+
     removePractice: function(identification) {
       if(identification == undefined) {
         return;
@@ -35,6 +38,7 @@ angular.module('Elifoot').factory('Practices', ['$http', function($http) {
         allPracticesArray.remove(identification);
       }
     },
+
     nearPractice: function(date) {
       return allPracticesArray[1];
       /*for(var i = 0; i < allPracticesArray.length; i++) {
