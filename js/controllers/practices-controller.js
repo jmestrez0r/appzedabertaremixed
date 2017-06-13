@@ -96,4 +96,27 @@ angular.module("Elifoot").controller('PracticesController',
 
     //final list
     $scope.allList = [];
+
+    $scope.dynamicIntensity = 0;
+    $scope.dynamicVolume = 0;
+    $scope.dynamicFrequency = 0;
+
+    $scope.progress = function(barClick){
+      if(barClick == 'intensity') {
+        $scope.dynamicIntensity = $scope.dynamicIntensity + 10;
+        if($scope.dynamicIntensity > 100) {
+          $scope.dynamicIntensity = 0;
+        }
+      } else if(barClick == 'volume') {
+        $scope.dynamicVolume = $scope.dynamicVolume + 10;
+        if($scope.dynamicVolume > 180) {
+          $scope.dynamicVolume = 0;
+        }
+      } else if(barClick == 'frequency') {
+        $scope.dynamicFrequency = $scope.dynamicFrequency + 1;
+        if($scope.dynamicFrequency > 10) {
+          $scope.dynamicFrequency = 0;
+        }
+      }
+    };
 });
