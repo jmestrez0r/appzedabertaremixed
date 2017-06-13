@@ -16,6 +16,9 @@ angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, 
       $scope.data.nearPractice = Practices.nearPractice();
       $scope.data.todaysPractices = Practices.todaysPractices();
 
+      console.log($scope.data.nearPractice);
+      console.log($scope.data.todaysPractices);
+
       if($scope.data.nearPractice != null && $scope.data.nearPractice != '') {
         $scope.data.message = "Treino de " + $scope.data.nearPractice.type + " agora!";
         $scope.data.nearShow = true;

@@ -276,18 +276,19 @@
 
     <!-- Dialog -->
     <script type="text/ng-template" id="alertTemplate.html">
-        <div class="ngdialog-message">
+        <div class="ngdialog-message" style="color: white">
     				<h2>{{data.message}}
-              <a href="#/practices#{{data.identification}}" ng-click="closeThisDialog()">
+              <a href="#/practices#{{data.nearPractice.identification}}" ng-click="closeThisDialog()">
                 <i class="fa fa-rocket" />
               </a>
             </h2>
 
-            <div>Treinos seguintes:</div>
-    				<ul class="mt" ng-repeat="pratice in data.nearPractice">
-              <li>{{pratice.identification}} # {{pratice.description}}
-                <li>{{practice.type}} # {{pratice.datetime}}</li>
-              </li>
+            <div style="font-size: 1.2em;">Detalhe do Treino:</div>
+    				<ul class="mt">
+              <li>{{data.nearPractice.identification}}</li>
+              <li>{{data.nearPractice.description}}</li>
+              <li>{{data.nearPractice.type}}</li>
+              <li>{{data.nearPractice.datetime}}</li>
               <p/>
             </ul>
         </div>
