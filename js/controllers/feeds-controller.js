@@ -1,6 +1,40 @@
-angular.module("Elifoot").controller('FeedsController', function($scope, Feeds) {
+angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, ngDialog, Practices) {
   Feeds.parseFeed().success(function(data) {
       $scope.feeds = data
       console.log(data);
   });
+
+  $scope.data = {
+      message : '',
+      nearPractice : '',
+      nearShow : false,
+      todaysPractices: '',
+      todaysShow : false
+   };
+
+  $scope.validateAlertMessage = function() {
+      $scope.data.nearPractice = Practices.nearPractice();
+      $scope.data.todaysPractices = Practices.todaysPractices();
+
+      if($scope.data.nearPractice != null && $scope.data.nearPractice != '') {
+        $scope.data.message = "Treino de " + $scope.data.nearPractice.type + " agora!";
+        $scope.data.nearShow = true;
+      } else {
+        if($scope.data.todaysPractice != null && $scope.data.todaysPractice > 0) {
+          $scope.data.message = "Tem um treino hoje às " + $scope.data.todaysPractices.datetime
+            + " de " + $scope.data.todaysPractices.type + "!";
+          $scope.data.todaysShow = true;
+        }
+      }
+
+      ngDialog.open({
+        template: 'alertTemplate.html',
+        className: 'ngdialog-theme-default',
+        scope: $scope,
+        height: 400,
+        weight: 800
+      });
+
+      return $scope.data;
+    };
 });

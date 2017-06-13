@@ -29,6 +29,9 @@
     <link href="css/fileinput.min.css" rel="stylesheet" />
     <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" />
     <link href="css/ngDialog.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/ngDialog-theme-default.css">
+    <link rel="stylesheet" href="css/ngDialog-theme-plain.css">
+    <link rel="stylesheet" href="css/ngDialog-custom-width.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,7 +42,7 @@
 
 </head>
 
-<body>
+<body class="ng-scope ngdialog-open">
 
     <div id="wrapper">
 
@@ -262,7 +265,6 @@
     <script type="text/javascript" src="js/controllers/classification-index-controller.js"></script>
     <script type="text/javascript" src="js/controllers/calendar-controller.js"></script>
     <script type="text/javascript" src="js/controllers/practices-controller.js"></script>
-    <script type="text/javascript" src="js/controllers/pop-up-controller.js"></script>
 
     <!-- Services -->
     <script type="text/javascript" src="js/services/leagues.js"></script>
@@ -272,7 +274,24 @@
     <script type="text/javascript" src="js/services/classification.js"></script>
     <script type="text/javascript" src="js/services/practices.js"></script>
 
+    <!-- Dialog -->
+    <script type="text/ng-template" id="alertTemplate.html">
+        <div class="ngdialog-message">
+    				<h2>{{data.message}}
+              <a href="#/practices#{{data.identification}}" ng-click="closeThisDialog()">
+                <i class="fa fa-rocket" />
+              </a>
+            </h2>
 
+            <div>Treinos seguintes:</div>
+    				<ul class="mt" ng-repeat="pratice in data.nearPractice">
+              <li>{{pratice.identification}} # {{pratice.description}}
+                <li>{{practice.type}} # {{pratice.datetime}}</li>
+              </li>
+              <p/>
+            </ul>
+        </div>
+    </script>
 </body>
 
 </html>
