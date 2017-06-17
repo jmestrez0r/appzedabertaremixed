@@ -46,43 +46,46 @@
   <div class="row">
 
     <div class="col-lg-2">
-      <div class='contentWrapper ng-cloak'>
-        <div class='content'>
-            <h3><i class="glyphicon glyphicon-th-list"></i><small>  Icones</small></h3>
-            <!-- icons area -->
-            <div data-drop="true"
-                ng-model='icons'
-                jqyoui-droppable="{multiple:true}">
-                <div class="btn-draggable col-lg-4" ng-repeat="icon in icons"
-                      data-drag="true"
-                      data-jqyoui-options="{revert: 'invalid'}" ng-model="icons"
-                      jqyoui-draggable="{animate:true}">
-                      <div align="center">
-                        <i class="{{icon.component}} fa-2x"> </i>
-                      </div>
-                </div>
-
-            </div>
-
-          </div>
-        </div>
-
-        <div>
-          <p/>
-        </div>
-
+      <ul class="nav top-nav">
         <div class='contentWrapper ng-cloak'>
-          <div class='content' ng-model='arrows'>
-            <div data-drop="true" class="col-lg-5" jqyoui-droppable="{multiple:true}" data-drag="true"
-              data-jqyoui-options="{revert: 'invalid'}" ng-repeat="arrow in arrows"
-              jqyoui-draggable="{animate:true}">
-              <img src="../../../images/{{arrow.fileName}}" class="btn-draggable"
-                width="65px" height="65px"/>
-            </div>
+          <div class='content'>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown"><h3><i class="glyphicon glyphicon-th-list"></i> Ícones </h3></a>
+                <ul class="dropdown-menu alert-dropdown" data-drop="true"
+                    ng-model='icons'
+                    jqyoui-droppable="{multiple:true}">
+                    <li class="btn-draggable col-lg-4" ng-repeat="icon in icons"
+                          data-drag="true"
+                          data-jqyoui-options="{revert: 'invalid'}" ng-model="icons"
+                          jqyoui-draggable="{animate:true}">
+                        <div align="center">
+                          <i class="{{icon.component}} fa-2x"> </i>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="dropdown-menu alert-dropdown" data-drop="true"
+                    ng-model='arrows'
+                    jqyoui-droppable="{multiple:true}">
+                    <li class="btn-draggable col-lg-4" ng-repeat="arrow in arrows"
+                          data-drag="true"
+                          data-jqyoui-options="{revert: 'invalid'}" ng-model="arrow"
+                          jqyoui-draggable="{animate:true}">
+                        <div align="center">
+                          <img src="../../../images/{{arrow.fileName}}" class="btn-draggable"
+                            width="65px" height="65px"/>
+                        </div>
+                    </li>
+                </ul>
+            </li>
           </div>
         </div>
-      </div>
+      </ul>
+    </div>
 
+
+
+    <!-- CAMPO -->
     <div class="col-lg-7" style="align:center">
       <h3><i class="glyphicon glyphicon-wrench"></i><small>Quadro Tactico</small></h3>
       <!-- drop area -->
@@ -96,70 +99,39 @@
       </div>
 
       <button ng-click="open()" class="btn btn-primary">Associar Treino</button>
-
-      </modal>
-
-      <div class="modal" modal="showModal" ng-show="showModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title">Associar Treino</h4>
-          </div>
-          <form role="form">
-            <div class="form-group">
-                <label>Descrição:</label>
-                <input class="form-control">
-            </div>
-            <div class="form-group">
-                <div class="dropdown">
-                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                    Selecione o Jogo a Associar
-                  <span class="caret"></span></button>
-                  <ul class="dropdown-menu">
-                    <li><a>SLBenfica vs Sporting CP</a></li>
-                    <li><a>FC Porto vs SL Benfica</a></li>
-                    <li><a>Braga vs SL Benfica</a></li>
-                  </ul>
-                </div>
-            </div>
-            <div class="form-group">
-              <div class="dropdown">
-                <button class="btn btn-primary">
-                  Criar novo treino
-                </button>
-              </div>
-            </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Cancelar</button>
-            <button type="button" class="btn btn-primary" ng-click="save()">Guardar</button>
-          </div>
-        </div>
-      </div>
-      </div>
-
-
     </div>
 
-    <div class="col-lg-3">
-      <div class='contentWrapper ng-cloak'>
-        <div class='content'>
-            <h3><i class="glyphicon glyphicon-th-list"></i><small>  Jogadores</small></h3>
-            <!-- players area -->
-            <div data-drop="true"
-                ng-model='players'
-                jqyoui-droppable="{multiple:true}">
-                <div class="btn-draggable col-lg-4" ng-repeat="player in players | orderBy: 'colorPosition'"
-                      data-drag="true"
-                      data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
-                      jqyoui-draggable="{animate:true}">
-                      <div align="center">
-                        <i class="glyphicon glyphicon-user fa-2x" style="{{player.colorPosition}}"></i>
-                        <p></p><small>{{player.name}}</small>
-                      </div>
-                </div>
-            </div>
+
+
+    <!-- JOGADORES -->
+    <div class="col-lg-2">
+      <ul class="nav top-nav">
+        <div class='contentWrapper ng-cloak'>
+          <div class='content'>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown"><h3><i class="glyphicon glyphicon-th-list"></i> Jogadores</h3></a>
+                <ul class="dropdown-menu alert-dropdown" data-drop="true"
+                    ng-model='players'
+                    jqyoui-droppable="{multiple:true}">
+                    <li class="btn-draggable col-lg-4" ng-repeat="player in players | orderBy: 'number'"
+                          data-drag="true"
+                          data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
+                          jqyoui-draggable="{animate:true}">
+
+                          <!--span class="fa-stack fa-3x">
+                            <i class="fa fa-calendar-o fa-stack-2x"></i>
+                            <strong class="fa-stack-1x calendar-text">27</strong>
+                          </span-->
+
+                          <span class="fa-3x">
+                            <i class="fa fa-circle-o fa-circle-2x"></i>
+                            <small><small class="fa-stack-1x calendar-text">{{player.number}}</small></small>
+                          </span>
+                    </li>
+                </ul>
+            </li>
           </div>
         </div>
-      </div>
+      </ul>
+    </div>
 </div>

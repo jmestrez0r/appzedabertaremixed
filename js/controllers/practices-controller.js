@@ -71,11 +71,12 @@ angular.module("Elifoot").controller('PracticesController',
     //available players
     TeamPlayers.all().success(function(data) {
         var playerSpecs = [];
-
+        console.log(data);
         for(var i = 0; i < data.players.length; i++) {
             var object = data.players[i];
 
             var playerName = object.name;
+            var jerseyNumber = object.jerseyNumber;
             var colorPosition = object.position.toLowerCase();
             if(colorPosition.includes('keeper')) {
                 colorPosition = 'color:black';
@@ -87,7 +88,7 @@ angular.module("Elifoot").controller('PracticesController',
                 colorPosition = 'color:red';
             }
             playerSpecs.push({
-              'name': playerName, 'colorPosition': colorPosition, 'index': i
+              'name': playerName, 'colorPosition': colorPosition, 'index': i, 'number': jerseyNumber
             })
         }
 
