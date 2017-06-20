@@ -116,16 +116,15 @@
                     <li class="btn-draggable col-lg-4" ng-repeat="player in players | orderBy: 'number'"
                           data-drag="true"
                           data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
-                          jqyoui-draggable="{animate:true}">
-
-                          <!--span class="fa-stack fa-3x">
-                            <i class="fa fa-calendar-o fa-stack-2x"></i>
-                            <strong class="fa-stack-1x calendar-text">27</strong>
-                          </span-->
-
-                          <span class="fa-3x">
+                          jqyoui-draggable="{animate:true}" ng-click="makeItemVisible(player.number)" id="{{player.number}}" >
+                          <span class="fa-3x" >
                             <i class="fa fa-circle-o fa-circle-2x"></i>
-                            <small><small class="fa-stack-1x calendar-text">{{player.number}}</small></small>
+                            <small>
+                              <small class="fa-stack-1x calendar-text">{{player.number}}</small>
+                            </small>
+                            <div class="circle-text">
+                              {{player.name}}
+                            </div>
                           </span>
                     </li>
                 </ul>

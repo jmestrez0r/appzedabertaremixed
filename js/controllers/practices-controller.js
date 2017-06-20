@@ -120,4 +120,8 @@ angular.module("Elifoot").controller('PracticesController',
         }
       }
     };
+
+    $scope.makeItemVisible = function(itemId) {
+        document.getElementById(itemId).show();
+    };
 });

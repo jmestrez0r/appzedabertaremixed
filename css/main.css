@@ -39,4 +39,16 @@ h1 {
 }
 
 .calendar-text {
+    margin-top: -2.2em;
+    font: 18px Arial, sans-serif;
+}
+
+.circle-text {
+  font-size: 10px;
+  align-items: center !important;
+  top: -40px !important;
+  position: relative;
+  margin-top: 30px;
+  text-align: center;
+  margin-left: 0px;
 }
