@@ -1,6 +1,4 @@
-h1 {
-  color: red;
-}
+
 
 .columns {
   columns: 4 !important;
@@ -51,4 +49,19 @@ h1 {
   margin-top: 30px;
   text-align: center;
   margin-left: 0px;
+}
+
+.practices-columns {
+  columns: 3 !important;
+  -webkit-column-width: auto; /* Chrome, Safari, Opera */
+  -moz-column-width: auto; /* Firefox */
+  column-width: auto;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+}
+
+.k-state-selected  {
+  background-color: red;
+  border-color: red;
 }

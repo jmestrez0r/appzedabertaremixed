@@ -20,7 +20,7 @@ angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, 
       console.log($scope.data.todaysPractices);
 
       if($scope.data.nearPractice != null && $scope.data.nearPractice != '') {
-        $scope.data.message = "Treino de " + $scope.data.nearPractice.type + " agora!";
+        $scope.data.message = "Mister, tem treino agora!";
         $scope.data.nearShow = true;
       } else {
         if($scope.data.todaysPractice != null && $scope.data.todaysPractice > 0) {
@@ -34,7 +34,7 @@ angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, 
         template: 'alertTemplate.html',
         className: 'ngdialog-theme-default',
         scope: $scope,
-        height: 400,
+        height: 300,
         weight: 800
       });
 

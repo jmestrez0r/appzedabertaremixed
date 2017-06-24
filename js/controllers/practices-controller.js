@@ -102,12 +102,33 @@ angular.module("Elifoot").controller('PracticesController',
     $scope.dynamicVolume = 0;
     $scope.dynamicFrequency = 0;
 
+    $scope.dynamicIntensityColor = '';
+    $scope.dynamicIntensityLegend = '';
+    $scope.dynamicVolumeColor = '';
+    $scope.dynamicVolumeLegend = '';
+    $scope.dynamicFrequencyColor = '';
+    $scope.dynamicFrequencyLegend = '';
+
     $scope.progress = function(barClick){
       if(barClick == 'intensity') {
         $scope.dynamicIntensity = $scope.dynamicIntensity + 10;
         if($scope.dynamicIntensity > 100) {
           $scope.dynamicIntensity = 0;
+          $scope.dynamicIntensityColor = '';
+          $scope.dynamicIntensityLegend = '';
         }
+
+        if($scope.dynamicIntensity >= 25 && $scope.dynamicIntensity < 50) {
+          $scope.dynamicIntensityColor = 'color:blue;';
+          $scope.dynamicIntensityLegend = 'Normal';
+        } else if($scope.dynamicIntensity >= 50 && $scope.dynamicIntensity < 75) {
+          $scope.dynamicIntensityColor = 'color:#f0ad4e;';
+          $scope.dynamicIntensityLegend = 'Intenso';
+        } else if($scope.dynamicIntensity >= 75 && $scope.dynamicIntensity <= 100) {
+          $scope.dynamicIntensityColor = 'color:red;';
+          $scope.dynamicIntensityLegend = 'Muito Intenso';
+        }
+
       } else if(barClick == 'volume') {
         $scope.dynamicVolume = $scope.dynamicVolume + 10;
         if($scope.dynamicVolume > 180) {
@@ -122,6 +143,7 @@ angular.module("Elifoot").controller('PracticesController',
     };
 
     $scope.makeItemVisible = function(itemId) {
-        document.getElementById(itemId).show();
+        //make item visible
+        document.getElementById(itemId);
     };
 });

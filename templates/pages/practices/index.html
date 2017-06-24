@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
+<link rel="stylesheet" href="css/kendo.common-material.min.css" />
+<link rel="stylesheet" href="css/kendo.material.min.css" />
+<link rel="stylesheet" href="css/kendo.material.mobile.min.css" />
 
 
 <!-- Page Heading -->
@@ -25,22 +25,6 @@
             <i class="fa fa-info-circle"></i> Implementa o teu treino.
         </div>
     </div>
-  </div>
-
-  <div class="row" style="col-lg-2">
-    <h3>Intensidade</h3>
-    <div kendo-progress-bar="intensityBar" k-min="0" k-max="100" ng-model="dynamicIntensity" ng-click="progress('intensity')" style="width: 30%;"></div>
-    <p class="help-block" style="color:red" ng-if="dynamicIntensity >= 0 && dynamicIntensity < 50">Normal <i class="glyphicon glyphicon-remove"></i></p>
-    <p class="help-block" style="color:blue" ng-if="dynamicIntensity >= 50 && dynamicIntensity < 75">Intenso <i class="glyphicon glyphicon-link"></i></p>
-    <p class="help-block" style="color:#5cb85c" ng-if="dynamicIntensity >= 75 && dynamicIntensity <= 100">Muito Intenso <i class="glyphicon glyphicon-ok"></i></p>
-
-    <h3>Volume</h3>
-    <div kendo-progress-bar="volumeBar" k-min="0" k-max="180" ng-model="dynamicVolume" ng-click="progress('volume')" style="width: 30%;"></div>
-    <p class="help-block" style="color:#5cb85c">{{dynamicVolume}}/180 <i class="glyphicon glyphicon-ok"></i></p>
-
-    <h3>Frequência</h3>
-    <div kendo-progress-bar="frequencyBar" k-min="0" k-max="10" ng-model="dynamicFrequency" ng-click="progress('frequency')" style="width: 30%;"></div>
-    <p class="help-block" style="color:#5cb85c">{{dynamicFrequency}}/10 <i class="glyphicon glyphicon-ok"></i></p>
   </div>
 
   <div class="row">
@@ -97,8 +81,6 @@
           </div>
         </div>
       </div>
-
-      <button ng-click="open()" class="btn btn-primary">Associar Treino</button>
     </div>
 
 
@@ -133,4 +115,24 @@
         </div>
       </ul>
     </div>
+</div>
+
+<div class="practices-columns">
+  <div style="col-md-2">
+    <h3>Intensidade</h3>
+    <div class="k-state-selected" style="width: 75%" kendo-progress-bar="intensityBar" k-min="0" k-max="100" ng-model="dynamicIntensity" ng-click="progress('intensity')" ></div>
+    <p class="help-block" ng-if="dynamicIntensityColor != ''" style="{{dynamicIntensityColor}}">{{dynamicIntensityLegend}} <i class="glyphicon glyphicon-ok"></i></p>
+  </div>
+
+  <div style="col-md-2">
+    <h3>Volume</h3>
+    <div style="width: 75%" kendo-progress-bar="volumeBar" k-min="0" k-max="180" ng-model="dynamicVolume" ng-click="progress('volume')"></div>
+    <p class="help-block" style="color:#5cb85c">{{dynamicVolume}}/180 <i class="glyphicon glyphicon-ok"></i></p>
+  </div>
+
+  <div style="col-md-2">
+    <h3>Frequência</h3>
+    <div style="width: 75%" kendo-progress-bar="frequencyBar" k-min="0" k-max="10" ng-model="dynamicFrequency" ng-click="progress('frequency')" ></div>
+    <p class="help-block" style="color:#5cb85c">{{dynamicFrequency}}/10 <i class="glyphicon glyphicon-ok"></i></p>
+  </div>
 </div>

@@ -43,7 +43,7 @@
 
 </head>
 
-<body class="ng-scope ngdialog-open">
+<body class="ng-scope ngdialog-open" style="overflow-y: auto !important;">
 
     <div id="wrapper">
 
@@ -277,21 +277,34 @@
 
     <!-- Dialog -->
     <script type="text/ng-template" id="alertTemplate.html">
-        <div class="ngdialog-message" style="color: white">
-    				<h2>{{data.message}}
-              <a href="#/practices#{{data.nearPractice.identification}}" ng-click="closeThisDialog()">
-                <i class="fa fa-rocket" />
+        <div class="ngdialog-message" style="text-align: center !important;">
+    				<h2><i class="fa fa-exclamation-triangle" style="color: red;"></i> {{data.message}}</h2></i>
+            <h3>Vamos a isso?
+              <a href="#/practices#{{data.nearPractice.identification}}" style="color: black;" ng-click="closeThisDialog()">
+                <i class="fa fa-arrow-circle-o-right" />
               </a>
-            </h2>
+            </h3>
+            <br/>
 
-            <div style="font-size: 1.2em;">Detalhe do Treino:</div>
-    				<ul class="mt">
-              <li>{{data.nearPractice.identification}}</li>
-              <li>{{data.nearPractice.description}}</li>
-              <li>{{data.nearPractice.type}}</li>
-              <li>{{data.nearPractice.datetime}}</li>
-              <p/>
-            </ul>
+            <nav class="navbar" role="navigation">
+              <div class="collapse navbar-collapse navbar-ex1-collapse">Detalhe do Treino
+                  <ul class="nav navbar-nav side-nav">
+                  <ul class="dropdown-menu alert-dropdown">
+                      <li>
+                          <span class="label label-default">{{data.nearPractice.identification}}</span></a>
+                      </li>
+                      <li>
+                          <span class="label label-default">{{data.nearPractice.description}}</span></a>
+                      </li>
+                      <li>
+                          <span class="label label-default">{{data.nearPractice.type}}</span></a>
+                      </li>
+                      <li>
+                          <span class="label label-default">{{data.nearPractice.datetime}}</span></a>
+                      </li>
+                  </ul>
+              </li>
+            </nav>
         </div>
     </script>
 </body>
