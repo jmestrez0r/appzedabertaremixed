@@ -47,25 +47,25 @@ angular.module("Elifoot").controller('PracticesController',
 
     //component area
     $scope.icons = [
-      { 'component': 'glyphicon glyphicon-upload', 'drag': true, 'index': 0},
-      { 'component': 'glyphicon glyphicon-map-marker', 'drag': true, 'index': 1},
-      { 'component': 'glyphicon glyphicon-move', 'drag': true, 'index': 2},
-      { 'component': 'glyphicon glyphicon-arrow-left', 'drag': true, 'index': 3},
-      { 'component': 'glyphicon glyphicon-arrow-right', 'drag': true, 'index': 4},
-      { 'component': 'glyphicon glyphicon-arrow-up', 'drag': true, 'index': 5},
-      { 'component': 'glyphicon glyphicon-arrow-down', 'drag': true, 'index': 6},
-      { 'component': 'glyphicon glyphicon-exclamation-sign', 'drag': true, 'index': 7}
+      { 'component': 'glyphicon glyphicon-upload', 'drag': true, 'index': 0, 'image': false},
+      { 'component': 'glyphicon glyphicon-map-marker', 'drag': true, 'index': 1, 'image': false},
+      { 'component': 'glyphicon glyphicon-move', 'drag': true, 'index': 2, 'image': false},
+      { 'component': 'glyphicon glyphicon-arrow-left', 'drag': true, 'index': 3, 'image': false},
+      { 'component': 'glyphicon glyphicon-arrow-right', 'drag': true, 'index': 4, 'image': false},
+      { 'component': 'glyphicon glyphicon-arrow-up', 'drag': true, 'index': 5, 'image': false},
+      { 'component': 'glyphicon glyphicon-arrow-down', 'drag': true, 'index': 6, 'image': false},
+      { 'component': 'glyphicon glyphicon-exclamation-sign', 'drag': true, 'index': 7, 'image': false}
     ];
 
     $scope.arrows = [
-      { 'fileName': 'arrow_down_left.png'},
-      { 'fileName': 'arrow_down_right.png'},
-      { 'fileName': 'arrow_middle_down_right.png'},
-      { 'fileName': 'arrow_middle_down_left.png'},
-      { 'fileName': 'arrow_middle_up_right.png'},
-      { 'fileName': 'arrow_middle_up_left.png'},
-      { 'fileName': 'arrow_up_left.png'},
-      { 'fileName': 'arrow_up_right.png'}
+      { 'fileName': 'arrow_down_left.png', 'image': true},
+      { 'fileName': 'arrow_down_right.png', 'image': true},
+      { 'fileName': 'arrow_middle_down_right.png', 'image': true},
+      { 'fileName': 'arrow_middle_down_left.png', 'image': true},
+      { 'fileName': 'arrow_middle_up_right.png', 'image': true},
+      { 'fileName': 'arrow_middle_up_left.png', 'image': true},
+      { 'fileName': 'arrow_up_left.png', 'image': true},
+      { 'fileName': 'arrow_up_right.png', 'image': true}
     ];
 
     //available players

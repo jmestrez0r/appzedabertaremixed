@@ -34,6 +34,7 @@ angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, 
         template: 'alertTemplate.html',
         className: 'ngdialog-theme-default',
         scope: $scope,
+        showClose: false,
         height: 300,
         weight: 800
       });

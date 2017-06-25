@@ -286,26 +286,25 @@
             </h3>
             <br/>
 
-            <nav class="navbar" role="navigation">
-              <div class="collapse navbar-collapse navbar-ex1-collapse">Detalhe do Treino
-                  <ul class="nav navbar-nav side-nav">
-                  <ul class="dropdown-menu alert-dropdown">
+            <ul class="nav" style="text-align: center">
+                <li>
+                    <a class="dropdown-toggle" data-toggle="dropdown"><h3><i class="glyphicon glyphicon-th-list"></i> Detalhe do Treino </h3></a>
+                    <ul class="dropdown-menu" style="text-align: center; margin-left: 125px">
                       <li>
-                          <span class="label label-default">{{data.nearPractice.identification}}</span></a>
+                        <i class="fa fa-id-card" aria-hidden="true"></i> <span class="label label-primary">{{data.nearPractice.identification}}</span></a>
                       </li>
                       <li>
-                          <span class="label label-default">{{data.nearPractice.description}}</span></a>
+                        <i class="fa fa-barcode" aria-hidden="true"></i> <small>{{data.nearPractice.description}}</small></a>
                       </li>
                       <li>
-                          <span class="label label-default">{{data.nearPractice.type}}</span></a>
+                        <i class="fa fa-bolt" aria-hidden="true"></i> <small>{{data.nearPractice.type}}</small></a>
                       </li>
                       <li>
-                          <span class="label label-default">{{data.nearPractice.datetime}}</span></a>
+                        <i class="fa fa-calendar" aria-hidden="true"></i> <small>{{data.nearPractice.datetime}}</small></a>
                       </li>
-                  </ul>
-              </li>
-            </nav>
-        </div>
+                    </ul>
+                </li>
+            </ul>
     </script>
 </body>
 

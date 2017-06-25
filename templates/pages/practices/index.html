@@ -42,13 +42,15 @@
                           data-drag="true"
                           data-jqyoui-options="{revert: 'invalid'}" ng-model="icons"
                           jqyoui-draggable="{animate:true}">
-                        <div align="center">
-                          <i class="{{icon.component}} fa-2x"> </i>
+                        <div align="center" >
+                          <i ng-if="!icon.image" class="{{icon.component}} fa-2x"> </i>
+                          <img ng-if="icon.image" src="../../../images/{{arrow.fileName}}" class="btn-draggable"
+                            width="65px" height="65px"/>
                         </div>
                     </li>
                 </ul>
 
-                <ul class="dropdown-menu alert-dropdown" data-drop="true"
+                <!--ul class="dropdown-menu alert-dropdown" data-drop="true"
                     ng-model='arrows'
                     jqyoui-droppable="{multiple:true}">
                     <li class="btn-draggable col-lg-4" ng-repeat="arrow in arrows"
@@ -60,7 +62,7 @@
                             width="65px" height="65px"/>
                         </div>
                     </li>
-                </ul>
+                </ul-->
             </li>
           </div>
         </div>
