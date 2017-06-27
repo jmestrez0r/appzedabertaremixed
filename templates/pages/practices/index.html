@@ -2,7 +2,6 @@
 <link rel="stylesheet" href="css/kendo.material.min.css" />
 <link rel="stylesheet" href="css/kendo.material.mobile.min.css" />
 
-
 <!-- Page Heading -->
 <div class="row">
     <div class="col-lg-12">
@@ -27,89 +26,79 @@
   </div>
 </div>
 
-<div class="row">
-
-    <div class="col-lg-2">
-      <ul class="nav top-nav">
-        <div class='contentWrapper ng-cloak'>
-          <div class='content'>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown"><h3><i class="fa fa-window-restore"></i> Ícones </h3></a>
-                <ul class="dropdown-menu" data-drop="true"
-                    ng-model='icons'
-                    jqyoui-droppable="{multiple:true}">
-                    <li class="btn-draggable col-lg-4" ng-repeat="icon in icons"
-                          data-drag="true"
-                          data-jqyoui-options="{revert: 'invalid'}" ng-model="icons"
-                          jqyoui-draggable="{animate:true}">
-                        <div align="center" >
-                          <img ng-if="icon.image" src="../../../images/{{arrow.fileName}}" class="btn-draggable"
-                          width="65px" height="65px"/>
-                          <i ng-if="!icon.image" class="{{icon.component}} fa-2x"> </i>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-          </div>
-        </div>
-      </ul>
-    </div>
-
-
-
-    <!-- CAMPO -->
-    <div class="col-lg-7" style="align:center">
-      <h3><i class="glyphicon glyphicon-wrench"></i><small>Quadro Tactico</small></h3>
-      <!-- drop area -->
-      <div class="caption">
-        <div data-drag="true" data-drop="true" jqyoui-droppable="{multiple:true}">
-          <div >
-              <img jqyoui-droppable="{multiple:true}" jqyoui-draggable="{multiple:true, animate:true}"
-                src="../../../images/football_pitch.jpeg" weight="620px" height="320px"/>
-          </div>
-        </div>
+<div class="col-lg-2">
+  <ul class="nav top-nav">
+    <div class='contentWrapper ng-cloak'>
+      <div class='content'>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown"><h3><i class="fa fa-window-restore"></i> Ícones </h3></a>
+            <ul class="dropdown-menu" data-drop="true"
+                ng-model='icons'
+                jqyoui-droppable="{multiple:true}">
+                <li class="btn-draggable col-lg-4" ng-repeat="icon in icons"
+                      data-drag="true"
+                      data-jqyoui-options="{revert: 'invalid'}" ng-model="icons"
+                      jqyoui-draggable="{animate:true}">
+                    <div align="center" >
+                      <img ng-if="icon.image" src="../../../images/{{arrow.fileName}}" class="btn-draggable"
+                      width="65px" height="65px"/>
+                      <i ng-if="!icon.image" class="{{icon.component}} fa-2x"> </i>
+                    </div>
+                </li>
+            </ul>
+        </li>
       </div>
     </div>
+  </ul>
+</div>
 
-
-
-    <!-- JOGADORES -->
-    <div class="col-lg-2">
-      <ul class="nav top-nav">
-        <div class='contentWrapper ng-cloak'>
-          <div class='content'>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown"><h3><i class="fa fa-user-o"></i> Jogadores</h3></a>
-                <ul class="dropdown-menu alert-dropdown" data-drop="true"
-                    ng-model='players'
-                    jqyoui-droppable="{multiple:true}">
-                    <li class="btn-draggable col-lg-4" ng-repeat="player in players | orderBy: 'number'"
-                          data-drag="true"
-                          data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
-                          jqyoui-draggable="{animate:true}" ng-click="makeItemVisible(player.number)" id="{{player.number}}" >
-                          <span class="fa-3x" >
-                            <i class="fa fa-circle-o fa-circle-2x"></i>
-                            <small>
-                              <small class="fa-stack-1x calendar-text">{{player.number}}</small>
-                            </small>
-                            <div class="circle-text">
-                              {{player.name}}
-                            </div>
-                          </span>
-                    </li>
-                </ul>
-            </li>
-          </div>
-        </div>
-      </ul>
+<!-- CAMPO -->
+<div class="col-lg-7" style="align:center">
+  <h3><i class="glyphicon glyphicon-wrench"></i><small>Quadro Tactico</small></h3>
+  <!-- drop area -->
+  <div class="caption">
+    <div data-drag="true" data-drop="true" jqyoui-droppable="{multiple:true}">
+          <img jqyoui-droppable="{multiple:true}" jqyoui-draggable="{multiple:true, animate:true}"
+            src="../../../images/football_pitch.jpeg" weight="620px" height="320px"/>
     </div>
+  </div>
+</div>
 
+<!-- JOGADORES -->
+<div class="col-lg-3">
+  <ul class="nav top-nav">
+    <div class='contentWrapper ng-cloak'>
+      <div class='content'>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown"><h3><i class="fa fa-id-card"></i> Jogadores </h3></a>
+            <ul class="dropdown-menu alert-dropdown" data-drop="true"
+                ng-model='players'
+                jqyoui-droppable="{multiple:true}">
+                <li class="btn-draggable" ng-repeat="player in players | orderBy: 'number'"
+                      data-drag="true"
+                      data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
+                      jqyoui-draggable="{animate:true}" ng-click="makeItemVisible(player.number)" id="{{player.number}}" >
+                      <span class="fa-3x" >
+                        <i class="fa fa-circle-o fa-circle-2x" style="circle"></i>
+                        <small>
+                          <small class="fa-stack-1x calendar-text">{{player.number}}</small>
+                        </small>
+                        <div class="circle-text">
+                          {{player.name}}
+                        </div>
+                      </span>
+                </li>
+            </ul>
+        </li>
+      </div>
+    </div>
+  </ul>
 </div>
 
 <div class="practices-columns">
   <div style="col-md-2">
     <h3>Intensidade</h3>
-    <div class="k-state-selected" style="width: 75%" kendo-progress-bar="intensityBar" k-min="0" k-max="100" ng-model="dynamicIntensity" ng-click="progress('intensity')" ></div>
+    <div style="width: 75%" kendo-progress-bar="intensityBar" k-min="0" k-max="100" ng-model="dynamicIntensity" ng-click="progress('intensity')" ></div>
     <p class="help-block" ng-if="dynamicIntensityColor != ''" style="{{dynamicIntensityColor}}">{{dynamicIntensityLegend}} <i class="glyphicon glyphicon-ok"></i></p>
   </div>
 
