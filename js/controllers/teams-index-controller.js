@@ -1,12 +1,12 @@
 angular.module("Elifoot").controller('TeamPlayersController', function($scope, $timeout, TeamPlayers, ngDialog) {
 
   $scope.selectedPlayer = '';
+  $scope.goalKeepers = [];
+  $scope.defenses = [];
+  $scope.middles = [];
+  $scope.strikers = [];
 
   TeamPlayers.all().success(function(data) {
-    $scope.goalKeepers = [];
-    $scope.defenses = [];
-    $scope.middles = [];
-    $scope.strikers = [];
     var keepersIndex = 0;
     var middlesIndex = 0;
     var defensesIndex = 0;
@@ -75,21 +75,37 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     });
   };
 
-  $scope.openPlayerInformationDialog = function(player) {
+  $scope.openPlayerInformationDialog = function(player, details) {
     $scope.selectedPlayer = player;
+    $scope.details = details;
 
     ngDialog.open({
       template: 'playerInformation.html',
       className: 'ngdialog-theme-default',
       scope: $scope,
       showClose: false,
-      height: 250,
-      weight: 600
+      height: 600,
+      width: 800
     });
   };
 
   $scope.deletePlayer = function() {
-     //remove the player
+    if($scope.selectedPlayer.position.includes('Keeper')) {
+      var index = $scope.goalKeepers.indexOf($scope.selectedPlayer);
+      $scope.goalKeepers.splice(index, 1);
+    } else if (($scope.selectedPlayer.position.includes('Centre') &&
+        !$scope.selectedPlayer.position.includes('Forward')) ||
+        $scope.selectedPlayer.position.includes('Wing')) {
+      var index = $scope.middles.indexOf($scope.selectedPlayer);
+      $scope.middles.splice(index, 1);
+    } else if ($scope.selectedPlayer.position.includes('Back') ||
+        $scope.selectedPlayer.position.includes('Defensive')) {
+       var index = $scope.defenses.indexOf($scope.selectedPlayer);
+       $scope.defenses.splice(index, 1);
+    } else if ($scope.selectedPlayer.position.includes('Forward') ||
+        $scope.selectedPlayer.position.includes('Striker')) {
+      var index = $scope.strikers.indexOf($scope.selectedPlayer);
+      $scope.strikers.splice(index, 1);
+    }
   };
-
 });
