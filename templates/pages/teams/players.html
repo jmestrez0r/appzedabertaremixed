@@ -170,19 +170,22 @@
           <div class="col-lg-3">
               <div class="form-group">
                   <label>Nome:</label>
-                  <input class="form-control">
+                  <input class="form-control" value="{{selectedPlayer.name}}"
+                    ng-disabled="details" />
               </div>
 
               <div class="form-group">
                   <label>Nacionalidade:</label>
-                  <input class="form-control">
+                  <input class="form-control" value="{{selectedPlayer.nationality}}"
+                    ng-disabled="details" />
               </div>
 
               <div class="form-group">
                   <label>Data de Nascimento:</label>
                   <div >
-                    <div >
-                        <input type='text' class="form-control" id='datetimepicker4' />
+                    <div>
+                        <input type='text' value="{{selectedPlayer.dateOfBirth}}" class="form-control"
+                          id='datetimepicker4' ng-disabled="details" />
                     </div>
                   </div>
               </div>
@@ -194,24 +197,28 @@
               <div class="form-group">
                   <label>Posição de Jogo:</label>
                   <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+                      ng-disabled="details" >
                       Selecione a posição
                     <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li class="dropdown-header">Defesa</li>
-                      <li><a>Esquerdo</a></li>
-                      <li><a>Centro</a></li>
-                      <li><a>Direito</a></li>
+                    <ul class="dropdown-menu" value="{{selectedPlayer.position}}">
+                      <li class="dropdown-header">Keeper</li>
+                      <li><a>Goal Keeper</a></li>
                       <li class="divider"></li>
-                      <li class="dropdown-header">Médio</li>
-                      <li><a>Trinco</a></li>
-                      <li><a>Centro</a></li>
-                      <li><a>Atacante</a></li>
+                      <li class="dropdown-header">Defensive</li>
+                      <li><a>Left Defense</a></li>
+                      <li><a>Centre Defense</a></li>
+                      <li><a>Right Defense</a></li>
                       <li class="divider"></li>
-                      <li class="dropdown-header">Atacante</li>
-                      <li><a>Extremo</a></li>
-                      <li><a>Avançado</a></li>
-                      <li><a>Ponta de Lança</a></li>
+                      <li class="dropdown-header">Centre</li>
+                      <li><a>Back Centre</a></li>
+                      <li><a>Forward Centre</a></li>
+                      <li><a>Wing Centre</a></li>
+                      <li class="divider"></li>
+                      <li class="dropdown-header">Striker</li>
+                      <li><a>Left Striker</a></li>
+                      <li><a>Centre Striker</a></li>
+                      <li><a>Right Striker</a></li>
                     </ul>
                   </div>
                   <p class="help-block"></p>
@@ -219,7 +226,7 @@
 
               <div class="form-group">
                   <label>Número:</label>
-                  <input class="form-control">
+                  <input class="form-control" value="{{selectedPlayer.jerseyNumber}}" ng-disabled="details" />
               </div>
             </div>
           </div>
@@ -241,24 +248,36 @@
 
 
           <!-- coluna de baixo -->
-          <div class="col-lg-6" >
+          <div class="col-lg-6">
               <h3>Finalização</h3>
-              <div kendo-progress-bar="finalBar" k-min="0" k-max="100" ng-model="dynamicFinal" ng-click="progress('final')" style="width: 100%;"></div>
-              <p class="help-block" style="color:red" ng-if="dynamicFinal >= 0 && dynamicFinal < 50">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
-              <p class="help-block" style="color:blue" ng-if="dynamicFinal >= 50 && dynamicFinal < 75">Médio <i class="glyphicon glyphicon-link"></i></p>
-              <p class="help-block" style="color:#5cb85c" ng-if="dynamicFinal >= 75 && dynamicFinal <= 100">Excelente <i class="glyphicon glyphicon-ok"></i></p>
+              <div kendo-progress-bar="finalBar" k-min="0" k-max="100" ng-model="dynamicFinal"
+                ng-click="progress('final')" style="width: 100%;" ng-disabled="details"></div>
+              <p class="help-block" style="color:red" ng-if="dynamicFinal >= 0 && dynamicFinal < 50"
+                ng-disabled="details">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
+              <p class="help-block" style="color:blue" ng-if="dynamicFinal >= 50 && dynamicFinal < 75"
+                ng-disabled="details">Médio <i class="glyphicon glyphicon-link"></i></p>
+              <p class="help-block" style="color:#5cb85c" ng-if="dynamicFinal >= 75 && dynamicFinal <= 100"
+                ng-disabled="details">Excelente <i class="glyphicon glyphicon-ok"></i></p>
 
               <h3>Resistência</h3>
-              <div kendo-progress-bar="resistBar" k-min="0" k-max="100" ng-model="dynamicResist" ng-click="progress('resist')" style="width: 100%;"></div>
-              <p class="help-block" style="color:red" ng-if="dynamicResist >= 0 && dynamicResist < 50">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
-              <p class="help-block" style="color:blue" ng-if="dynamicResist >= 50 && dynamicResist < 75">Médio <i class="glyphicon glyphicon-link"></i></p>
-              <p class="help-block" style="color:#5cb85c" ng-if="dynamicResist >= 75 && dynamicResist <= 100">Excelente <i class="glyphicon glyphicon-ok"></i></p>
+              <div kendo-progress-bar="resistBar" k-min="0" k-max="100" ng-model="dynamicResist"
+                ng-click="progress('resist')" style="width: 100%;" ng-disabled="details"></div>
+              <p class="help-block" style="color:red" ng-if="dynamicResist >= 0 && dynamicResist < 50"
+                ng-disabled="details">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
+              <p class="help-block" style="color:blue" ng-if="dynamicResist >= 50 && dynamicResist < 75"
+                ng-disabled="details">Médio <i class="glyphicon glyphicon-link"></i></p>
+              <p class="help-block" style="color:#5cb85c" ng-if="dynamicResist >= 75 && dynamicResist <= 100"
+                ng-disabled="details">Excelente <i class="glyphicon glyphicon-ok"></i></p>
 
               <h3>Espirito de Equipa</h3>
-              <div kendo-progress-bar="teamBar" k-min="0" k-max="100" ng-model="dynamicEquipa" ng-click="progress('equipa')" style="width: 100%;"></div>
-              <p class="help-block" style="color:red" ng-if="dynamicEquipa >= 0 && dynamicEquipa < 50">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
-              <p class="help-block" style="color:blue" ng-if="dynamicEquipa >= 50 && dynamicEquipa < 75">Médio <i class="glyphicon glyphicon-link"></i></p>
-              <p class="help-block" style="color:#5cb85c" ng-if="dynamicEquipa >= 75 && dynamicEquipa <= 100">Excelente <i class="glyphicon glyphicon-ok"></i></p>
+              <div kendo-progress-bar="teamBar" k-min="0" k-max="100" ng-model="dynamicEquipa"
+                ng-click="progress('equipa')" ng-disabled="details" style="width: 100%;"></div>
+              <p class="help-block" style="color:red" ng-if="dynamicEquipa >= 0 && dynamicEquipa < 50"
+                ng-disabled="details">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
+              <p class="help-block" style="color:blue" ng-if="dynamicEquipa >= 50 && dynamicEquipa < 75"
+                ng-disabled="details">Médio <i class="glyphicon glyphicon-link"></i></p>
+              <p class="help-block" style="color:#5cb85c" ng-if="dynamicEquipa >= 75 && dynamicEquipa <= 100"
+                ng-disabled="details">Excelente <i class="glyphicon glyphicon-ok"></i></p>
           </div>
         </div>
 
@@ -266,6 +285,6 @@
 
 
         <button type="button" class="btn" ng-click="closeThisDialog()">Fechar</button>
-        <button type="button" class="btn" ng-click="closeThisDialog()">Gravar</button>
+        <button type="button" class="btn" ng-click="savePlayer();closeThisDialog();">Gravar</button>
     </div>
 </script>

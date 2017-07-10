@@ -44,20 +44,22 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   $scope.max = 100;
 
   $scope.progress = function(barClick){
-    if(barClick == 'equipa') {
-      $scope.dynamicEquipa = $scope.dynamicEquipa + 10;
-      if($scope.dynamicEquipa > 100) {
-        $scope.dynamicEquipa = 0;
-      }
-    } else if(barClick == 'resist') {
-      $scope.dynamicResist = $scope.dynamicResist + 10;
-      if($scope.dynamicResist > 100) {
-        $scope.dynamicResist = 0;
-      }
-    } else if(barClick == 'final') {
-      $scope.dynamicFinal = $scope.dynamicFinal + 10;
-      if($scope.dynamicFinal > 100) {
-        $scope.dynamicFinal = 0;
+    if(!$scope.details) {
+      if(barClick == 'equipa') {
+        $scope.dynamicEquipa = $scope.dynamicEquipa + 10;
+        if($scope.dynamicEquipa > 100) {
+          $scope.dynamicEquipa = 0;
+        }
+      } else if(barClick == 'resist') {
+        $scope.dynamicResist = $scope.dynamicResist + 10;
+        if($scope.dynamicResist > 100) {
+          $scope.dynamicResist = 0;
+        }
+      } else if(barClick == 'final') {
+        $scope.dynamicFinal = $scope.dynamicFinal + 10;
+        if($scope.dynamicFinal > 100) {
+          $scope.dynamicFinal = 0;
+        }
       }
     }
   };
@@ -78,6 +80,11 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   $scope.openPlayerInformationDialog = function(player, details) {
     $scope.selectedPlayer = player;
     $scope.details = details;
+
+    //dummy dynamic values TODO
+    $scope.dynamicEquipa = 25;
+    $scope.dynamicFinal = 85;
+    $scope.dynamicResist = 60;
 
     ngDialog.open({
       template: 'playerInformation.html',
@@ -106,6 +113,51 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
         $scope.selectedPlayer.position.includes('Striker')) {
       var index = $scope.strikers.indexOf($scope.selectedPlayer);
       $scope.strikers.splice(index, 1);
+    }
+  };
+
+  $scope.savePlayer = function() {
+    $scope.selectedPlayer.teamSpirit = $scope.dynamicEquipa;
+    $scope.selectedPlayer.finalShoot = $scope.dynamicFinal;
+    $scope.selectedPlayer.resistance = $scope.dynamicResist;
+
+    //it exists
+    if($scope.selectedPlayer.$$hashKey != null && $scope.selectedPlayer.$$hashKey != '') {
+        if($scope.selectedPlayer.position.includes('Keeper')) {
+          var index = $scope.goalKeepers.indexOf($scope.selectedPlayer);
+          $scope.goalKeepers.splice(index, 1);
+          $scope.goalKeepers.push(index, $scope.selectedPlayer);
+        } else if (($scope.selectedPlayer.position.includes('Centre') &&
+            !$scope.selectedPlayer.position.includes('Forward')) ||
+            $scope.selectedPlayer.position.includes('Wing')) {
+          var index = $scope.middles.indexOf($scope.selectedPlayer);
+          $scope.middles.splice(index, 1);
+          $scope.middles.push(index, $scope.selectedPlayer);
+        } else if ($scope.selectedPlayer.position.includes('Back') ||
+            $scope.selectedPlayer.position.includes('Defensive')) {
+           var index = $scope.defenses.indexOf($scope.selectedPlayer);
+           $scope.defenses.splice(index, 1);
+           $scope.defenses.push(index, $scope.selectedPlayer);
+        } else if ($scope.selectedPlayer.position.includes('Forward') ||
+            $scope.selectedPlayer.position.includes('Striker')) {
+          var index = $scope.strikers.indexOf($scope.selectedPlayer);
+          $scope.strikers.splice(index, 1);
+          $scope.strikers.push(index, $scope.selectedPlayer);
+        }
+    } else {
+      if($scope.selectedPlayer.position.includes('Keeper')) {
+        $scope.goalKeepers.push($scope.selectedPlayer);
+      } else if (($scope.selectedPlayer.position.includes('Centre') &&
+          !$scope.selectedPlayer.position.includes('Forward')) ||
+          $scope.selectedPlayer.position.includes('Wing')) {
+        $scope.middles.push($scope.selectedPlayer);
+      } else if ($scope.selectedPlayer.position.includes('Back') ||
+          $scope.selectedPlayer.position.includes('Defensive')) {
+         $scope.defenses.push($scope.selectedPlayer);
+      } else if ($scope.selectedPlayer.position.includes('Forward') ||
+          $scope.selectedPlayer.position.includes('Striker')) {
+        $scope.strikers.push($scope.selectedPlayer);
+      }
     }
   };
 });
