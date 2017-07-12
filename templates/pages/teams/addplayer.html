@@ -18,71 +18,6 @@
     </div>
 
     <div class="row">
-
-      <!-- coluna 1 -->
-      <div class="col-lg-3">
-          <div class="form-group">
-              <label>Nome:</label>
-              <input class="form-control">
-          </div>
-
-          <div class="form-group">
-              <label>Nacionalidade:</label>
-              <input class="form-control">
-          </div>
-
-          <div class="form-group">
-              <label>Data de Nascimento:</label>
-              <div >
-                <div >
-                    <input type='text' class="form-control" id='datetimepicker4' />
-                </div>
-                <script type="text/javascript">
-                    $(function () {
-                        $('#datetimepicker4').datetimepicker();
-                    });
-                </script>
-              </div>
-          </div>
-      </div>
-
-      <!-- coluna 2 -->
-      <div class="col-lg-3">
-        <div class="row">
-          <div class="form-group">
-              <label>Posição de Jogo:</label>
-              <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                  Selecione a posição
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li class="dropdown-header">Defesa</li>
-                  <li><a>Esquerdo</a></li>
-                  <li><a>Centro</a></li>
-                  <li><a>Direito</a></li>
-                  <li class="divider"></li>
-                  <li class="dropdown-header">Médio</li>
-                  <li><a>Trinco</a></li>
-                  <li><a>Centro</a></li>
-                  <li><a>Atacante</a></li>
-                  <li class="divider"></li>
-                  <li class="dropdown-header">Atacante</li>
-                  <li><a>Extremo</a></li>
-                  <li><a>Avançado</a></li>
-                  <li><a>Ponta de Lança</a></li>
-                </ul>
-              </div>
-              <p class="help-block"></p>
-          </div>
-
-          <div class="form-group">
-              <label>Número:</label>
-              <input class="form-control">
-          </div>
-        </div>
-      </div>
-
-      <!-- coluna 3 -->
       <div class="col-lg-2">
         <!-- the avatar markup -->
         <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
@@ -99,26 +34,153 @@
 
       </div>
 
+      <div>
+        <!--radar chart-->
+      </div>
+    </div>
 
-      <!-- coluna de baixo -->
-      <div class="col-lg-6" >
-          <h3>Finalização</h3>
-          <div kendo-progress-bar="finalBar" k-min="0" k-max="100" ng-model="dynamicFinal" ng-click="progress('final')" style="width: 100%;"></div>
-          <p class="help-block" style="color:red" ng-if="dynamicFinal >= 0 && dynamicFinal < 50">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
-          <p class="help-block" style="color:blue" ng-if="dynamicFinal >= 50 && dynamicFinal < 75">Médio <i class="glyphicon glyphicon-link"></i></p>
-          <p class="help-block" style="color:#5cb85c" ng-if="dynamicFinal >= 75 && dynamicFinal <= 100">Excelente <i class="glyphicon glyphicon-ok"></i></p>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+            <label>Nome:</label>
+            <input class="form-control" value="{{selectedPlayer}}" />
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+            <label>Número:</label>
+            <input class="form-control" value="{{selectedPlayer}}"  />
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+            <label>Nacionalidade:</label>
+            <input class="form-control" value="{{selectedPlayer}}"  />
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+            <label>Idade:</label>
+            <input class="form-control" value="{{selectedPlayer}}"  />
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+            <label>Posição:</label>
+            <input class="form-control" value="{{selectedPlayer}}"  />
+        </div>
+      </div>
+    </div>
 
-          <h3>Resistência</h3>
-          <div kendo-progress-bar="resistBar" k-min="0" k-max="100" ng-model="dynamicResist" ng-click="progress('resist')" style="width: 100%;"></div>
-          <p class="help-block" style="color:red" ng-if="dynamicResist >= 0 && dynamicResist < 50">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
-          <p class="help-block" style="color:blue" ng-if="dynamicResist >= 50 && dynamicResist < 75">Médio <i class="glyphicon glyphicon-link"></i></p>
-          <p class="help-block" style="color:#5cb85c" ng-if="dynamicResist >= 75 && dynamicResist <= 100">Excelente <i class="glyphicon glyphicon-ok"></i></p>
+    <div class="row">
+      <div class="col-lg-2">
+        <table class="table">
+          <caption>Atributos Físicos</caption>
+          <thead>
+            <tr>
+              <th>Altura</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Resistência</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Agilidade</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Salto Altura</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Salto Comprimento</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Aceleração</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Velocidade 10m</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Velocidade 20m</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Velocidade 50m</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Velocidade 100m</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+            </tr>
+          </tbody>
+        </table>
 
-          <h3>Espirito de Equipa</h3>
-          <div kendo-progress-bar="teamBar" k-min="0" k-max="100" ng-model="dynamicEquipa" ng-click="progress('equipa')" style="width: 100%;"></div>
-          <p class="help-block" style="color:red" ng-if="dynamicEquipa >= 0 && dynamicEquipa < 50">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
-          <p class="help-block" style="color:blue" ng-if="dynamicEquipa >= 50 && dynamicEquipa < 75">Médio <i class="glyphicon glyphicon-link"></i></p>
-          <p class="help-block" style="color:#5cb85c" ng-if="dynamicEquipa >= 75 && dynamicEquipa <= 100">Excelente <i class="glyphicon glyphicon-ok"></i></p>
+        <table class="table">
+          <caption>Atributos Mentais</caption>
+          <thead>
+            <tr>
+              <th>Liderança</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Equipa</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Rácio de Trabalho</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Determinação</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Criatividade</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Concentração</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Agressividade</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Velocidade 50m</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-1">
+        <table class="table">
+          <caption>Atributos Técnicos</caption>
+          <thead>
+            <tr>
+              <th>Cruzamento</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Drible</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Finta</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Remate</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Finalização</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Cabeceamento</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Primeiro Toque</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Recepção Orientada</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Livres</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Lançamentos</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Penalties</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Cantos</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Técnica</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Passe Curto</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Passe Longo</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+              <th>Remate Longa Distância</th>
+              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
