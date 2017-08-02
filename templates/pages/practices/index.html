@@ -13,6 +13,7 @@
         </ol>
     </div>
 </div>
+
 <div class="row">
   <div class="col-lg-12">
       <div class="alert alert-info alert-dismissable">
@@ -21,103 +22,62 @@
       </div>
   </div>
 </div>
+
 <div class="row">
-
-    <div class="col-lg-2">
-      <div class='contentWrapper ng-cloak'>
-        <div class='content'>
-            <h3><i class="glyphicon glyphicon-th-list"></i><small>  Icones</small></h3>
-            <!-- icons area -->
-            <div data-drop="true"
-                ng-model='icons'
-                jqyoui-droppable="{multiple:true}">
-                <div class="btn-draggable col-lg-4" ng-repeat="icon in icons"
-                      data-drag="true"
-                      data-jqyoui-options="{revert: 'invalid'}" ng-model="icons"
-                      jqyoui-draggable="{animate:true}">
-                      <div align="center">
-                        <i class="{{icon.component}} fa-2x"> </i>
-                      </div>
-                </div>
-
-            </div>
-
+  <div class="col-lg-2">
+    <div class='contentWrapper ng-cloak'>
+      <div class='content'>
+          <h3><i class="glyphicon glyphicon-th-list"></i><small>  Ícones</small></h3>
+          <!-- icons area -->
+          <div data-drop="true"
+              ng-model='icons'
+              jqyoui-droppable="{multiple:true}">
+              <div class="btn-draggable col-lg-4" ng-repeat="icon in icons"
+                    data-drag="true"
+                    data-jqyoui-options="{revert: 'invalid'}" ng-model="icons"
+                    jqyoui-draggable="{animate:true}">
+                    <img ng-if="icon.image" src="../../../images/{{icon.fileName}}"
+                      class="btn-draggable" width="65px" height="65px"/>
+                    <i ng-if="!icon.image" class="{{icon.component}} fa-2x"> </i>
+              </div>
           </div>
-        </div>
-
-        <div>
-          <p/>
-        </div>
-
-        <div class='contentWrapper ng-cloak'>
-          <div class='content' ng-model='arrows'>
-            <div data-drop="true" class="col-lg-5" jqyoui-droppable="{multiple:true}" data-drag="true"
-              data-jqyoui-options="{revert: 'invalid'}" ng-repeat="arrow in arrows"
-              jqyoui-draggable="{animate:true}">
-              <img src="../../../images/{{arrow.fileName}}" class="btn-draggable"
-                width="65px" height="65px"/>
-            </div>
-          </div>
-        </div>
       </div>
+    </div>
+  </div>
 
-    <div class="col-lg-7" style="align:center">
-      <h3><i class="glyphicon glyphicon-wrench"></i><small>Quadro Tactico</small></h3>
-      <!-- drop area -->
-      <div class="caption">
-        <div data-drag="true" data-drop="true" jqyoui-droppable="{multiple:true}">
-          <div >
-              <img jqyoui-droppable="{multiple:true}" jqyoui-draggable="{multiple:true, animate:true}"
-                src="../../../images/football_pitch.jpeg" weight="620px" height="320px"/>
+
+  <!-- CAMPO -->
+  <div class="col-lg-7" style="align:center">
+    <h3><i class="glyphicon glyphicon-wrench"></i><small>Quadro Tactico</small></h3>
+    <!-- drop area -->
+    <div class="caption">
+      <div data-drag="true" data-drop="true" jqyoui-droppable="{multiple:true}">
+            <img jqyoui-droppable="{multiple:true}" jqyoui-draggable="{multiple:true, animate:true}"
+              src="../../../images/football_pitch.jpeg" weight="620px" height="320px"/>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-lg-3">
+    <div class='contentWrapper ng-cloak'>
+      <div class='content'>
+          <h3><i class="glyphicon glyphicon-th-list"></i><small>  Jogadores</small></h3>
+          <!-- players area -->
+          <div data-drop="true"
+              ng-model='players'
+              jqyoui-droppable="{multiple:true}">
+              <div class="btn-draggable col-lg-4" ng-repeat="player in players | orderBy: 'colorPosition'"
+                    data-drag="true"
+                    data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
+                    jqyoui-draggable="{animate:true}">
+                    <div align="center">
+                      <i class="glyphicon glyphicon-user fa-2x" style="{{player.colorPosition}}"></i>
+                      <p></p><small>{{player.name}}</small>
+                    </div>
+              </div>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="col-lg-3">
-      <div class='contentWrapper ng-cloak'>
-        <div class='content'>
-            <h3><i class="glyphicon glyphicon-th-list"></i><small>  Jogadores</small></h3>
-            <!-- players area -->
-            <div data-drop="true"
-                ng-model='players'
-                jqyoui-droppable="{multiple:true}">
-                <div class="btn-draggable col-lg-4" ng-repeat="player in players | orderBy: 'colorPosition'"
-                      data-drag="true"
-                      data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
-                      jqyoui-draggable="{animate:true}">
-                      <span class="fa-3x" >
-                        <i class="fa fa-circle-o fa-circle-2x" style="circle"></i>
-                        <small>
-                          <small class="fa-stack-1x calendar-text">{{player.number}}</small>
-                        </small>
-                        <div class="circle-text">
-                          {{player.name}}
-                        </div>
-                      </span>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
-</div>
-
-<div class="practices-columns">
-  <div style="col-md-2">
-    <h3>Intensidade</h3>
-    <div style="width: 75%" kendo-progress-bar="intensityBar" k-min="0" k-max="100" ng-model="dynamicIntensity" ng-click="progress('intensity')" ></div>
-    <p class="help-block" ng-if="dynamicIntensityColor != ''" style="{{dynamicIntensityColor}}">{{dynamicIntensityLegend}} <i class="glyphicon glyphicon-ok"></i></p>
-  </div>
-
-  <div style="col-md-2">
-    <h3>Volume</h3>
-    <div style="width: 75%" kendo-progress-bar="volumeBar" k-min="0" k-max="180" ng-model="dynamicVolume" ng-click="progress('volume')"></div>
-    <p class="help-block" style="color:#5cb85c">{{dynamicVolume}}/180 <i class="glyphicon glyphicon-ok"></i></p>
-  </div>
-
-  <div style="col-md-2">
-    <h3>Frequência</h3>
-    <div style="width: 75%" kendo-progress-bar="frequencyBar" k-min="0" k-max="10" ng-model="dynamicFrequency" ng-click="progress('frequency')" ></div>
-    <p class="help-block" style="color:#5cb85c">{{dynamicFrequency}}/10 <i class="glyphicon glyphicon-ok"></i></p>
-  </div>
 </div>
