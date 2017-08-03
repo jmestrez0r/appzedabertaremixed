@@ -51,6 +51,15 @@
   margin-left: 0px;
 }
 
+.circle-span {
+  margin-left: 0.14em;
+  align-items: center;
+}
+
+.div-circle-squre {
+  height: 5em;
+}
+
 .circle {
   margin-top: 1.92em;
 }

@@ -138,11 +138,4 @@ angular.module("Elifoot").controller('PracticesController',
         }
       }
     };
-
-    $scope.makeItemVisible = function(itemId) {
-        //make item visible
-        //keep the ::before element
-
-        document.getElementById(itemId);
-    };
 });
