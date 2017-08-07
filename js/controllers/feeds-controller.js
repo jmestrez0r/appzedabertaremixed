@@ -1,4 +1,13 @@
 angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, ngDialog, Practices) {
+
+  //initial configuration;
+  sessionStorage.setItem('leagueTable', '445');
+  sessionStorage.setItem('teamId', '57');
+  sessionStorage.setItem('effectiveTeamName', 'Arsenal FC');
+  sessionStorage.setItem('selectedTeamId', '');
+  $scope.leagueTable = '445';
+  $scope.teamId = '57';
+
   Feeds.parseFeed().success(function(data) {
       $scope.feeds = data
       console.log(data);

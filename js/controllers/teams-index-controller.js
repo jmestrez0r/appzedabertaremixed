@@ -6,7 +6,12 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   $scope.middles = [];
   $scope.strikers = [];
 
-  TeamPlayers.all().success(function(data) {
+  $scope.leagueTable = sessionStorage.getItem('leagueTable');
+  $scope.teamId = sessionStorage.getItem('teamId');
+  $scope.effectiveTeamName = sessionStorage.getItem('effectiveTeamName');
+  $scope.selectedTeamId = sessionStorage.getItem('selectedTeamId');
+
+  TeamPlayers.all($scope.teamId).success(function(data) {
     var keepersIndex = 0;
     var middlesIndex = 0;
     var defensesIndex = 0;
@@ -33,9 +38,15 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     console.log(data);
   });
 
-  TeamPlayers.effectiveTeam().success(function (data) {
-    $scope.effectiveTeam = data;
+  TeamPlayers.effectiveTeam($scope.leagueTable).success(function (data) {
     console.log(data);
+    for(var i = 0; i < data.teams.length; i++) {
+      if(data.teams[i].name == $scope.effectiveTeamName) {
+        $scope.effectiveTeam = data.teams[i];
+        console.log($scope.effectiveTeam);
+        return;
+      }
+    }
   });
 
   $scope.dynamicFinal = 0;

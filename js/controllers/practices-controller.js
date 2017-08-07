@@ -65,8 +65,9 @@ angular.module("Elifoot").controller('PracticesController',
       { 'identification': 'icon16', 'fileName': 'arrow_up_right.png', 'image': true}
     ];
 
+    $scope.teamId = sessionStorage.getItem('teamId');
     //available players
-    TeamPlayers.all().success(function(data) {
+    TeamPlayers.all($scope.teamId).success(function(data) {
         var playerSpecs = [];
         console.log(data);
         for(var i = 0; i < data.players.length; i++) {
