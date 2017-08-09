@@ -18,6 +18,7 @@ angular.module("Elifoot").controller('ClassificationController', function($scope
         $scope.selectedTeamId = $scope.teamMap[i]._links.players.href.replace('http://api.football-data.org/v1/teams/', '');
         $scope.selectedTeamId = $scope.selectedTeamId.replace('/players', '');
         sessionStorage.setItem('selectedTeamId', $scope.selectedTeamId);
+        sessionStorage.setItem('selectedEffectiveTeamName', teamName);
         console.log("selected Team id " + $scope.selectedTeamId);
         return ;
       }

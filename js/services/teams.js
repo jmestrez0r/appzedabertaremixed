@@ -5,7 +5,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
             method: 'GET',
             url: 'http://api.football-data.org/v1/teams/'+teamId+'/players',
             headers: {
-              'X-Auth-Token': 'db1386cd081342f8a0339d58d7a174e3'
+              'X-Auth-Token': sessionStorage.getItem('X-Auth-Token')
             }
         });
     },
@@ -15,17 +15,17 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
           method: 'GET',
           url: 'http://api.football-data.org/v1/competitions/'+teamId+'/teams',
           headers: {
-            'X-Auth-Token': 'db1386cd081342f8a0339d58d7a174e3'
+            'X-Auth-Token': sessionStorage.getItem('X-Auth-Token')
           }
       });
     },
 
-    showSelectedTeam: function(selectedTeamId) {
+    teamDetail: function(teamId) {
       return $http({
           method: 'GET',
-          url: 'http://api.football-data.org/v1/teams/'+selectedTeamId+'/players',
+          url: 'http://api.football-data.org/v1/teams/'+teamId,
           headers: {
-            'X-Auth-Token': 'db1386cd081342f8a0339d58d7a174e3'
+            'X-Auth-Token': sessionStorage.getItem('X-Auth-Token')
           }
       });
     }

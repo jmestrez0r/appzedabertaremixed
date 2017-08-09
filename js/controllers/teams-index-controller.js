@@ -11,6 +11,13 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   $scope.effectiveTeamName = sessionStorage.getItem('effectiveTeamName');
   $scope.selectedTeamId = sessionStorage.getItem('selectedTeamId');
 
+  //load the values with the selected team
+  if(sessionStorage.getItem('selectedTeamId') != undefined &&
+      sessionStorage.getItem('selectedTeamId') != '') {
+      console.log('changing team id');
+      $scope.teamId = sessionStorage.getItem('selectedTeamId');
+  }
+
   TeamPlayers.all($scope.teamId).success(function(data) {
     var keepersIndex = 0;
     var middlesIndex = 0;
@@ -38,14 +45,21 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     console.log(data);
   });
 
+
   TeamPlayers.effectiveTeam($scope.leagueTable).success(function (data) {
     console.log(data);
+    //load the values with the selected team
+    if(sessionStorage.getItem('selectedTeamId') != undefined &&
+        sessionStorage.getItem('selectedTeamId') != '') {
+        console.log('changing effective team + ' );
+        $scope.effectiveTeamName = sessionStorage.getItem('selectedEffectiveTeamName');
+    }
     for(var i = 0; i < data.teams.length; i++) {
-      if(data.teams[i].name == $scope.effectiveTeamName) {
-        $scope.effectiveTeam = data.teams[i];
-        console.log($scope.effectiveTeam);
-        return;
-      }
+        if(data.teams[i].name == $scope.effectiveTeamName) {
+          $scope.effectiveTeam = data.teams[i];
+          console.log($scope.effectiveTeam);
+          return;
+        }
     }
   });
 

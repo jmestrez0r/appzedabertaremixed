@@ -5,7 +5,7 @@ angular.module('Elifoot').factory('Leagues', ['$http', function($http) {
             method: 'GET',
             url: 'http://api.football-data.org/v1/competitions/',
             headers: {
-              'X-Auth-Token': 'db1386cd081342f8a0339d58d7a174e3'
+              'X-Auth-Token': sessionStorage.getItem('X-Auth-Token')
             }
         });
     }

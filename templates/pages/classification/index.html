@@ -39,7 +39,7 @@
 	<tr ng-repeat="row in classification.standing">
 		<td>{{row.position}}</td>
 		<td><img src="{{row.crestURI}}" width="32" height="32"</img></td>
-		<td ng-click="setSelectedTeam(row.teamName);showPlayersPage();">{{row.teamName}}</td>
+		<td ng-click="setSelectedTeam(row.teamName);"><a href="#/players">{{row.teamName}}</a></td>
 		<td>{{row.points}}</td>
 		<td>{{row.wins}}</td>
 		<td>{{row.losses}}</td>

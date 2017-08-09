@@ -1,12 +1,19 @@
-angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, ngDialog, Practices) {
+angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, ngDialog, Practices, TeamPlayers) {
 
   //initial configuration;
+  sessionStorage.setItem('user', 'José Amador');
   sessionStorage.setItem('leagueTable', '445');
   sessionStorage.setItem('teamId', '57');
   sessionStorage.setItem('effectiveTeamName', 'Arsenal FC');
   sessionStorage.setItem('selectedTeamId', '');
-  $scope.leagueTable = '445';
-  $scope.teamId = '57';
+  sessionStorage.setItem('X-Auth-Token', 'db1386cd081342f8a0339d58d7a174e3');
+
+  $scope.leagueTable = sessionStorage.getItem('leagueTable');
+  $scope.teamId = sessionStorage.getItem('teamId');
+  $scope.user = sessionStorage.getItem('user');
+  TeamPlayers.teamDetail($scope.teamId).success(function(data) {
+    $scope.crestUrl = data.crestUrl;
+  });
 
   Feeds.parseFeed().success(function(data) {
       $scope.feeds = data
