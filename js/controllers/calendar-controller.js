@@ -1,9 +1,11 @@
 var amodule = angular.module("Elifoot").controller('CalendarController',
-   function($scope, $compile, $timeout, uiCalendarConfig) {
+   function($scope, $compile, $timeout, uiCalendarConfig, CalendarInformation) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
+
+    var selfTeam = sessionStorage.getItem('effectiveTeamName');
 
     $scope.changeTo = 'Hungarian';
     /* event source that pulls from google.com */
@@ -13,38 +15,61 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
             currentTimezone: 'America/Chicago' // an option!
     };
     /* event source that contains custom events on the scope */
-    $scope.events = [
-      {
-        title: 'Treino Maravilha',
-        start: new Date(y, m, 1),
+
+    $scope.events = [{
+        title: 'Treino de Adaptação',
+        start: new Date(y, m, d, 19, 0),
+        url:'#/practices',
         color: 'orange'
       },{
-        title: 'Treino Pré',
-        start: new Date(y, m, d - 5),
-        end: new Date(y, m, d - 2),
+        title: 'Treino de Adaptação',
+        start: new Date(y, m, d+7, 19, 0),
+        url:'#/practices',
+        color: 'orange'
+      }, {
+        id: 999,
+        title: 'Reunião Premier League',
+        start: new Date(y, m, d+4, 10, 0),
+        allDay: false,
         color: 'orange'
       },{
         id: 999,
-        title: 'SLBenfica vs Sporting CP',
-        start: new Date(y, m, d - 3, 16, 0),
-        url:'#/tactics',
+        title: 'Concentração: ' + selfTeam + ' vs Sporting CP',
+        start: new Date(y, m, d+1, 15, 0),
+        allDay: false,
+        color: 'blue'
+      },{
+        id: 999,
+        title: selfTeam + ' vs Sporting CP',
+        start: new Date(y, m, d+1, 19, 0),
+        url:'#/practices',
         allDay: false,
         color: 'red'
       },{
         id: 999,
-        title: 'Repeating Event',
-        start: new Date(y, m, d + 4, 16, 0),
-        allDay: false
+        title: 'Concentração: ' + selfTeam + ' vs SL Benfica',
+        start: new Date(y, m, d+8, 15, 0),
+        allDay: false,
+        color: 'blue'
       },{
-        title: 'Birthday Party',
-        start: new Date(y, m, d + 1, 19, 0),
-        end: new Date(y, m, d + 1, 22, 30),
-        allDay: true
+        id: 999,
+        title: selfTeam + ' vs SL Benfica',
+        start: new Date(y, m, d+8, 19, 0),
+        url:'#/practices',
+        allDay: false,
+        color: 'red'
       },{
-        title: 'Click for Google',
-        start: new Date(y, m, 28),
-        end: new Date(y, m, 29),
-        url: 'http://google.com/'
+        title: 'Treino Intenso',
+        url:'#/practices',
+        start: new Date(y, m, d - 5),
+        end: new Date(y, m, d - 2),
+        color: 'red'
+      },{
+        title: 'Treino Intenso',
+        url:'#/practices',
+        start: new Date(y, m, (d+8) - 5),
+        end: new Date(y, m, (d+8) - 2),
+        color: 'red'
       }];
 
     /* event source that calls a function on every view switch */

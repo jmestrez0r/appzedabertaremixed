@@ -1,34 +1,6 @@
 angular.module("Elifoot").controller('PracticesController',
   function($scope, $timeout, Practices, TeamPlayers) {
 
-    //practice area
-    $scope.practices = Practices.allPractices();
-    console.log($scope.practices);
-
-    $scope.visualizePractice = function(selected) {
-      console.log('visualize practice' + selected);
-      var practices = Practices.checkPractice(selected);
-      console.log('visualize practice' + practices);
-    }
-
-    $scope.editPractice = function(selected) {
-      console.log('edit practice' + selected);
-      var practices = Practices.checkPractice(selected);
-      console.log('edit practice' + practices);
-    }
-
-    $scope.duplicatePractice = function(selected) {
-      console.log('duplicate practice' + selected);
-      var practices = Practices.duplicatePractice(selected);
-      console.log('duplicate practice' + practices);
-    }
-
-    $scope.removePractice = function(selected) {
-      console.log('remove practice' + selected);
-      var practices = Practices.removePractice(selected);
-      console.log('remove practice' + practices);
-    }
-
     //tablesize
     $scope.columns = [
       {'column': 1},
@@ -65,7 +37,9 @@ angular.module("Elifoot").controller('PracticesController',
       { 'identification': 'icon16', 'fileName': 'arrow_up_right.png', 'image': true}
     ];
 
+    $scope.selectedPractice = sessionStorage.getItem('selectedPractice');
     $scope.teamId = sessionStorage.getItem('teamId');
+
     //available players
     TeamPlayers.all($scope.teamId).success(function(data) {
         var playerSpecs = [];

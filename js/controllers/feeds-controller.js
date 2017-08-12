@@ -1,4 +1,4 @@
-angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, ngDialog, Practices, TeamPlayers) {
+angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, ngDialog, Practices, TeamPlayers, CalendarInformation) {
 
   //initial configuration;
   sessionStorage.setItem('user', 'José Amador');
@@ -11,6 +11,7 @@ angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, 
   $scope.leagueTable = sessionStorage.getItem('leagueTable');
   $scope.teamId = sessionStorage.getItem('teamId');
   $scope.user = sessionStorage.getItem('user');
+
   TeamPlayers.teamDetail($scope.teamId).success(function(data) {
     $scope.crestUrl = data.crestUrl;
   });
@@ -32,9 +33,6 @@ angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, 
       $scope.data.nearPractice = Practices.nearPractice();
       $scope.data.todaysPractices = Practices.todaysPractices();
 
-      console.log($scope.data.nearPractice);
-      console.log($scope.data.todaysPractices);
-
       if($scope.data.nearPractice != null && $scope.data.nearPractice != '') {
         $scope.data.message = "Mister, tem treino agora!";
         $scope.data.nearShow = true;
@@ -45,6 +43,8 @@ angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, 
           $scope.data.todaysShow = true;
         }
       }
+
+      sessionStorage.setItem('selectedPractice', $scope.data.nearPractice.identification);
 
       ngDialog.open({
         template: 'alertTemplate.html',
@@ -57,4 +57,41 @@ angular.module("Elifoot").controller('FeedsController', function($scope, Feeds, 
 
       return $scope.data;
     };
+
+    $scope.showPracticeData = function() {
+      ngDialog.open({
+        template: 'practiceDetail.html',
+        className: 'ngdialog-theme-default',
+        scope: $scope,
+        showClose: false,
+        height: '300px',
+        width: '800px'
+      });
+    };
+
+    $scope.showPracticesList = function() {
+      $scope.practicesList = Practices.todaysPractices();
+
+      ngDialog.open({
+        template: 'practiceList.html',
+        className: 'ngdialog-theme-default',
+        scope: $scope,
+        showClose: false,
+        height: '400px',
+        width: '800px'
+      });
+    };
+
+    $scope.loadInitialValues = function() {
+      $scope.practicesThisWeek = Practices.allPractices().length;
+      $scope.eventsThisWeek = CalendarInformation.getEvents();
+      console.log($scope.practicesThisWeek);
+      console.log($scope.eventsThisWeek);
+    };
+
+
+    $scope.loadPracticeDetailsAndConfig = function() {
+      sessionStorage.getItem('selectedPractice');
+    };
+
 });

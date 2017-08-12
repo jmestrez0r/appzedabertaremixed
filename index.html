@@ -172,7 +172,7 @@
                       <a href="javascript:;" data-toggle="collapse" data-target="#allteam"><i class="fa fa-fw fa-folder-open-o"></i> Plantel <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="allteam" class="collapse">
                           <li>
-                            <a href="#/players" ng-click="sessionStorage.setItem('selectedTeamId')"><i class="glyphicon glyphicon-paste"></i> Plantel Geral</a>
+                            <a href="#/players" ng-click="sessionStorage.setItem('selectedTeamId', '')"><i class="glyphicon glyphicon-paste"></i> Plantel Geral</a>
                           </li>
                           <li>
                               <a href="#/addplayer"><i class="glyphicon glyphicon-user"></i> Adicionar Jogador</a>
@@ -274,13 +274,14 @@
     <script type="text/javascript" src="js/services/teams.js"></script>
     <script type="text/javascript" src="js/services/classification.js"></script>
     <script type="text/javascript" src="js/services/practices.js"></script>
+    <script type="text/javascript" src="js/services/calendarinformation.js"></script>
 
     <!-- Dialog -->
     <script type="text/ng-template" id="alertTemplate.html">
         <div class="ngdialog-message" style="text-align: center !important;">
     				<h2><i class="fa fa-exclamation-triangle" style="color: red;"></i> {{data.message}}</h2></i>
             <h3>Vamos a isso?
-              <a href="#/practices#{{data.nearPractice.identification}}" style="color: black;" ng-click="closeThisDialog()">
+              <a href="#/practices" style="color: black;" ng-click="closeThisDialog();loadPracticeDetailsAndConfig();">
                 <i class="fa fa-arrow-circle-o-right" />
               </a>
             </h3>
@@ -288,23 +289,28 @@
 
             <ul class="nav" style="text-align: center">
                 <li>
-                    <a class="dropdown-toggle" data-toggle="dropdown" style="color: black;"><h3><i class="glyphicon glyphicon-th-list"></i> Detalhe do Treino </h3></a>
-                    <ul class="dropdown-menu" style="text-align: center; margin-left: 125px">
-                      <li>
-                        <i class="fa fa-id-card" aria-hidden="true"></i> <span class="label label-primary">{{data.nearPractice.identification}}</span></a>
-                      </li>
-                      <li>
-                        <i class="fa fa-barcode" aria-hidden="true"></i> <small>{{data.nearPractice.description}}</small></a>
-                      </li>
-                      <li>
-                        <i class="fa fa-bolt" aria-hidden="true"></i> <small>{{data.nearPractice.type}}</small></a>
-                      </li>
-                      <li>
-                        <i class="fa fa-calendar" aria-hidden="true"></i> <small>{{data.nearPractice.datetime}}</small></a>
-                      </li>
-                    </ul>
+                    <a class="dropdown-toggle" ng-click="showPracticeData();" data-toggle="dropdown" style="color: black;"><h3><i class="glyphicon glyphicon-th-list"></i> Detalhe do Treino </h3></a>
                 </li>
             </ul>
+    </script>
+
+    <script type="text/ng-template" id="practiceDetail.html">
+        <div class="ngdialog-message" style="text-align: center !important;">
+          <h3><i class="glyphicon glyphicon-th-list"></i> Detalhe do Treino </h3>
+          <br/>
+
+          <li>
+            <i class="fa fa-id-card" aria-hidden="true"></i> <b>Identificação: </b><small>{{data.nearPractice.identification}}</small></a>
+          </li>
+          <li>
+            <i class="fa fa-bolt" aria-hidden="true"></i> <small>{{data.nearPractice.type}}</small></a>
+          </li>
+          <li>
+            <i class="fa fa-barcode" aria-hidden="true"></i> <small>{{data.nearPractice.description}}</small></a>
+          </li>
+          <li>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <small>{{data.nearPractice.datetime}}</small></a>
+        </div>
     </script>
 </body>
 

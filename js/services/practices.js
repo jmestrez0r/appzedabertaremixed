@@ -1,11 +1,11 @@
 angular.module('Elifoot').factory('Practices', ['$http', function($http) {
 
   var allPracticesArray = [
-    {identification: 'Treino 1', description: 'Treino Dummy 1', type: 'Ofensivo', datetime: Date.now()},
-    {identification: 'Treino 2', description: 'Treino Dummy 2', type: 'Defensivo', datetime: Date.now()},
-    {identification: 'Treino 3', description: 'Treino Dummy 3', type: 'Ofensivo', datetime: Date.now()},
-    {identification: 'Treino 4', description: 'Treino Dummy 4', type: 'Defensivo', datetime: Date.now()},
-    {identification: 'Treino 5', description: 'Treino Dummy 5', type: 'Ofensivo', datetime: Date.now()}
+    { identification: 'Treino 1', description: 'Treino Dummy 1', type: 'Ofensivo', datetime: new Date()},
+    { identification: 'Treino 2', description: 'Treino de Adaptação', type: 'Treino de preparação para o jogo a disputar.', datetime: new Date()},
+    { identification: 'Treino 3', description: 'Treino Dummy 3', type: 'Ofensivo', datetime: new Date()},
+    { identification: 'Treino 4', description: 'Treino Dummy 4', type: 'Defensivo', datetime: new Date()},
+    { identification: 'Treino 5', description: 'Treino Dummy 5', type: 'Ofensivo', datetime: new Date()}
   ];
 
   return {
