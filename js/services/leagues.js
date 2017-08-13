@@ -10,4 +10,4 @@ angular.module('Elifoot').factory('Leagues', ['$http', function($http) {
         });
     }
   };
-}])
+}]);

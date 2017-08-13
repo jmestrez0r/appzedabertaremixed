@@ -115,6 +115,7 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
         sources.push(source);
       }
     };
+    
     /* add custom event*/
     $scope.addEvent = function() {
       $scope.events.push({
