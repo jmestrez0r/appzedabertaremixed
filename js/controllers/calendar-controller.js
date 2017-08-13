@@ -1,5 +1,5 @@
 var amodule = angular.module("Elifoot").controller('CalendarController',
-   function($scope, $compile, $timeout, uiCalendarConfig, CalendarInformation) {
+   function($scope, $compile, $timeout, uiCalendarConfig, CalendarInformation, ngDialog) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -20,29 +20,34 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
         title: 'Treino de Adaptação',
         start: new Date(y, m, d, 19, 0),
         url:'#/practices',
+        type: 'practice',
         color: 'orange'
       },{
         title: 'Treino de Adaptação',
         start: new Date(y, m, d+7, 19, 0),
         url:'#/practices',
+        type: 'practice',
         color: 'orange'
       }, {
         id: 999,
         title: 'Reunião Premier League',
         start: new Date(y, m, d+4, 10, 0),
         allDay: false,
+        type: 'meeting',
         color: 'orange'
       },{
         id: 999,
         title: 'Concentração: ' + selfTeam + ' vs Sporting CP',
         start: new Date(y, m, d+1, 15, 0),
         allDay: false,
+        type: 'focus',
         color: 'blue'
       },{
         id: 999,
         title: selfTeam + ' vs Sporting CP',
         start: new Date(y, m, d+1, 19, 0),
-        url:'#/practices',
+        url:'#/tactics',
+        type: 'game',
         allDay: false,
         color: 'red'
       },{
@@ -50,23 +55,27 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
         title: 'Concentração: ' + selfTeam + ' vs SL Benfica',
         start: new Date(y, m, d+8, 15, 0),
         allDay: false,
+        type: 'focus',
         color: 'blue'
       },{
         id: 999,
         title: selfTeam + ' vs SL Benfica',
         start: new Date(y, m, d+8, 19, 0),
-        url:'#/practices',
+        url:'#/tactics',
+        type: 'game',
         allDay: false,
         color: 'red'
       },{
         title: 'Treino Intenso',
         url:'#/practices',
+        type: 'practice',
         start: new Date(y, m, d - 5),
         end: new Date(y, m, d - 2),
         color: 'red'
       },{
         title: 'Treino Intenso',
         url:'#/practices',
+        type: 'practice',
         start: new Date(y, m, (d+8) - 5),
         end: new Date(y, m, (d+8) - 2),
         color: 'red'
@@ -115,14 +124,42 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
         sources.push(source);
       }
     };
-    
+
+    //create new event button request
+    $scope.createANewEvent = function() {
+        ngDialog.open({
+          template: 'createNewEvent.html',
+          className: 'ngdialog-theme-default',
+          scope: $scope,
+          showClose: false,
+          height: 250,
+          weight: 600
+        });
+    };
+
     /* add custom event*/
-    $scope.addEvent = function() {
+    $scope.addEvent = function(eventTitle, eventType, startDate, endDate) {
+      var defineUrl = '';
+      var defineColor = '';
+
+      if(type == 'game') {
+        defineUrl = '#/tactics';
+        defineColor = 'red';
+      } else if (type == 'meeting') {
+        defineColor = 'blue';
+        defineUrl = '';
+      } else if (type == 'practice') {
+        defineUrl = '#/practice';
+        defineColor = 'orange';
+      }
+
       $scope.events.push({
-        title: 'Open Sesame',
-        start: new Date(y, m, 28),
-        end: new Date(y, m, 29),
-        className: ['openSesame']
+        title: eventTitle,
+        url:   defineUrl,
+        type: eventType,
+        start: startDate,
+        end: endDate,
+        color: defineColor
       });
     };
     /* remove event */
