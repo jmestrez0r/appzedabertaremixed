@@ -34,6 +34,9 @@ angular.module("Elifoot").controller('TacticsController',
     $scope.associateTacticToGameDialog = function() {
         $scope.gamesList = CalendarInformation.getGames();
 
+        console.log('gameslist');
+        console.log($scope.gamesList);
+
         ngDialog.open({
           template: 'associateTacticDialog.html',
           className: 'ngdialog-theme-default',

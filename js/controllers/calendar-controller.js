@@ -1,5 +1,6 @@
 var amodule = angular.module("Elifoot").controller('CalendarController',
    function($scope, $compile, $timeout, uiCalendarConfig, CalendarInformation, ngDialog) {
+
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -125,30 +126,50 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
       }
     };
 
+    $scope.eventType = {
+        id: '',
+        description: ''
+    };
+    $scope.eventTitle = '';
+    $scope.startDate = '';
+    $scope.endDate = '';
+
     //create new event button request
     $scope.createANewEvent = function() {
-        ngDialog.open({
+      ngDialog.open({
           template: 'createNewEvent.html',
           className: 'ngdialog-theme-default',
           scope: $scope,
           showClose: false,
-          height: 250,
+          height: 400,
           weight: 600
         });
     };
 
+
+    $scope.selectEventType = function(eventType) {
+      $scope.eventType.id = eventType;
+      if($scope.eventType.id == 'game') {
+        $scope.eventType.description = 'Jogo';
+      } else if ($scope.eventType.id == 'meeting') {
+        $scope.eventType.description = 'Reunião';
+      } else if ($scope.eventType.id == 'practice') {
+        $scope.eventType.description = 'Treino';
+      }
+    };
+
     /* add custom event*/
-    $scope.addEvent = function(eventTitle, eventType, startDate, endDate) {
+    $scope.addEvent = function(eventTitle, startDate, endDate) {
       var defineUrl = '';
       var defineColor = '';
 
-      if(type == 'game') {
+      if($scope.eventType.id == 'game') {
         defineUrl = '#/tactics';
         defineColor = 'red';
-      } else if (type == 'meeting') {
+      } else if ($scope.eventType.id == 'meeting') {
         defineColor = 'blue';
         defineUrl = '';
-      } else if (type == 'practice') {
+      } else if ($scope.eventType.id == 'practice') {
         defineUrl = '#/practice';
         defineColor = 'orange';
       }
@@ -156,12 +177,13 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
       $scope.events.push({
         title: eventTitle,
         url:   defineUrl,
-        type: eventType,
+        type: $scope.eventType,
         start: startDate,
         end: endDate,
         color: defineColor
       });
     };
+
     /* remove event */
     $scope.remove = function(index) {
       $scope.events.splice(index,1);

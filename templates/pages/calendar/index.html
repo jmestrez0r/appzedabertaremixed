@@ -1,11 +1,4 @@
 <!-- Page Heading -->
-<script type="text/javascript">
-    $(function () {
-        $('#startDateId').datetimepicker();
-        $('#endDateId').datetimepicker();
-    });
-</script>
-
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">
@@ -39,47 +32,66 @@
 </div>
 
 <script type="text/ng-template" id="createNewEvent.html">
-    <div class="ngdialog-message" style="text-align: center !important;">
+    <div class="ngdialog-message" style="text-align: center !important;"
+      onshow="$('#startDateId').datetimepicker();$('#endDateId').datetimepicker();">
       <h3><i class="fa fa-fw fa-futbol-o"></i> Criar um novo evento. </h3>
       <br/>
 
-      <div class="form-group">
-            <label>Titulo:</label>
-            <input class="form-control" value="{{eventTitle}}"  />
-        </div>
         <div class="form-group">
-            <label>Tipo:</label>
-            <input class="form-control" value="{{eventType}}"  />
-        </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <label>Titulo:</label>
+              <input class="form-control" value="{{eventTitle}}" ng-model="eventTitle"  />
 
-        <div class="form-group">
-
-          <div class="col-md-3">
-            <label>Data de Inicio:</label>
-            <div>
-              <div>
-                  <input type='text' value="{{startDate}}" class="form-control"
-                    id='startDateId' />
+              <label>Tipo:</label>
+              <div class="dropdown">
+                <button ng-if="eventType.description == '' || eventType.description == undefined"
+                  class="btn btn-default dropdown-toggle"
+                  type="button" data-toggle="dropdown">
+                  Selecione o tipo
+                  <span class="caret"></span>
+                </button>
+                <button ng-if="eventType.description != ''" class="btn btn-default dropdown-toggle"
+                  type="button" data-toggle="dropdown">
+                  {{eventType.description}}
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li ng-click="selectEventType('meeting')"><a>Reunião</a></li>
+                  <li ng-click="selectEventType('practice')"><a>Treino</a></li>
+                  <li ng-click="selectEventType('game')"><a>Jogo</a></li>
+                </ul>
               </div>
             </div>
           </div>
 
-          <div class="col-md-3">
-            <div class="form-group">
-                <label>Data de Fim:</label>
+          <div class="form-group">
+            <div class="col-lg-4">
+              <label>Data de Inicio:</label>
+              <div>
                 <div>
-                  <div>
-                      <input type='text' value="{{endDate}}" class="form-control"
-                        id='endDateId' />
-                  </div>
+                    <input type='text' value="{{startDate}}" class="form-control"
+                      id='startDateId' ng-model="startDate"/>
                 </div>
+              </div>
+
+              <div class="form-group">
+                  <label>Data de Fim:</label>
+                  <div>
+                    <div>
+                        <input type='text' value="{{endDate}}" class="form-control"
+                          id='endDateId' ng-model="endDate" />
+                    </div>
+                  </div>
+              </div>
             </div>
           </div>
-        </div>
-      <button type="button" class="btn"
-        ng-click="createANewEvent(eventTitle, eventType, startDate, endDate);closeThisDialog();">
-        Criar
-      </button>
 
+        <button type="button" class="btn"
+          ng-click="addEvent(eventTitle, startDate, endDate); closeThisDialog();">
+          Criar
+        </button>
+
+      </div>
     </div>
 </script>
