@@ -231,54 +231,26 @@
             </div>
           </div>
 
-          <!-- coluna 3 -->
-          <div class="col-lg-2">
-            <!-- the avatar markup -->
-            <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
-            <form class="text-center" action="/avatar_upload.php" method="post" enctype="multipart/form-data">
-                <div class="kv-avatar center-block" style="width:200px">
-                    <input id="avatar-2" name="avatar-2" type="file" class="file-loading">
-                </div>
-                <!-- include other inputs if needed and include a form submit (save) button -->
-            </form>
-            <!-- your server code `avatar_upload.php` will receive `$_FILES['avatar']` on form submission -->
+          <canvas id="physicalRadar" class="chart chart-radar"
+            chart-data="physicalData" chart-options="options" chart-labels="physicalLabels">
+          </canvas>
 
+          <canvas id="velocityRadar" class="chart chart-radar"
+            chart-data="velocityData" chart-options="options" chart-labels="velocityLabels">
+          </canvas>
 
-          </div>
+          <canvas id="mentalRadar" class="chart chart-radar"
+            chart-data="mentalData" chart-options="options" chart-labels="mentalLabels">
+          </canvas>
 
+          <canvas id="technicalRadar" class="chart chart-radar"
+            chart-data="technicalData" chart-options="options" chart-labels="technicalLabels">
+          </canvas>
 
-          <!-- coluna de baixo -->
-          <div class="col-lg-6">
-              <h3>Finalização</h3>
-              <div kendo-progress-bar="finalBar" k-min="0" k-max="100" ng-model="dynamicFinal"
-                ng-click="progress('final')" style="width: 100%;" ng-disabled="details"></div>
-              <p class="help-block" style="color:red" ng-if="dynamicFinal >= 0 && dynamicFinal < 50"
-                ng-disabled="details">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
-              <p class="help-block" style="color:blue" ng-if="dynamicFinal >= 50 && dynamicFinal < 75"
-                ng-disabled="details">Médio <i class="glyphicon glyphicon-link"></i></p>
-              <p class="help-block" style="color:#5cb85c" ng-if="dynamicFinal >= 75 && dynamicFinal <= 100"
-                ng-disabled="details">Excelente <i class="glyphicon glyphicon-ok"></i></p>
+          <canvas id="technical2Radar" class="chart chart-radar"
+            chart-data="technical2Data" chart-options="options" chart-labels="technical2Labels">
+          </canvas>
 
-              <h3>Resistência</h3>
-              <div kendo-progress-bar="resistBar" k-min="0" k-max="100" ng-model="dynamicResist"
-                ng-click="progress('resist')" style="width: 100%;" ng-disabled="details"></div>
-              <p class="help-block" style="color:red" ng-if="dynamicResist >= 0 && dynamicResist < 50"
-                ng-disabled="details">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
-              <p class="help-block" style="color:blue" ng-if="dynamicResist >= 50 && dynamicResist < 75"
-                ng-disabled="details">Médio <i class="glyphicon glyphicon-link"></i></p>
-              <p class="help-block" style="color:#5cb85c" ng-if="dynamicResist >= 75 && dynamicResist <= 100"
-                ng-disabled="details">Excelente <i class="glyphicon glyphicon-ok"></i></p>
-
-              <h3>Espirito de Equipa</h3>
-              <div kendo-progress-bar="teamBar" k-min="0" k-max="100" ng-model="dynamicEquipa"
-                ng-click="progress('equipa')" ng-disabled="details" style="width: 100%;"></div>
-              <p class="help-block" style="color:red" ng-if="dynamicEquipa >= 0 && dynamicEquipa < 50"
-                ng-disabled="details">Insuficiente <i class="glyphicon glyphicon-remove"></i></p>
-              <p class="help-block" style="color:blue" ng-if="dynamicEquipa >= 50 && dynamicEquipa < 75"
-                ng-disabled="details">Médio <i class="glyphicon glyphicon-link"></i></p>
-              <p class="help-block" style="color:#5cb85c" ng-if="dynamicEquipa >= 75 && dynamicEquipa <= 100"
-                ng-disabled="details">Excelente <i class="glyphicon glyphicon-ok"></i></p>
-          </div>
         </div>
 
         <br/>

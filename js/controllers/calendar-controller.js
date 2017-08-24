@@ -170,7 +170,7 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
         defineColor = 'blue';
         defineUrl = '';
       } else if ($scope.eventType.id == 'practice') {
-        defineUrl = '#/practice';
+        defineUrl = '#/practices';
         defineColor = 'orange';
       }
 
@@ -237,4 +237,6 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
     /* event sources array*/
     $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
     $scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
+
+    $scope.gamesList = CalendarInformation.getGames();
 });

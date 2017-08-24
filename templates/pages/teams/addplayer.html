@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 
 <!-- Page Heading -->
 <div class="row">
@@ -35,7 +32,9 @@
       </div>
 
       <div>
-        <!--radar chart-->
+        <canvas id="physicalRadar" class="chart chart-radar"
+          chart-data="physicalData" chart-options="options" chart-labels="physicalLabels">
+        </canvas>
       </div>
     </div>
 
@@ -127,8 +126,6 @@
               <th>Concentração</th>
               <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
               <th>Agressividade</th>
-              <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
-              <th>Velocidade 50m</th>
               <th><input class="form-control" value="{{selectedPlayer}}"  /></th>
             </tr>
           </tbody>

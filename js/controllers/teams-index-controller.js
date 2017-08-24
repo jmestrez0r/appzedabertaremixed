@@ -1,5 +1,31 @@
 angular.module("Elifoot").controller('TeamPlayersController', function($scope, $timeout, TeamPlayers, ngDialog) {
 
+
+  //defining radar graphs
+  $scope.physicalLabels =["Altura", "Resistência", "Agilidade", "Salto Altura", "Salto Comprimento"];
+  $scope.physicalData = [
+    [$scope.physicalHeight, $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight, $scope.physicalJumpLong]
+  ];
+  $scope.velocityLabels =["Velocidade 10m", "Velocidade 20m", "Velocidade 50m", "Velocidade 100m"];
+  $scope.velocityData = [
+    [$scope.velocity10m, $scope.velocity20m, $scope.velocity50m, $scope.velocity100m]
+  ];
+  $scope.mentalLabels =["Liderança", "Equipa", "Rácio de Trabalho", "Determinação",
+                        "Criatividade", "Concentração", "Agressividade"];
+  $scope.mentalData = [
+    [$scope.mentalLeadership, $scope.mentalTeam, $scope.mentalTeamWork, $scope.mentalDetermination,
+      $scope.mentalCreativity, $scope.mentalFocus, $scope.mentalAgressive]
+  ];
+  $scope.technicalLabels =["Cruzamento", "Drible", "Finta de Trabalho", "Remate", "Finalização",
+                            "Cabeceamento", "Primeiro Toque", "Recepção Orientada"];
+  $scope.technicalData = [
+    [$scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork, $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst, $scope.technicalReceive]
+  ];
+  $scope.technical2Labels =["Livres", "Lançamentos", "Penalties", "Cantos", "Técnica", "Passe Curto", "Passe Longo", "Remate Longa Distância"];
+  $scope.technical2Data = [
+    [$scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty, $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass, $scope.technicalLongShoot]
+  ];
+
   $scope.selectedPlayer = '';
   $scope.goalKeepers = [];
   $scope.defenses = [];
@@ -63,32 +89,6 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     }
   });
 
-  $scope.dynamicFinal = 0;
-  $scope.dynamicResist = 0;
-  $scope.dynamicEquipa = 0;
-  $scope.max = 100;
-
-  $scope.progress = function(barClick){
-    if(!$scope.details) {
-      if(barClick == 'equipa') {
-        $scope.dynamicEquipa = $scope.dynamicEquipa + 10;
-        if($scope.dynamicEquipa > 100) {
-          $scope.dynamicEquipa = 0;
-        }
-      } else if(barClick == 'resist') {
-        $scope.dynamicResist = $scope.dynamicResist + 10;
-        if($scope.dynamicResist > 100) {
-          $scope.dynamicResist = 0;
-        }
-      } else if(barClick == 'final') {
-        $scope.dynamicFinal = $scope.dynamicFinal + 10;
-        if($scope.dynamicFinal > 100) {
-          $scope.dynamicFinal = 0;
-        }
-      }
-    }
-  };
-
   $scope.openDeletePlayerDialog = function(player) {
     $scope.selectedPlayer = player;
 
@@ -106,10 +106,7 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     $scope.selectedPlayer = player;
     $scope.details = details;
 
-    //dummy dynamic values TODO
-    $scope.dynamicEquipa = 25;
-    $scope.dynamicFinal = 85;
-    $scope.dynamicResist = 60;
+    $scope.loadValuesPlayerValues();
 
     ngDialog.open({
       template: 'playerInformation.html',
@@ -184,5 +181,41 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
         $scope.strikers.push($scope.selectedPlayer);
       }
     }
+  };
+
+  $scope.loadValuesPlayerValues = function() {
+    //dummy values
+    $scope.physicalHeight = 40;
+    $scope.physicalResist = 90;
+    $scope.physicalAgility = 80;
+    $scope.physicalJumpHeight = 40;
+    $scope.physicalJumpLong = 30;
+    $scope.velocity10m = 50;
+    $scope.velocity20m = 50;
+    $scope.velocity50m = 70;
+    $scope.velocity100m = 80;
+    $scope.mentalLeadership = 60;
+    $scope.mentalTeam = 40;
+    $scope.mentalTeamWork = 20;
+    $scope.mentalDetermination = 70;
+    $scope.mentalCreativity = 80;
+    $scope.mentalFocus = 80;
+    $scope.mentalAgressive = 40;
+    $scope.technicalCruzamento = 40;
+    $scope.technicalDrible = 50;
+    $scope.technicalWork = 10;
+    $scope.technicalShoot = 80;
+    $scope.technicalFinish = 40;
+    $scope.technicalHead = 60;
+    $scope.technicalFirst = 60;
+    $scope.technicalReceive = 50;
+    $scope.technicalFree = 40;
+    $scope.technicalLaunch = 80;
+    $scope.technicalPenalty = 70;
+    $scope.technicalCorner = 20;
+    $scope.technicalTech = 70;
+    $scope.technicalShortPass = 60;
+    $scope.technicalLongPass = 50;
+    $scope.technicalLongShoot = 50;
   };
 });
