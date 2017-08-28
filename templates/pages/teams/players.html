@@ -164,6 +164,7 @@
           Editar detalhes sobre o <b>{{selectedPlayer.name}}</b>
         </h2>
 
+
         <div class="row">
 
           <!-- coluna 1 -->
@@ -231,26 +232,12 @@
             </div>
           </div>
 
-          <canvas id="physicalRadar" class="chart chart-radar"
-            chart-data="physicalData" chart-options="options" chart-labels="physicalLabels">
-          </canvas>
-
-          <canvas id="velocityRadar" class="chart chart-radar"
-            chart-data="velocityData" chart-options="options" chart-labels="velocityLabels">
-          </canvas>
-
-          <canvas id="mentalRadar" class="chart chart-radar"
-            chart-data="mentalData" chart-options="options" chart-labels="mentalLabels">
-          </canvas>
-
-          <canvas id="technicalRadar" class="chart chart-radar"
-            chart-data="technicalData" chart-options="options" chart-labels="technicalLabels">
-          </canvas>
-
-          <canvas id="technical2Radar" class="chart chart-radar"
-            chart-data="technical2Data" chart-options="options" chart-labels="technical2Labels">
-          </canvas>
-
+          <div class="col-lg-3" style="width: 400px !important; height: 160px !important;"
+            width="400px" height="160px">
+            <canvas id="physicalRadar" class="chart chart-radar"
+              chart-data="physicalData" chart-options="options" chart-labels="physicalLabels">
+            </canvas>
+          </div>
         </div>
 
         <br/>

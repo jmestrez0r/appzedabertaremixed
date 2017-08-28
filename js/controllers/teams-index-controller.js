@@ -3,27 +3,28 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
 
   //defining radar graphs
   $scope.physicalLabels =["Altura", "Resistência", "Agilidade", "Salto Altura", "Salto Comprimento"];
-  $scope.physicalData = [
-    [$scope.physicalHeight, $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight, $scope.physicalJumpLong]
-  ];
   $scope.velocityLabels =["Velocidade 10m", "Velocidade 20m", "Velocidade 50m", "Velocidade 100m"];
-  $scope.velocityData = [
-    [$scope.velocity10m, $scope.velocity20m, $scope.velocity50m, $scope.velocity100m]
-  ];
   $scope.mentalLabels =["Liderança", "Equipa", "Rácio de Trabalho", "Determinação",
                         "Criatividade", "Concentração", "Agressividade"];
+  $scope.technicalLabels =["Cruzamento", "Drible", "Finta de Trabalho", "Remate", "Finalização",
+                            "Cabeceamento", "Primeiro Toque", "Recepção Orientada"];
+  $scope.technical2Labels =["Livres", "Lançamentos", "Penalties", "Cantos", "Técnica", "Passe Curto", "Passe Longo", "Remate Longa Distância"];
+
+  $scope.technical2Data = [
+    [$scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty, $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass, $scope.technicalLongShoot]
+  ];
+  $scope.technicalData = [
+    [$scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork, $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst, $scope.technicalReceive]
+  ];
   $scope.mentalData = [
     [$scope.mentalLeadership, $scope.mentalTeam, $scope.mentalTeamWork, $scope.mentalDetermination,
       $scope.mentalCreativity, $scope.mentalFocus, $scope.mentalAgressive]
   ];
-  $scope.technicalLabels =["Cruzamento", "Drible", "Finta de Trabalho", "Remate", "Finalização",
-                            "Cabeceamento", "Primeiro Toque", "Recepção Orientada"];
-  $scope.technicalData = [
-    [$scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork, $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst, $scope.technicalReceive]
+  $scope.velocityData = [
+    [$scope.velocity10m, $scope.velocity20m, $scope.velocity50m, $scope.velocity100m]
   ];
-  $scope.technical2Labels =["Livres", "Lançamentos", "Penalties", "Cantos", "Técnica", "Passe Curto", "Passe Longo", "Remate Longa Distância"];
-  $scope.technical2Data = [
-    [$scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty, $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass, $scope.technicalLongShoot]
+  $scope.physicalData = [
+    [$scope.physicalHeight, $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight, $scope.physicalJumpLong]
   ];
 
   $scope.selectedPlayer = '';
@@ -139,9 +140,6 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   };
 
   $scope.savePlayer = function() {
-    $scope.selectedPlayer.teamSpirit = $scope.dynamicEquipa;
-    $scope.selectedPlayer.finalShoot = $scope.dynamicFinal;
-    $scope.selectedPlayer.resistance = $scope.dynamicResist;
 
     //it exists
     if($scope.selectedPlayer.$$hashKey != null && $scope.selectedPlayer.$$hashKey != '') {
@@ -217,5 +215,22 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     $scope.technicalShortPass = 60;
     $scope.technicalLongPass = 50;
     $scope.technicalLongShoot = 50;
+
+    $scope.technical2Data = [
+      [$scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty, $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass, $scope.technicalLongShoot]
+    ];
+    $scope.technicalData = [
+      [$scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork, $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst, $scope.technicalReceive]
+    ];
+    $scope.mentalData = [
+      [$scope.mentalLeadership, $scope.mentalTeam, $scope.mentalTeamWork, $scope.mentalDetermination,
+        $scope.mentalCreativity, $scope.mentalFocus, $scope.mentalAgressive]
+    ];
+    $scope.velocityData = [
+      [$scope.velocity10m, $scope.velocity20m, $scope.velocity50m, $scope.velocity100m]
+    ];
+    $scope.physicalData = [
+      [$scope.physicalHeight, $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight, $scope.physicalJumpLong]
+    ];
   };
 });
