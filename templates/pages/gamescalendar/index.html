@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="col-lg-6">
+<div class="col-lg-12">
   <table class="table">
     <caption><i class="fa fa-fw fa-futbol-o"/> Jogos</caption>
     <thead>
@@ -22,15 +22,18 @@
         <th align="center">#</th>
         <th align="center">Jogo</th>
         <th align="center">Data/Hora</th>
+        <th align="center">Estado</th>
         <th align="center">Resultado</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="game in gamesList">
-        <th></th>
-        <th>{{game.title}}</th>
-        <th>{{game.start}}</th>
-        <th>{{game.result}}</th>
+        <th>{{game.matchday}}</th>
+        <th>{{game.homeTeamName}} vs {{game.awayTeamName}}</th>
+        <td>{{game.date}}</td>
+        <td>{{game.status}}</td>
+        <td>{{game.result.goalsHomeTeam}} - {{game.result.goalsAwayTeam}}</td>
       </tr>
     </tbody>
   </table>
+</div>

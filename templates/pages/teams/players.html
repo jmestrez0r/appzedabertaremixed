@@ -34,6 +34,29 @@
         </div>
     </div>
 </div>
+<div class="row">
+  <div class="col-lg-6">
+    <table class="table">
+      <caption>STAFF</caption>
+      <thead>
+        <tr>
+          <th align="center">#</th>
+          <th align="center">Nome</th>
+          <th align="center">Função</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="player in staff">
+          <th scope="row" align="center"><img src="https://dummyimage.com/40x40/000/fff"></th>
+          <th>{{player.name}}</th>
+          <td>{{player.function}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-lg-6">
@@ -154,6 +177,8 @@
     </div>
 </script>
 
+
+<!-- TO REMOVE!! -->
 <!-- Dialog -->
 <script type="text/ng-template" id="playerInformation.html" style="overflow-y: auto !important;">
     <div class="ngdialog-message">

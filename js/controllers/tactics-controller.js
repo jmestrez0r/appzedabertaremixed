@@ -1,5 +1,5 @@
 angular.module("Elifoot").controller('TacticsController',
-  function($scope, Tactics, TeamPlayers, ngDialog, CalendarInformation) {
+  function($scope, Tactics, TeamPlayers, ngDialog, Fixtures, Tactics) {
 
     $scope.teamId = sessionStorage.getItem('teamId');
     $scope.selectedTactic = sessionStorage.getItem('selectedTactic');
@@ -31,8 +31,12 @@ angular.module("Elifoot").controller('TacticsController',
         $scope.players = playerSpecs;
     });
 
+    //TODO só mostrar os jogos a disputar!
     $scope.associateTacticToGameDialog = function() {
-        $scope.gamesList = CalendarInformation.getGames();
+        Fixtures.all($scope.teamId).success(function(data) {
+          console.log(data.fixtures);
+          $scope.gamesList = data.fixtures;
+        });
 
         console.log('gameslist');
         console.log($scope.gamesList);
@@ -42,8 +46,8 @@ angular.module("Elifoot").controller('TacticsController',
           className: 'ngdialog-theme-default',
           scope: $scope,
           showClose: false,
-          height: 250,
-          weight: 600
+          height: 350,
+          weight: 700
         });
     };
 
@@ -51,7 +55,7 @@ angular.module("Elifoot").controller('TacticsController',
         for(var i = 0; i < gamesList.length; i++) {
           if(gamesList[i].selected != undefined &&
               gamesList[i].selected) {
-              var tacticIdentification = Tactics.createTacticDetail(gamesList[i].id);
+              var tacticIdentification = Tactics.createTacticDetail(gamesList[i].matchday);
           }
         }
     };

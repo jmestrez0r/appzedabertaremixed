@@ -69,6 +69,23 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
         strikersIndex++;
       }
     }
+
+    $scope.staff = [
+      {
+        name: 'José Amador',
+        function: 'Treinador'
+      }, {
+        name: 'André Vieira',
+        function: 'Treinador Adjunto'
+      }, {
+        name: 'António Gomes',
+        function: 'Massagista'
+      }, {
+        name: 'Jorge Mestre',
+        function: 'Director Desportivo'
+      }
+    ];
+
     console.log(data);
   });
 

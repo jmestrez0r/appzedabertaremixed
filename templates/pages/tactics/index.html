@@ -77,12 +77,12 @@
       <h3><i class="fa fa-fw fa-futbol-o"></i> Associar tática ao Jogo </h3>
       <br/>
       <table class="table">
+        <caption><i class="fa fa-fw fa-futbol-o"/> Jogos</caption>
         <thead>
           <tr>
             <th align="center">#</th>
-            <th align="center">Identificação</th>
-            <th align="center">Descripção</th>
-            <th align="center">Data</th>
+            <th align="center">Jogo</th>
+            <th align="center">Data/Hora</th>
           </tr>
         </thead>
         <tbody>
@@ -90,9 +90,8 @@
             <th>
               <input type="checkbox" ng-model="game.selected" />
             </th>
-            <th>{{game.id}}</th>
-            <th>{{game.title}}</th>
-            <td>{{game.start}}</td>
+            <th>{{game.homeTeamName}} vs {{game.awayTeamName}}</th>
+            <th>{{game.date}}</th>
           </tr>
         </tbody>
       </table>

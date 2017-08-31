@@ -64,17 +64,6 @@ angular.module('Elifoot').factory('CalendarInformation', ['$http', function($htt
   return {
     getEvents: function() {
         return 10;
-    },
-
-    getGames: function() {
-      var eventsToReturn = [];
-      for(var i = 0; i < events.length; i++) {
-        if(events[i].title.indexOf('vs') > 1 &&
-          events[i].title.indexOf('Concentração') < 0) {
-          eventsToReturn.push(events[i]);
-        }
-      }
-      return eventsToReturn;
     }
   };
 }]);

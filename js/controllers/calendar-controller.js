@@ -7,6 +7,7 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
     var y = date.getFullYear();
 
     var selfTeam = sessionStorage.getItem('effectiveTeamName');
+    var teamId = sessionStorage.getItem('teamId');
 
     $scope.changeTo = 'Hungarian';
     /* event source that pulls from google.com */
@@ -17,6 +18,7 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
     };
     /* event source that contains custom events on the scope */
 
+    //TODO INVOKE FIXTURE EVENTS
     $scope.events = [{
         title: 'Treino de Adaptação',
         start: new Date(y, m, d, 19, 0),
@@ -237,6 +239,4 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
     /* event sources array*/
     $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
     $scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
-
-    $scope.gamesList = CalendarInformation.getGames();
 });

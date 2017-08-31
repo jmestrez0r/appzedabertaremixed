@@ -30,20 +30,26 @@
 		<th></th>
 		<th>Equipa</th>
 		<th>Pontos</th>
+		<th>Jogos</th>
 		<th>Vitórias</th>
 		<th>Derrotas</th>
 		<th>Empates</th>
+		<th>Golos Marcados</th>
+		<th>Golos Sofridos</th>
 	</tr>
 	</thead>
 	<tbody>
 	<tr ng-repeat="row in classification.standing">
-		<td>{{row.position}}</td>
+		<th>{{row.position}}</th>
 		<td><img src="{{row.crestURI}}" width="32" height="32"</img></td>
 		<td ng-click="setSelectedTeam(row.teamName);"><a href="#/players">{{row.teamName}}</a></td>
-		<td>{{row.points}}</td>
-		<td>{{row.wins}}</td>
-		<td>{{row.losses}}</td>
-		<td>{{row.draws}}</td>
+		<th align="center">{{row.points}}</th>
+		<td align="center">{{row.playedGames}}</td>
+		<td align="center">{{row.wins}}</td>
+		<td align="center">{{row.losses}}</td>
+		<td align="center">{{row.draws}}</td>
+		<td align="center">{{row.goals}}</td>
+		<td align="center">{{row.goalsAgainst}}</td>
 	</tr>
 	</tbody>
 </table>
