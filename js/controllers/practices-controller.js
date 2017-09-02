@@ -1,5 +1,5 @@
 angular.module("Elifoot").controller('PracticesController',
-  function($scope, $timeout, Practices, TeamPlayers) {
+  function($scope, $timeout, Practices, TeamPlayers, ngDialog) {
 
     //tablesize
     $scope.columns = [
@@ -37,8 +37,29 @@ angular.module("Elifoot").controller('PracticesController',
       { 'identification': 'icon16', 'fileName': 'arrow_up_right.png', 'image': true}
     ];
 
-    $scope.selectedPractice = sessionStorage.getItem('selectedPractice');
+    $scope.selectedPractice = {
+      title: '',
+      exercise: '',
+      datetime: '',
+      type: [],
+      volume: '',
+      intensity: '',
+      density: '',
+      frequency: '',
+      description: ''
+    };
+
+    $scope.selectedPractice.title = sessionStorage.getItem('selectedPractice');
+
     $scope.teamId = sessionStorage.getItem('teamId');
+
+    $scope.loadPracticeDetails = function() {
+      if($scope.selectedPractice.title != undefined &&
+        $scope.selectedPractice.title != null &&
+        $scope.selectedPractice.title != '') {
+          //loadRecordedPracticeDetails
+      }
+    };
 
     //available players
     TeamPlayers.all($scope.teamId).success(function(data) {
@@ -67,50 +88,52 @@ angular.module("Elifoot").controller('PracticesController',
         $scope.players = playerSpecs;
     });
 
-    //final list
-    $scope.allList = [];
+    $scope.practiceDialog = function() {
+      ngDialog.open({
+        template: 'practiceDialog.html',
+        className: 'ngdialog-theme-default',
+        scope: $scope,
+        showClose: false,
+        height: 525,
+        weight: 600
+      });
+    };
 
-    $scope.dynamicIntensity = 0;
-    $scope.dynamicVolume = 0;
-    $scope.dynamicFrequency = 0;
+    $scope.selectPracticeType = function() {
 
-    $scope.dynamicIntensityColor = '';
-    $scope.dynamicIntensityLegend = '';
-    $scope.dynamicVolumeColor = '';
-    $scope.dynamicVolumeLegend = '';
-    $scope.dynamicFrequencyColor = '';
-    $scope.dynamicFrequencyLegend = '';
+      $scope.availabletypes = Practices.getAvailableTypes();
+      console.log($scope.availabletypes);
 
-    $scope.progress = function(barClick){
-      if(barClick == 'intensity') {
-        $scope.dynamicIntensity = $scope.dynamicIntensity + 10;
-        if($scope.dynamicIntensity > 100) {
-          $scope.dynamicIntensity = 0;
-          $scope.dynamicIntensityColor = '';
-          $scope.dynamicIntensityLegend = '';
-        }
+      ngDialog.open({
+        template: 'selectPracticeType.html',
+        className: 'ngdialog-theme-default',
+        scope: $scope,
+        showClose: false,
+        height: 300
+      });
+    };
 
-        if($scope.dynamicIntensity >= 25 && $scope.dynamicIntensity < 50) {
-          $scope.dynamicIntensityColor = 'color:blue;';
-          $scope.dynamicIntensityLegend = 'Normal';
-        } else if($scope.dynamicIntensity >= 50 && $scope.dynamicIntensity < 75) {
-          $scope.dynamicIntensityColor = 'color:#f0ad4e;';
-          $scope.dynamicIntensityLegend = 'Intenso';
-        } else if($scope.dynamicIntensity >= 75 && $scope.dynamicIntensity <= 100) {
-          $scope.dynamicIntensityColor = 'color:red;';
-          $scope.dynamicIntensityLegend = 'Muito Intenso';
-        }
+    $scope.typeDescription = '';
 
-      } else if(barClick == 'volume') {
-        $scope.dynamicVolume = $scope.dynamicVolume + 10;
-        if($scope.dynamicVolume > 180) {
-          $scope.dynamicVolume = 0;
-        }
-      } else if(barClick == 'frequency') {
-        $scope.dynamicFrequency = $scope.dynamicFrequency + 1;
-        if($scope.dynamicFrequency > 10) {
-          $scope.dynamicFrequency = 0;
-        }
+    $scope.selectedIntensity = function(intensity) {
+      $scope.selectedPractice.intensity = intensity;
+    };
+
+    $scope.addTypesToPractice = function() {
+      $scope.typeDescription = '';
+      for(var i = 0; i < $scope.availabletypes.length; i++) {
+        if($scope.availabletypes[i].selected) {
+          $scope.selectedPractice.type.push($scope.availabletypes[i].name);
+
+          if($scope.typeDescription != '') {
+              $scope.typeDescription += ', ';
+            }
+            $scope.typeDescription += $scope.availabletypes[i].name;
+          }
       }
     };
+
+    $scope.createOrSavePractice = function() {
+      Practices.savePracticeDetail($scope.selectedPractice);
+    }
 });

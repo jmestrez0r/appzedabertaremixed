@@ -31,11 +31,20 @@ angular.module("Elifoot").controller('TacticsController',
         $scope.players = playerSpecs;
     });
 
+    //subplayers
+    $scope.subplayers = TeamPlayers.subPlayers($scope.teamId);
+    $scope.gamesList = [];
+
     //TODO só mostrar os jogos a disputar!
     $scope.associateTacticToGameDialog = function() {
         Fixtures.all($scope.teamId).success(function(data) {
           console.log(data.fixtures);
-          $scope.gamesList = data.fixtures;
+          var currentDate = new Date();
+          for(var i = 0; i < data.fixtures.length; i++) {
+            if(new Date(data.fixtures[i].date) > currentDate) {
+              $scope.gamesList.push(data.fixtures[i]);
+            }
+          }
         });
 
         console.log('gameslist');

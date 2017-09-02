@@ -10,6 +10,11 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
         });
     },
 
+    subPlayers: function(teamId, game) {
+        return {
+        };
+    },
+
     effectiveTeam: function(teamId) {
       return $http({
           method: 'GET',

@@ -1,16 +1,45 @@
 angular.module('Elifoot').factory('Practices', ['$http', function($http) {
 
   var allPracticesArray = [
-    { identification: 'Treino 1', description: 'Treino Dummy 1', type: 'Ofensivo', datetime: new Date()},
-    { identification: 'Treino 2', description: 'Treino de Adaptação', type: 'Treino de preparação para o jogo a disputar.', datetime: new Date()},
-    { identification: 'Treino 3', description: 'Treino Dummy 3', type: 'Ofensivo', datetime: new Date()},
-    { identification: 'Treino 4', description: 'Treino Dummy 4', type: 'Defensivo', datetime: new Date()},
-    { identification: 'Treino 5', description: 'Treino Dummy 5', type: 'Ofensivo', datetime: new Date()}
+    { title: 'Treino 1', description: 'Treino Dummy 1', exercise: '', type: 'Ofensivo', datetime: new Date(), volume: '', intensity: '', density: '', frequency: ''},
+    { title: 'Treino 2', description: 'Treino de Adaptação', exercise: '', type: 'Treino de preparação para o jogo a disputar.', datetime: new Date(), volume: '', intensity: '', density: '', frequency: ''},
+    { title: 'Treino 3', description: 'Treino Dummy 3', exercise: '', type: 'Ofensivo', datetime: new Date(), volume: '', intensity: '', density: '', frequency: ''},
+    { title: 'Treino 4', description: 'Treino Dummy 4', exercise: '', type: 'Defensivo', datetime: new Date(), volume: '', intensity: '', density: '', frequency: ''},
+    { title: 'Treino 5', description: 'Treino Dummy 5', exercise: '', type: 'Ofensivo', datetime: new Date(), volume: '', intensity: '', density: '', frequency: ''},
+    { title: 'Treino 6', description: 'Treino Dummy 5', exercise: '', type: 'Defensivo', datetime: new Date(), volume: '', intensity: '', density: '', frequency: ''}
+  ];
+
+  var availableTypes = [
+    {
+      selected: false,
+      name: 'Transição ofensiva'
+    }, {
+      selected: false,
+      name: 'Transição defensiva'
+    }, {
+      selected: false,
+      name: 'Organização ofensiva'
+    }, {
+      selected: false,
+      name: 'Organização defensiva'
+    }, {
+      selected: false,
+      name: 'Esquemas tacticos'
+    }
   ];
 
   return {
     allPractices: function() {
       return allPracticesArray;
+    },
+
+    getAvailableTypes: function() {
+      return availableTypes;
+    },
+
+    savePracticeDetail: function(detail) {
+      allPracticesArray.push(detail);
+      console.log(allPracticesArray);
     },
 
     checkPractice: function(identification) {
@@ -49,6 +78,7 @@ angular.module('Elifoot').factory('Practices', ['$http', function($http) {
         }
       }*/
     },
+
     todaysPractices: function(date) {
       var todaysPractices = [];
       for(var i = 0; i < allPracticesArray.length; i++) {
