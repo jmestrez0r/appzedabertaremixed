@@ -1,4 +1,4 @@
-angular.module("Elifoot").controller('TeamPlayersController', function($scope, $timeout, TeamPlayers, ngDialog) {
+angular.module("Elifoot").controller('TeamPlayersController', function($scope, $cookies, $location, $timeout, TeamPlayers, ngDialog) {
 
 
   //defining radar graphs
@@ -121,19 +121,23 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   };
 
   $scope.openPlayerInformationDialog = function(player, details) {
-    $scope.selectedPlayer = player;
-    $scope.details = details;
 
+    $cookies.putObject('selectedPlayer', player);
+    if(details == true) {
+      $cookies.put('readOnly', 'disabled');
+    } else {
+      $cookies.put('readOnly', '');
+    }
+    $location.path('/addplayer');
+  };
+
+  $scope.loadSelectedPlayer = function() {
+    $scope.selectedPlayer = $cookies.getObject('selectedPlayer');
+    $scope.details = $cookies.get('readOnly');
     $scope.loadValuesPlayerValues();
 
-    ngDialog.open({
-      template: 'playerInformation.html',
-      className: 'ngdialog-theme-default',
-      scope: $scope,
-      showClose: false,
-      height: 600,
-      width: 800
-    });
+    $cookies.remove('selectedPlayer');
+    $cookies.remove('readOnly');
   };
 
   $scope.deletePlayer = function() {
@@ -199,12 +203,19 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   };
 
   $scope.loadValuesPlayerValues = function() {
+
+    $scope.ageCalculation = Math.floor((new Date() - new Date($scope.selectedPlayer.dateOfBirth))/(1000*60*60*24*365.25));
+
+    //load values from DB
+
+
     //dummy values
     $scope.physicalHeight = 40;
     $scope.physicalResist = 90;
     $scope.physicalAgility = 80;
     $scope.physicalJumpHeight = 40;
     $scope.physicalJumpLong = 30;
+    $scope.acelaration = 60;
     $scope.velocity10m = 50;
     $scope.velocity20m = 50;
     $scope.velocity50m = 70;
