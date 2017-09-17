@@ -128,8 +128,17 @@
       <div data-drag="true" data-drop="true" jqyoui-droppable="{multiple:true}">
             <img jqyoui-droppable="{multiple:true}" style="opacity: 100 !important"
               jqyoui-draggable="{multiple:true, animate:true}"
-              src="../../../images/football_pitch.jpeg" weight="620px" height="320px"/>
+              src="{{selectedField}}"
+              weight="{{selectedFieldSize.weight}}"
+              height="{{selectedFieldSize.height}}"/>
       </div>
+    </div>
+
+    <div ng-init="toggleField();">
+      <button type="button" class="btn"
+        ng-click="toggleField();">
+        Rodar campo
+      </button>
     </div>
   </div>
 

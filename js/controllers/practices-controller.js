@@ -1,5 +1,8 @@
 angular.module("Elifoot").controller('PracticesController',
-  function($scope, $timeout, Practices, TeamPlayers, ngDialog) {
+  function($scope, $timeout, $route, Practices, TeamPlayers, ngDialog) {
+
+    $scope.selectedField = sessionStorage.getItem('selectedField');
+    $scope.reloaded = sessionStorage.getItem('reloaded');
 
     //tablesize
     $scope.columns = [
@@ -135,5 +138,50 @@ angular.module("Elifoot").controller('PracticesController',
 
     $scope.createOrSavePractice = function() {
       Practices.savePracticeDetail($scope.selectedPractice);
-    }
+    };
+
+
+    $scope.toggleField = function() {
+      if($scope.selectedField == undefined || $scope.selectedField == '') {
+        $scope.selectedField = '../../../images/football_pitch.jpeg';
+        $scope.selectedFieldSize = {
+          'weight': '620px',
+          'height': '320px'
+        };
+      } else if($scope.selectedField.indexOf('football_pitch.jpeg') > 1) {
+        $scope.selectedField = '../../../images/football_pitch_half_right.jpeg';
+        $scope.selectedFieldSize = {
+          'weight': '500px',
+          'height': '425px'
+        };
+      } else if($scope.selectedField.indexOf('football_pitch_half_right') > 1) {
+        $scope.selectedField = '../../../images/football_pitch_half_left.jpeg';
+        $scope.selectedFieldSize = {
+          'weight': '500px',
+          'height': '425px'
+        };
+      } else if($scope.selectedField.indexOf('football_pitch_half_left')) {
+        $scope.selectedField = '../../../images/football_pitch.jpeg';
+        $scope.selectedFieldSize = {
+          'weight': '620px',
+          'height': '320px'
+        };
+      }
+
+      sessionStorage.setItem('selectedField', $scope.selectedField);
+
+      if($scope.reloaded != undefined && $scope.reloaded != '') {
+        if($scope.reloaded == 'false') {
+          $scope.reloaded = 'true';
+          sessionStorage.setItem('reloaded', 'true');
+        } else {
+          $route.reload();
+          $scope.reloaded = 'false';
+          sessionStorage.setItem('reloaded', 'false');
+        }
+      } else {
+        $scope.reloaded = 'false';
+        sessionStorage.setItem('reloaded', 'false');
+      }
+    };
 });

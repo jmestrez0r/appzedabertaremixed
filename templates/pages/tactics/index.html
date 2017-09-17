@@ -45,17 +45,38 @@
     </div>
   </div>
 
-  <div class="col-lg-2" style="500px !important">
+
+    <div class="col-lg-2" style="height: 1000px !important" ng-show="subplayers == null">
+      <div class='contentWrapper ng-cloak'>
+        <div class='content'>
+            <h3><i class="glyphicon glyphicon-th-list"></i><small>  Suplentes</small></h3>
+            <!-- players area -->
+            <div data-drop="true" ng-show="subplayers == null"
+                jqyoui-droppable="{multiple:true}">
+                <div class="btn-draggable div-circle-squre"
+                  data-drop="true"
+                      data-drag="true" jqyoui-droppable="{multiple:true}"
+                      data-jqyoui-options="{revert: 'invalid'}"
+                      jqyoui-draggable="{animate:true}" id="{{subplayer.number}}"
+                      style="height: 500px !important">
+
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <div class="col-lg-2" style="500px !important" ng-show="subplayers != null">
     <div class='contentWrapper ng-cloak'>
       <div class='content'>
           <h3><i class="glyphicon glyphicon-th-list"></i><small>  Suplentes</small></h3>
-          <!-- players area -->
+          <!-- loaded list -->
           <div data-drop="true"
-              ng-model='subplayers' ng-show="subplayers"
+              ng-model='subplayers' ng-show="subplayers != null"
               jqyoui-droppable="{multiple:true}">
               <div class="btn-draggable col-md-4 div-circle-squre"
-                    ng-repeat="subplayer in subplayers"
-                    data-drag="true"
+                    ng-repeat="subplayer in subplayers" data-drop="true"
+                    data-drag="true" jqyoui-droppable="{multiple:true}"
                     data-jqyoui-options="{revert: 'invalid'}" ng-model="subplayers"
                     jqyoui-draggable="{animate:true}" id="{{subplayer.number}}" >
                     <span class="fa-3x circle-span" >
@@ -69,6 +90,7 @@
                     </span>
               </div>
           </div>
+
         </div>
       </div>
     </div>

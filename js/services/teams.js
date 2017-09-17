@@ -11,8 +11,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
     },
 
     subPlayers: function(teamId, game) {
-        return {
-        };
+        return null;
     },
 
     effectiveTeam: function(teamId) {
