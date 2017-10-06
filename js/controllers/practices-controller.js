@@ -143,25 +143,25 @@ angular.module("Elifoot").controller('PracticesController',
 
     $scope.toggleField = function() {
       if($scope.selectedField == undefined || $scope.selectedField == '') {
-        $scope.selectedField = '../../../images/football_pitch.jpeg';
+        $scope.selectedField = './images/football_pitch.jpeg';
         $scope.selectedFieldSize = {
           'weight': '620px',
           'height': '320px'
         };
       } else if($scope.selectedField.indexOf('football_pitch.jpeg') > 1) {
-        $scope.selectedField = '../../../images/football_pitch_half_right.jpeg';
+        $scope.selectedField = './images/football_pitch_half_right.jpeg';
         $scope.selectedFieldSize = {
           'weight': '500px',
           'height': '425px'
         };
       } else if($scope.selectedField.indexOf('football_pitch_half_right') > 1) {
-        $scope.selectedField = '../../../images/football_pitch_half_left.jpeg';
+        $scope.selectedField = './images/football_pitch_half_left.jpeg';
         $scope.selectedFieldSize = {
           'weight': '500px',
           'height': '425px'
         };
       } else if($scope.selectedField.indexOf('football_pitch_half_left')) {
-        $scope.selectedField = '../../../images/football_pitch.jpeg';
+        $scope.selectedField = './images/football_pitch.jpeg';
         $scope.selectedFieldSize = {
           'weight': '620px',
           'height': '320px'

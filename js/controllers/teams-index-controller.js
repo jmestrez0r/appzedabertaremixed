@@ -32,6 +32,7 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   $scope.defenses = [];
   $scope.middles = [];
   $scope.strikers = [];
+  $scope.staff = [];
 
   $scope.leagueTable = sessionStorage.getItem('leagueTable');
   $scope.teamId = sessionStorage.getItem('teamId');
@@ -46,66 +47,85 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   }
 
   TeamPlayers.all($scope.teamId).success(function(data) {
-    var keepersIndex = 0;
-    var middlesIndex = 0;
-    var defensesIndex = 0;
-    var strikersIndex = 0;
-
-    for(var i = 0; i < data.players.length; i++) {
-      var a = data.players[i];
-
-      if(a.position.includes('Keeper')) {
-        $scope.goalKeepers[keepersIndex] = a;
-        keepersIndex++;
-      } else if ((a.position.includes('Centre') && !a.position.includes('Forward'))
-        || a.position.includes('Wing')) {
-        $scope.middles[middlesIndex] = a;
-        middlesIndex++;
-      } else if (a.position.includes('Back') || a.position.includes('Defensive')) {
-        $scope.defenses[defensesIndex] = a;
-        defensesIndex++;
-      } else if (a.position.includes('Forward') || a.position.includes('Striker')) {
-        $scope.strikers[strikersIndex] = a;
-        strikersIndex++;
-      }
+    //load from other source
+    if(data[0] == null || data == '') {
+      TeamPlayers.allFromSource($scope.teamId).success(function(dataFromSource) {
+        data = dataFromSource;
+        //loadPlayers
+        loadPlayers(data);
+      });
+    } else {
+      data.players = data;
+      loadPlayers(data);
     }
-
-    $scope.staff = [
-      {
-        name: 'José Amador',
-        function: 'Treinador'
-      }, {
-        name: 'André Vieira',
-        function: 'Treinador Adjunto'
-      }, {
-        name: 'António Gomes',
-        function: 'Massagista'
-      }, {
-        name: 'Jorge Mestre',
-        function: 'Director Desportivo'
-      }
-    ];
-
     console.log(data);
   });
 
-
-  TeamPlayers.effectiveTeam($scope.leagueTable).success(function (data) {
+  TeamPlayers.effectiveTeam($scope.teamId).success(function (data) {
     console.log(data);
+
     //load the values with the selected team
     if(sessionStorage.getItem('selectedTeamId') != undefined &&
         sessionStorage.getItem('selectedTeamId') != '') {
         console.log('changing effective team + ' );
         $scope.effectiveTeamName = sessionStorage.getItem('selectedEffectiveTeamName');
     }
-    for(var i = 0; i < data.teams.length; i++) {
-        if(data.teams[i].name == $scope.effectiveTeamName) {
-          $scope.effectiveTeam = data.teams[i];
-          console.log($scope.effectiveTeam);
-          return;
-        }
+
+    //load from other source
+    if(data[0] == null || data == '') {
+      TeamPlayers.effectiveTeamFromSource($scope.teamId).success(function(dataFromSource) {
+        data = dataFromSource;
+        //loadPlayers
+        loadEffectiveTeam(data);
+      });
+    } else {
+      loadEffectiveTeam(data[0]);
     }
   });
+
+
+    function loadPlayers(data) {
+      var keepersIndex = 0;
+      var middlesIndex = 0;
+      var defensesIndex = 0;
+      var strikersIndex = 0;
+      var staffIndex = 0;
+
+      for(var i = 0; i < data.players.length; i++) {
+        var a = data.players[i];
+        var playerConfirmation = false;
+
+        if(a.position.includes('Keeper')) {
+          $scope.goalKeepers[keepersIndex] = a;
+          keepersIndex++;
+          playerConfirmation = true;
+        } else if ((a.position.includes('Centre') && !a.position.includes('Forward'))
+          || a.position.includes('Wing')) {
+          $scope.middles[middlesIndex] = a;
+          middlesIndex++;
+          playerConfirmation = true;
+        } else if (a.position.includes('Back') || a.position.includes('Defensive')) {
+          $scope.defenses[defensesIndex] = a;
+          defensesIndex++;
+          playerConfirmation = true;
+        } else if (a.position.includes('Forward') || a.position.includes('Striker')) {
+          $scope.strikers[strikersIndex] = a;
+          strikersIndex++;
+          playerConfirmation = true;
+        } else if(!playerConfirmation) {
+          $scope.staff[staffIndex] = a;
+          staffIndex++;
+        }
+      }
+    }
+
+    function loadEffectiveTeam(data) {
+      $scope.effectiveTeam = data;
+    }
+
+
+
+  // DIALOGS
 
   $scope.openDeletePlayerDialog = function(player) {
     $scope.selectedPlayer = player;
@@ -134,7 +154,7 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   $scope.loadSelectedPlayer = function() {
     $scope.selectedPlayer = $cookies.getObject('selectedPlayer');
     $scope.details = $cookies.get('readOnly');
-    $scope.loadValuesPlayerValues();
+    $scope.loadValuesPlayerValues($scope.selectedPlayer.attributesId);
 
     $cookies.remove('selectedPlayer');
     $cookies.remove('readOnly');
@@ -202,48 +222,7 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     }
   };
 
-  $scope.loadValuesPlayerValues = function() {
-
-    $scope.ageCalculation = Math.floor((new Date() - new Date($scope.selectedPlayer.dateOfBirth))/(1000*60*60*24*365.25));
-
-    //load values from DB
-
-
-    //dummy values
-    $scope.physicalHeight = 40;
-    $scope.physicalResist = 90;
-    $scope.physicalAgility = 80;
-    $scope.physicalJumpHeight = 40;
-    $scope.physicalJumpLong = 30;
-    $scope.acelaration = 60;
-    $scope.velocity10m = 50;
-    $scope.velocity20m = 50;
-    $scope.velocity50m = 70;
-    $scope.velocity100m = 80;
-    $scope.mentalLeadership = 60;
-    $scope.mentalTeam = 40;
-    $scope.mentalTeamWork = 20;
-    $scope.mentalDetermination = 70;
-    $scope.mentalCreativity = 80;
-    $scope.mentalFocus = 80;
-    $scope.mentalAgressive = 40;
-    $scope.technicalCruzamento = 40;
-    $scope.technicalDrible = 50;
-    $scope.technicalWork = 10;
-    $scope.technicalShoot = 80;
-    $scope.technicalFinish = 40;
-    $scope.technicalHead = 60;
-    $scope.technicalFirst = 60;
-    $scope.technicalReceive = 50;
-    $scope.technicalFree = 40;
-    $scope.technicalLaunch = 80;
-    $scope.technicalPenalty = 70;
-    $scope.technicalCorner = 20;
-    $scope.technicalTech = 70;
-    $scope.technicalShortPass = 60;
-    $scope.technicalLongPass = 50;
-    $scope.technicalLongShoot = 50;
-
+  function loadSpecsList() {
     $scope.technical2Data = [
       [$scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty, $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass, $scope.technicalLongShoot]
     ];
@@ -260,5 +239,51 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     $scope.physicalData = [
       [$scope.physicalHeight, $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight, $scope.physicalJumpLong]
     ];
+  }
+
+  $scope.loadValuesPlayerValues = function(id) {
+    if(id != undefined) {
+      TeamPlayers.getPlayerSpecs(id).success(function (data) {
+        var playerSpecs = data[0];
+        $scope.physicalHeight = data[0].physicalHeight;
+        $scope.physicalResist = data[0].physicalResist;
+        $scope.physicalAgility = data[0].physicalAgility;
+        $scope.physicalJumpHeight = data[0].physicalJumpHeight;
+        $scope.physicalJumpLong = data[0].physicalJumpLong;
+        $scope.acelaration = data[0].acelaration;
+        $scope.velocity10m = data[0].velocity10m;
+        $scope.velocity20m = data[0].velocity20m;
+        $scope.velocity50m = data[0].velocity50m;
+        $scope.velocity100m = data[0].velocity100m;
+        $scope.mentalLeadership = data[0].mentalLeadership;
+        $scope.mentalTeam = data[0].mentalTeam;
+        $scope.mentalTeamWork = data[0].mentalTeamWork;
+        $scope.mentalDetermination = data[0].mentalDetermination;
+        $scope.mentalCreativity = data[0].mentalCreativity;
+        $scope.mentalFocus = data[0].mentalFocus
+        $scope.mentalAgressive = data[0].mentalAgressive;
+        $scope.technicalCruzamento = data[0].technicalCruzamento;
+        $scope.technicalDrible = data[0].technicalDrible;
+        $scope.technicalWork = data[0].technicalWork;
+        $scope.technicalShoot = data[0].technicalShoot
+        $scope.technicalFinish = data[0].technicalFinish
+        $scope.technicalHead = data[0].technicalHead;
+        $scope.technicalFirst = data[0].technicalFirst;
+        $scope.technicalReceive = data[0].technicalReceive;
+        $scope.technicalFree = data[0].technicalFree;
+        $scope.technicalLaunch = data[0].technicalLaunch;
+        $scope.technicalPenalty = data[0].technicalPenalty;
+        $scope.technicalCorner = data[0].technicalCorner;
+        $scope.technicalTech = data[0].technicalTech;
+        $scope.technicalShortPass = data[0].technicalShortPass;
+        $scope.technicalLongPass = data[0].technicalLongPass;
+        $scope.technicalLongShoot = data[0].technicalLongShoot;
+        $scope.ageCalculation = Math.floor((new Date() - new Date($scope.selectedPlayer.dateOfBirth))/(1000*60*60*24*365.25));
+        loadSpecsList();
+      });
+    } else {
+      //load only the specs
+
+    }
   };
 });

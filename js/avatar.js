@@ -14,7 +14,7 @@ $("#avatar-2").fileinput({
     removeTitle: 'Cancel or reset changes',
     elErrorContainer: '#kv-avatar-errors-2',
     msgErrorClass: 'alert alert-block alert-danger',
-    defaultPreviewContent: '<img src="/images/default_avatar_male.jpg" alt="Fotografia" style="width:160px"><h6 class="text-muted">Carregue para seleccionar</h6>',
+    defaultPreviewContent: '<img src="./images/default_avatar_male.jpg" alt="Fotografia" style="width:160px"><h6 class="text-muted">Carregue para seleccionar</h6>',
     layoutTemplates: {main2: '{preview} ' +  btnCust + ' {remove} {browse}'},
     allowedFileExtensions: ["jpg", "png", "gif"]
 });
