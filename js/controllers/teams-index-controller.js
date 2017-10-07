@@ -62,20 +62,17 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   });
 
   TeamPlayers.effectiveTeam($scope.teamId).success(function (data) {
-    console.log(data);
-
     //load the values with the selected team
     if(sessionStorage.getItem('selectedTeamId') != undefined &&
         sessionStorage.getItem('selectedTeamId') != '') {
-        console.log('changing effective team + ' );
+        console.log('changing effective team - selectedTeamId > ' + sessionStorage.getItem('selectedTeamId'));
         $scope.effectiveTeamName = sessionStorage.getItem('selectedEffectiveTeamName');
+        console.log('changing effective team - selectedEffectiveTeamName > ' + sessionStorage.getItem('selectedEffectiveTeamName'));
     }
-
     //load from other source
     if(data[0] == null || data == '') {
       TeamPlayers.effectiveTeamFromSource($scope.teamId).success(function(dataFromSource) {
         data = dataFromSource;
-        //loadPlayers
         loadEffectiveTeam(data);
       });
     } else {
@@ -84,49 +81,48 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   });
 
 
-    function loadPlayers(data) {
-      var keepersIndex = 0;
-      var middlesIndex = 0;
-      var defensesIndex = 0;
-      var strikersIndex = 0;
-      var staffIndex = 0;
+  function loadPlayers(data) {
+    var keepersIndex = 0;
+    var middlesIndex = 0;
+    var defensesIndex = 0;
+    var strikersIndex = 0;
+    var staffIndex = 0;
 
-      for(var i = 0; i < data.players.length; i++) {
-        var a = data.players[i];
-        var playerConfirmation = false;
+    for(var i = 0; i < data.players.length; i++) {
+      var a = data.players[i];
+      var playerConfirmation = false;
 
-        if(a.position.includes('Keeper')) {
-          $scope.goalKeepers[keepersIndex] = a;
-          keepersIndex++;
-          playerConfirmation = true;
-        } else if ((a.position.includes('Centre') && !a.position.includes('Forward'))
-          || a.position.includes('Wing')) {
-          $scope.middles[middlesIndex] = a;
-          middlesIndex++;
-          playerConfirmation = true;
-        } else if (a.position.includes('Back') || a.position.includes('Defensive')) {
-          $scope.defenses[defensesIndex] = a;
-          defensesIndex++;
-          playerConfirmation = true;
-        } else if (a.position.includes('Forward') || a.position.includes('Striker')) {
-          $scope.strikers[strikersIndex] = a;
-          strikersIndex++;
-          playerConfirmation = true;
-        } else if(!playerConfirmation) {
-          $scope.staff[staffIndex] = a;
-          staffIndex++;
-        }
+      if(a.position.includes('Keeper')) {
+        $scope.goalKeepers[keepersIndex] = a;
+        keepersIndex++;
+        playerConfirmation = true;
+      } else if ((a.position.includes('Centre') && !a.position.includes('Forward'))
+        || a.position.includes('Wing')) {
+        $scope.middles[middlesIndex] = a;
+        middlesIndex++;
+        playerConfirmation = true;
+      } else if (a.position.includes('Back') || a.position.includes('Defensive')) {
+        $scope.defenses[defensesIndex] = a;
+        defensesIndex++;
+        playerConfirmation = true;
+      } else if (a.position.includes('Forward') || a.position.includes('Striker')) {
+        $scope.strikers[strikersIndex] = a;
+        strikersIndex++;
+        playerConfirmation = true;
+      } else if(!playerConfirmation) {
+        $scope.staff[staffIndex] = a;
+        staffIndex++;
       }
     }
+  }
 
-    function loadEffectiveTeam(data) {
-      $scope.effectiveTeam = data;
-    }
+  function loadEffectiveTeam(data) {
+    $scope.effectiveTeam = data;
+  }
 
 
 
   // DIALOGS
-
   $scope.openDeletePlayerDialog = function(player) {
     $scope.selectedPlayer = player;
 
@@ -140,8 +136,8 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     });
   };
 
-  $scope.openPlayerInformationDialog = function(player, details) {
 
+  $scope.openPlayerInformationDialog = function(player, details) {
     $cookies.putObject('selectedPlayer', player);
     if(details == true) {
       $cookies.put('readOnly', 'disabled');
@@ -151,6 +147,8 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     $location.path('/addplayer');
   };
 
+
+  //LOAD DATA OF THE PLAYER
   $scope.loadSelectedPlayer = function() {
     $scope.selectedPlayer = $cookies.getObject('selectedPlayer');
     $scope.details = $cookies.get('readOnly');
@@ -160,6 +158,9 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     $cookies.remove('readOnly');
   };
 
+
+
+  //DELETE PLAYER
   $scope.deletePlayer = function() {
     if($scope.selectedPlayer.position.includes('Keeper')) {
       var index = $scope.goalKeepers.indexOf($scope.selectedPlayer);
@@ -178,8 +179,16 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
       var index = $scope.strikers.indexOf($scope.selectedPlayer);
       $scope.strikers.splice(index, 1);
     }
+
+    TeamPlayers.deletePlayer($scope.selectedPlayer).success(function (data) {
+        console.log("player removed...");
+        console.log(data);
+    });
   };
 
+
+
+  //SAVE PLAYER INFORMATION
   $scope.savePlayer = function() {
 
     //it exists
@@ -220,28 +229,58 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
         $scope.strikers.push($scope.selectedPlayer);
       }
     }
+
+    //it exists
+    if($scope.selectedPlayer.playerId != undefined &&
+      $scope.selectedPlayer.playerId != null && $scope.selectedPlayer.playerId != '') {
+      TeamPlayers.updatePlayerInformation($scope.selectedPlayer, $scope.physicalHeight,
+          $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight,
+          $scope.physicalJumpLong, $scope.acelaration, $scope.velocity10m, $scope.velocity20m,
+          $scope.velocity50m, $scope.velocity100m, $scope.mentalLeadership, $scope.mentalTeam,
+          $scope.mentalTeamWork, $scope.mentalDetermination, $scope.mentalCreativity, $scope.mentalFocus,
+          $scope.mentalAgressive, $scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork,
+          $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst,
+          $scope.technicalReceive, $scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty,
+          $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass,
+         $scope.technicalLongShoot).success(function (data) {
+        console.log(data);
+        console.log("player information updated!");
+        //UPDATE PLAYER IN DATABASE
+        TeamPlayers.updatePlayer($scope.selectedPlayer).success(function (data) {
+            console.log(data);
+            console.log("player updated!");
+        });
+      });
+
+    } else {
+      $scope.selectedPlayer.teamId = $scope.teamId;
+      TeamPlayers.createPlayerInformation($scope.selectedPlayer, $scope.physicalHeight,
+          $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight,
+          $scope.physicalJumpLong, $scope.acelaration, $scope.velocity10m, $scope.velocity20m,
+          $scope.velocity50m, $scope.velocity100m, $scope.mentalLeadership, $scope.mentalTeam,
+          $scope.mentalTeamWork, $scope.mentalDetermination, $scope.mentalCreativity, $scope.mentalFocus,
+          $scope.mentalAgressive, $scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork,
+          $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst,
+          $scope.technicalReceive, $scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty,
+          $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass,
+         $scope.technicalLongShoot).success(function (data) {
+        console.log(data);
+        console.log("player information created!");
+        $scope.selectedPlayer.attributesId = data[0];
+        //SAVE PLAYER IN DATABASE
+        TeamPlayers.savePlayer($scope.selectedPlayer).success(function (data) {
+            console.log("player created!");
+            console.log(data);
+        });
+      });
+    }
   };
 
-  function loadSpecsList() {
-    $scope.technical2Data = [
-      [$scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty, $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass, $scope.technicalLongShoot]
-    ];
-    $scope.technicalData = [
-      [$scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork, $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst, $scope.technicalReceive]
-    ];
-    $scope.mentalData = [
-      [$scope.mentalLeadership, $scope.mentalTeam, $scope.mentalTeamWork, $scope.mentalDetermination,
-        $scope.mentalCreativity, $scope.mentalFocus, $scope.mentalAgressive]
-    ];
-    $scope.velocityData = [
-      [$scope.velocity10m, $scope.velocity20m, $scope.velocity50m, $scope.velocity100m]
-    ];
-    $scope.physicalData = [
-      [$scope.physicalHeight, $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight, $scope.physicalJumpLong]
-    ];
-  }
+
 
   $scope.loadValuesPlayerValues = function(id) {
+    $scope.ageCalculation = Math.floor((new Date() - new Date($scope.selectedPlayer.dateOfBirth))/(1000*60*60*24*365.25));
+
     if(id != undefined) {
       TeamPlayers.getPlayerSpecs(id).success(function (data) {
         var playerSpecs = data[0];
@@ -278,12 +317,29 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
         $scope.technicalShortPass = data[0].technicalShortPass;
         $scope.technicalLongPass = data[0].technicalLongPass;
         $scope.technicalLongShoot = data[0].technicalLongShoot;
-        $scope.ageCalculation = Math.floor((new Date() - new Date($scope.selectedPlayer.dateOfBirth))/(1000*60*60*24*365.25));
         loadSpecsList();
       });
     } else {
       //load only the specs
-
     }
   };
+
+  function loadSpecsList() {
+    $scope.technical2Data = [
+      [$scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty, $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass, $scope.technicalLongShoot]
+    ];
+    $scope.technicalData = [
+      [$scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork, $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst, $scope.technicalReceive]
+    ];
+    $scope.mentalData = [
+      [$scope.mentalLeadership, $scope.mentalTeam, $scope.mentalTeamWork, $scope.mentalDetermination,
+        $scope.mentalCreativity, $scope.mentalFocus, $scope.mentalAgressive]
+    ];
+    $scope.velocityData = [
+      [$scope.velocity10m, $scope.velocity20m, $scope.velocity50m, $scope.velocity100m]
+    ];
+    $scope.physicalData = [
+      [$scope.physicalHeight, $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight, $scope.physicalJumpLong]
+    ];
+  }
 });

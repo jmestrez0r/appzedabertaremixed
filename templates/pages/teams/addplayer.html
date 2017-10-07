@@ -57,6 +57,19 @@
     </div>
 
     <div class="row">
+      <p/>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-2">
+          <button type="button" class="btn" ng-disabled="details"
+            ng-click="savePlayer()">
+            Gravar Jogador
+          </button>
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col-md-2">
         <div class="form-group">
             <label>Nome:</label>
@@ -191,6 +204,10 @@
               <th>Remate</th>
               <td><input class="form-control" ng-disabled="details"
                 ng-model="technicalShoot" style="width: 45px" /></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
               <th>Finalização</th>
               <td><input class="form-control" ng-disabled="details"
                 ng-model="technicalFinish" style="width: 45px" /></td>
@@ -204,8 +221,15 @@
               <td><input class="form-control" ng-disabled="details"
                 ng-model="technicalReceive" style="width: 45px" /></td>
             </tr>
-          </thead>
-          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-2">
+        <table class="table">
+          <thead>
             <tr>
               <th>Livres</th>
               <td><input class="form-control" ng-disabled="details"
@@ -219,6 +243,10 @@
               <th>Cantos</th>
               <td><input class="form-control" ng-disabled="details"
                 ng-model="technicalCorner" style="width: 45px" /></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
               <th>Técnica</th>
               <td><input class="form-control" ng-disabled="details"
                 ng-model="technicalTech" style="width: 45px" /></td>
