@@ -1,6 +1,6 @@
 <?php
 
-	include('config.php');
+	include('../config.php');
 
 
 	$player_id = $data->player_id;
@@ -14,29 +14,23 @@
 	$marketValue = $data->marketValue;
 
 	$sql = "UPDATE `PLAYER`
-		SET `NAME` = $name,
-				`POSITION` = $position,
-				`JERSEY_NUMBER` = $jerseyNumber,
-				`NATIONALITY` = $nationality,
-				`PICTURE` = $picture,
-				`CONTRACT_UNTIL` = $contractUntil,
-				`MARKET_VALUE` = $marketValue,
-WHERE `TEAM_ID` = $team_id AND `PLAYER_ID` = $player_id";
+		SET `NAME` = '$name',
+				`POSITION` = '$position',
+				`JERSEY_NUMBER` = '$jerseyNumber',
+				`NATIONALITY` = '$nationality',
+				`PICTURE` = '$picture',
+				`CONTRACT_UNTIL` = '$contractUntil',
+				`MARKET_VALUE` = '$marketValue'
+				WHERE `TEAM_ID` = $team_id AND `PLAYER_ID` = $player_id";
 
 	$qry = mysqli_query($con, $sql);
 
-	$data = array();
-
-	if($qry->num_rows > 0) {
-		while($row = $qry->fetch_object()) {
-			$data[] = $row;
-		}
+	if($qry === TRUE) {
+		echo "Updated player";
 	} else {
-		$data[] = null;
+		echo "Error: " . $qry . "<br>" . $con->error;
 	}
 
 	$con->close();
-
-	echo json_encode($data);
 
 ?>

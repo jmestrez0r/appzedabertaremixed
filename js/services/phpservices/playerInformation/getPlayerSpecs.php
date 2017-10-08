@@ -2,8 +2,7 @@
 
 	include('../config.php');
 
-
-	$attributes_id = $data->$attributes_id;
+	$attributes_id = $data->attributes_id;
 
 	$sql = "SELECT ATTRIBUTES_ID as attributesId, ALTURA as physicalHeight, RESISTENCIA as physicalResist,
 		AGILIDADE as physicalAgility, SALTO_ALTURA as physicalJumpHeight, SALTO_COMPRIMENTO as physicalJumpLong,

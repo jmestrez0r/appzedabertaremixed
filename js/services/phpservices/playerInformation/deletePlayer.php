@@ -1,6 +1,6 @@
 <?php
 
-	include('config.php');
+	include('../config.php');
 
 
 	$team_id = $data->team_id;
@@ -11,21 +11,22 @@
 	$sql = "DELETE FROM `PLAYER` WHERE `TEAM_ID` = $team_id AND
 		`PLAYER_ID` = $player_id";
 
-	$qry = mysqli_query($con, $sqlAtt);
-	$qry = mysqli_query($con, $sql);
+	$qry2 = mysqli_query($con, $sql);
 
-	$data = array();
-
-	if($qry->num_rows > 0) {
-		while($row = $qry->fetch_object()) {
-			$data[] = $row;
-		}
+	if($qry2 === TRUE) {
+		echo "Deleted Player";
 	} else {
-		$data[] = null;
+		echo "Error: " . $qry2 . "<br>" . $con->error;
+	}
+
+	$qry = mysqli_query($con, $sqlAtt);
+
+	if($qry === TRUE) {
+		echo "Deleted Attribute";
+	} else {
+		echo "Error: " . $qry . "<br>" . $con->error;
 	}
 
 	$con->close();
-
-	echo json_encode($data);
 
 ?>

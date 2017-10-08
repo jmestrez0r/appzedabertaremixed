@@ -13,25 +13,23 @@
 	$marketValue = $data->marketValue;
 	$attributesId = $data->attributesId;
 
-	$sql = "INSERT INTO `PLAYER`(TEAM_ID`, `NAME`, `POSITION`, `JERSEY_NUMBER`, `NATIONALITY`, `PICTURE`, `CONTRACT_UNTIL,
-		 MARKET_VALUE`, `ATTRIBUTES_ID)
-		values ($team_id , $name, $position, $jerseyNumber, $nationality, $picture, $contractUntil,
-			$marketValue, $attributesId)";
+	if($contractUntil === '') {
+		$contractUntil = NULL;
+	}
+
+	$sql = "INSERT INTO `PLAYER`(`TEAM_ID`, `NAME`, `POSITION`, `JERSEY_NUMBER`, `NATIONALITY`,
+		 `PICTURE`, `CONTRACT_UNTIL`, `MARKET_VALUE`, `ATTRIBUTES_ID`)
+		values ('$team_id', '$name', '$position', '$jerseyNumber', '$nationality', '$picture', '$contractUntil',
+			'$marketValue', '$attributesId')";
 
 	$qry = mysqli_query($con, $sql);
 
-	$data = array();
-
-	if($qry->num_rows > 0) {
-		while($row = $qry->fetch_object()) {
-			$data[] = $row;
-		}
+	if($qry === TRUE) {
+		echo "New player!";
 	} else {
-		$data[] = null;
+		echo "Error: " . $qry . "<br>" . $con->error;
 	}
 
 	$con->close();
-
-	echo json_encode($data);
 
 ?>

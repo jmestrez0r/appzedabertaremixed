@@ -2,7 +2,7 @@
 
 	include('../config.php');
 
-	$attributesId = $data->player_id;
+	$attributesId = $data->attributes_id;
 	$physicalHeight = $data->physicalHeight;
 	$physicalResist = $data->physicalResist;
 	$physicalAgility = $data->physicalAgility;
@@ -18,13 +18,13 @@
 	$mentalTeamWork = $data->mentalTeamWork;
 	$mentalDetermination = $data->mentalDetermination;
 	$mentalCreativity = $data->mentalCreativity;
-	$mentalFocus = $data->mentalFocus
+	$mentalFocus = $data->mentalFocus;
 	$mentalAgressive = $data->mentalAgressive;
 	$technicalCruzamento = $data->technicalCruzamento;
 	$technicalDrible = $data->technicalDrible;
 	$technicalWork = $data->technicalWork;
-	$technicalShoot = $data->technicalShoot
-	$technicalFinish = $data->technicalFinish
+	$technicalShoot = $data->technicalShoot;
+	$technicalFinish = $data->technicalFinish;
 	$technicalHead = $data->technicalHead;
 	$technicalFirst = $data->technicalFirst;
 	$technicalReceive = $data->technicalReceive;
@@ -48,7 +48,7 @@
 			 `VELOCIDADE_20`= $velocity20m,
 			 `VELOCIDADE_50m`= $velocity50m,
 			 `VELOCIDADE_100m`= $velocity100m,
-			 `LIDERANCA `= $mentalLeadership,
+			 `LIDERANCA`= $mentalLeadership,
 			 `EQUIPA`= $mentalTeam,
 			 `RACIO_TRABALHO`= $mentalTeamWork,
 			 `DETERMINACAO`= $mentalDetermination,
@@ -71,21 +71,16 @@
 			 `PASSE_CURTO`= $technicalShortPass,
 			 `PASSE_LONGO`= $technicalLongPass,
 			 `REMATE_LONGA_DISTANCIA`= $technicalLongShoot
-		WHERE ATTRIBUTES_ID = $attributesId"
+		WHERE ATTRIBUTES_ID = $attributesId";
+
 	$qryid = mysqli_query($con, $sqlid);
 
-	$data = array();
-
-	if($qryid->num_rows > 0) {
-		while($row = $qryid->fetch_object()) {
-			$data[] = $row;
-		}
+	if($qryid === TRUE) {
+		echo "Updated information";
 	} else {
-		$data[] = null;
+		echo "Error: " . $qryid . "<br>" . $con->error;
 	}
 
 	$con->close();
-
-	echo json_encode($data);
 
 ?>

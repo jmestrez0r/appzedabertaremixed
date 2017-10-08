@@ -249,6 +249,8 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
         TeamPlayers.updatePlayer($scope.selectedPlayer).success(function (data) {
             console.log(data);
             console.log("player updated!");
+
+            $location.path('/players');
         });
       });
 
@@ -263,15 +265,45 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
           $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst,
           $scope.technicalReceive, $scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty,
           $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass,
-         $scope.technicalLongShoot).success(function (data) {
-        console.log(data);
-        console.log("player information created!");
-        $scope.selectedPlayer.attributesId = data[0];
-        //SAVE PLAYER IN DATABASE
-        TeamPlayers.savePlayer($scope.selectedPlayer).success(function (data) {
-            console.log("player created!");
-            console.log(data);
-        });
+          $scope.technicalLongShoot).success(function (data) {
+
+           //verify if exists
+           TeamPlayers.getPlayerInformationId($scope.physicalHeight,
+               $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight,
+               $scope.physicalJumpLong, $scope.acelaration, $scope.velocity10m, $scope.velocity20m,
+               $scope.velocity50m, $scope.velocity100m, $scope.mentalLeadership, $scope.mentalTeam,
+               $scope.mentalTeamWork, $scope.mentalDetermination, $scope.mentalCreativity, $scope.mentalFocus,
+               $scope.mentalAgressive, $scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork,
+               $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst,
+               $scope.technicalReceive, $scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty,
+               $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass,
+               $scope.technicalLongShoot).success(function (data2) {
+                console.log(data2);
+                if(data2[0] != undefined && data2[0] != null && data2[0] != '') {
+                    console.log("player information created!");
+                    $scope.selectedPlayer.attributesId = data2[0].attributesId;
+
+                    $scope.selectedPlayer.pictureBlob = '';
+
+                    if($scope.selectedPlayer.contractUntil == undefined || $scope.selectedPlayer.contractUntil == '') {
+                      var date = new Date();
+                      var d = date.getDate();
+                      var m = date.getMonth();
+                      var y = date.getFullYear();
+                      $scope.selectedPlayer.contractUntil = $.datepicker.formatDate("yy-mm-dd", new Date(y+10, m, d, 0, 0));
+                    }
+
+                    $scope.selectedPlayer.marketValue = '';
+
+                    //SAVE PLAYER IN DATABASE
+                    TeamPlayers.savePlayer($scope.selectedPlayer).success(function (data3) {
+                        console.log(data3);
+                        console.log("player created!");
+
+                        $location.path('/players');
+                    });
+                }
+          });
       });
     }
   };
@@ -283,6 +315,7 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
 
     if(id != undefined) {
       TeamPlayers.getPlayerSpecs(id).success(function (data) {
+        console.log(data);
         var playerSpecs = data[0];
         $scope.physicalHeight = data[0].physicalHeight;
         $scope.physicalResist = data[0].physicalResist;

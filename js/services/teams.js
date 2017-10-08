@@ -45,7 +45,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
     },
 
     getPlayerSpecs: function(attributesId) {
-      return $http.post('./js/services/phpservices/team/getPlayerSpecs.php', {'attributes_id' : attributesId});
+      return $http.post('./js/services/phpservices/playerInformation/getPlayerSpecs.php', {'attributes_id' : attributesId});
     },
 
     createPlayerInformation: function(player, physicalHeight, physicalResist, physicalAgility,
@@ -72,11 +72,35 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
         'technicalLongPass':technicalLongPass, 'technicalLongShoot':technicalLongShoot});
     },
 
+    getPlayerInformationId: function(physicalHeight, physicalResist, physicalAgility,
+       physicalJumpHeight, physicalJumpLong, acelaration, velocity10m, velocity20m, velocity50m,
+       velocity100m, mentalLeadership, mentalTeam, mentalTeamWork, mentalDetermination, mentalCreativity,
+       mentalFocus, mentalAgressive, technicalCruzamento, technicalDrible, technicalWork, technicalShoot,
+       technicalFinish, technicalHead, technicalFirst, technicalReceive, technicalFree, technicalLaunch,
+       technicalPenalty, technicalCorner, technicalTech, technicalShortPass, technicalLongPass,
+       technicalLongShoot) {
+         return $http.post('./js/services/phpservices/playerInformation/getPlayerInformationId.php', {
+           'physicalHeight': physicalHeight,
+           'physicalResist':physicalResist, 'physicalAgility':physicalAgility,
+           'physicalJumpHeight':physicalJumpHeight, 'physicalJumpLong':physicalJumpLong,
+           'acelaration':acelaration, 'velocity10m':velocity10m, 'velocity20m':velocity20m,
+           'velocity50m':velocity50m, 'velocity100m':velocity100m, 'mentalLeadership':mentalLeadership,
+           'mentalTeam':mentalTeam, 'mentalTeamWork':mentalTeamWork, 'mentalDetermination':mentalDetermination,
+           'mentalCreativity':mentalCreativity, 'mentalFocus':mentalFocus, 'mentalAgressive':mentalAgressive,
+           'technicalCruzamento':technicalCruzamento, 'technicalDrible':technicalDrible,
+           'technicalWork':technicalWork, 'technicalShoot':technicalShoot, 'technicalFinish':technicalFinish,
+           'technicalHead':technicalHead, 'technicalFirst':technicalFirst, 'technicalReceive':technicalReceive,
+           'technicalFree':technicalFree, 'technicalLaunch':technicalLaunch,
+           'technicalPenalty':technicalPenalty, 'technicalCorner':technicalCorner,
+           'technicalTech':technicalTech, 'technicalShortPass':technicalShortPass,
+           'technicalLongPass':technicalLongPass, 'technicalLongShoot':technicalLongShoot});
+     },
+
     savePlayer: function(player) {
       return $http.post('./js/services/phpservices/playerInformation/createPlayer.php', {
         'team_id':player.teamId, 'name':player.name, 'position':player.position,
         'jerseyNumber': player.jerseyNumber, 'nationality': player.nationality,
-        'picture': player.picture, 'contractUntil': player.contractUntil,
+        'picture': player.pictureBlob, 'contractUntil': player.contractUntil,
         'marketValue': player.marketValue, 'attributesId': player.attributesId});
     },
 
@@ -108,8 +132,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
       return $http.post('./js/services/phpservices/playerInformation/updatePlayer.php', {
         'player_id': player.playerId, 'team_id':player.teamId, 'name':player.name,
         'position':player.position, 'jerseyNumber':player.jerseyNumber, 'nationality':player.nationality,
-        'picture':player.picture, 'contractUntil':player.contractUntil, 'marketValue':player.marketValue,
-        'attributesId':player.attributesId});
+        'picture':player.pictureBlob, 'contractUntil':player.contractUntil, 'marketValue':player.marketValue});
     },
 
     deletePlayer: function(player) {
