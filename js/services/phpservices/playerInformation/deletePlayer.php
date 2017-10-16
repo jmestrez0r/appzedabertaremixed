@@ -3,13 +3,13 @@
 	include('../config.php');
 
 
-	$team_id = $data->team_id;
-	$player_id = $data->player_id;
+	$teamId = $data->teamId;
+	$playerId = $data->playerId;
 	$attributesId = $data->attributesId;
 
 	$sqlAtt = "DELETE FROM `ATTRIBUTES` WHERE `ATTRIBUTES_ID` = $attributesId";
-	$sql = "DELETE FROM `PLAYER` WHERE `TEAM_ID` = $team_id AND
-		`PLAYER_ID` = $player_id";
+	$sql = "DELETE FROM `PLAYER` WHERE `TEAM_ID` = $teamId AND
+		`PLAYER_ID` = $playerId";
 
 	$qry2 = mysqli_query($con, $sql);
 

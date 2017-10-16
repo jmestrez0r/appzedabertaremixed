@@ -2,7 +2,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
   return {
     all: function(teamId) {
         //verify first in the database
-        return $http.post('./js/services/phpservices/team/getTeam.php', {'team_id' : teamId});
+        return $http.post('./js/services/phpservices/team/getTeam.php', {'teamId' : teamId});
     },
 
     allFromSource: function(teamId) {
@@ -21,7 +21,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
 
     effectiveTeam: function(teamId) {
       //verify first in the database
-      return $http.post('./js/services/phpservices/team/getEffectiveTeam.php', {'team_id' : teamId});
+      return $http.post('./js/services/phpservices/team/getEffectiveTeam.php', {'teamId' : teamId});
     },
 
     effectiveTeamFromSource: function(teamId) {
@@ -45,7 +45,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
     },
 
     getPlayerSpecs: function(attributesId) {
-      return $http.post('./js/services/phpservices/playerInformation/getPlayerSpecs.php', {'attributes_id' : attributesId});
+      return $http.post('./js/services/phpservices/playerInformation/getPlayerSpecs.php', {'attributesId' : attributesId});
     },
 
     createPlayerInformation: function(player, physicalHeight, physicalResist, physicalAgility,
@@ -56,7 +56,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
        technicalPenalty, technicalCorner, technicalTech, technicalShortPass, technicalLongPass,
        technicalLongShoot) {
       return $http.post('./js/services/phpservices/playerInformation/addPlayerInformation.php', {
-        'team_id': player.teamId, 'physicalHeight': physicalHeight,
+        'teamId': player.teamId, 'physicalHeight': physicalHeight,
         'physicalResist':physicalResist, 'physicalAgility':physicalAgility,
         'physicalJumpHeight':physicalJumpHeight, 'physicalJumpLong':physicalJumpLong,
         'acelaration':acelaration, 'velocity10m':velocity10m, 'velocity20m':velocity20m,
@@ -98,7 +98,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
 
     savePlayer: function(player) {
       return $http.post('./js/services/phpservices/playerInformation/createPlayer.php', {
-        'team_id':player.teamId, 'name':player.name, 'position':player.position,
+        'teamId':player.teamId, 'name':player.name, 'position':player.position,
         'jerseyNumber': player.jerseyNumber, 'nationality': player.nationality,
         'picture': player.pictureBlob, 'contractUntil': player.contractUntil,
         'marketValue': player.marketValue, 'attributesId': player.attributesId});
@@ -112,7 +112,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
        technicalPenalty, technicalCorner, technicalTech, technicalShortPass, technicalLongPass,
        technicalLongShoot) {
       return $http.post('./js/services/phpservices/playerInformation/updatePlayerInformation.php', {
-        'attributes_id':player.attributesId, 'physicalHeight':physicalHeight,
+        'attributesId':player.attributesId, 'physicalHeight':physicalHeight,
         'physicalResist':physicalResist, 'physicalAgility':physicalAgility,
         'physicalJumpHeight':physicalJumpHeight, 'physicalJumpLong':physicalJumpLong,
         'acelaration':acelaration, 'velocity10m':velocity10m, 'velocity20m':velocity20m,
@@ -130,14 +130,14 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
 
     updatePlayer: function(player) {
       return $http.post('./js/services/phpservices/playerInformation/updatePlayer.php', {
-        'player_id': player.playerId, 'team_id':player.teamId, 'name':player.name,
+        'playerId': player.playerId, 'teamId':player.teamId, 'name':player.name,
         'position':player.position, 'jerseyNumber':player.jerseyNumber, 'nationality':player.nationality,
         'picture':player.pictureBlob, 'contractUntil':player.contractUntil, 'marketValue':player.marketValue});
     },
 
     deletePlayer: function(player) {
       return $http.post('./js/services/phpservices/playerInformation/deletePlayer.php', {
-        'player_id': player.playerId, 'team_id': player.teamId, 'attributesId':player.attributesId});
+        'playerId': player.playerId, 'teamId': player.teamId, 'attributesId':player.attributesId});
     }
   };
 }]);

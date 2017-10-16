@@ -19,7 +19,7 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
     /* event source that contains custom events on the scope */
 
     //TODO INVOKE FIXTURE EVENTS
-    $scope.events = [{
+    /*$scope.events = [{
         title: 'Treino de Adaptação',
         start: new Date(y, m, d, 19, 0),
         url:'#/practices',
@@ -82,7 +82,12 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
         start: new Date(y, m, (d+8) - 5),
         end: new Date(y, m, (d+8) - 2),
         color: 'red'
-      }];
+      }];*/
+
+    //get the information of the events
+    CalendarEvents.getEvents($scope.teamId).success(function (data) {
+      $scope.events = data;
+    });
 
     /* event source that calls a function on every view switch */
     $scope.eventsF = function (start, end, timezone, callback) {
@@ -184,7 +189,24 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
         end: endDate,
         color: defineColor
       });
+
+      //save the event into database
+      CalendarEvents.saveEvent(eventTitle, defineUrl, $scope.eventType, startDate, endDate, defineColor, $scope.teamId).sucess(function (data) {
+        console.log(data);
+
+
+      });
     };
+
+    CalendarEvents.getGame($teamId).success(function (data) {
+      console.log(data);
+
+
+    });
+
+    CalendarEvents.deleteEvent($scope.selectedEventId).success(function (data) {
+      console.log(data);
+    });
 
     /* remove event */
     $scope.remove = function(index) {

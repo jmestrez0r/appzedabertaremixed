@@ -2,7 +2,7 @@
 
 	include('../config.php');
 
-	$attributesId = $data->attributes_id;
+	$attributesId = $data->attributesId;
 	$physicalHeight = $data->physicalHeight;
 	$physicalResist = $data->physicalResist;
 	$physicalAgility = $data->physicalAgility;

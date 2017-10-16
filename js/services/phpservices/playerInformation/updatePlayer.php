@@ -3,8 +3,8 @@
 	include('../config.php');
 
 
-	$player_id = $data->player_id;
-	$team_id = $data->team_id;
+	$playerId = $data->playerId;
+	$teamId = $data->teamId;
 	$name = $data->name;
 	$position = $data->position;
 	$jerseyNumber = $data->jerseyNumber;
@@ -21,7 +21,7 @@
 				`PICTURE` = '$picture',
 				`CONTRACT_UNTIL` = '$contractUntil',
 				`MARKET_VALUE` = '$marketValue'
-				WHERE `TEAM_ID` = $team_id AND `PLAYER_ID` = $player_id";
+				WHERE `TEAM_ID` = $teamId AND `PLAYER_ID` = $playerId";
 
 	$qry = mysqli_query($con, $sql);
 

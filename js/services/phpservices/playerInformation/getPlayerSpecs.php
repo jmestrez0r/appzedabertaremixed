@@ -2,7 +2,7 @@
 
 	include('../config.php');
 
-	$attributes_id = $data->attributes_id;
+	$attributesId = $data->attributesId;
 
 	$sql = "SELECT ATTRIBUTES_ID as attributesId, ALTURA as physicalHeight, RESISTENCIA as physicalResist,
 		AGILIDADE as physicalAgility, SALTO_ALTURA as physicalJumpHeight, SALTO_COMPRIMENTO as physicalJumpLong,
@@ -14,7 +14,7 @@
 		PRIMEIRO_TOQUE as technicalFirst, RECEPCAO_ORIENTADA as technicalReceive, LIVRES as technicalFree,
 		LANCAMENTOS as technicalLaunch, PENALTIES as technicalPenalty, CANTOS as technicalCorner, TECNICA as technicalTech,
 		PASSE_CURTO as technicalShortPass, PASSE_LONGO as technicalLongPass, REMATE_LONGA_DISTANCIA as technicalLongShoot
- FROM `ATTRIBUTES` WHERE `ATTRIBUTES_ID` = '$attributes_id'";
+ FROM `ATTRIBUTES` WHERE `ATTRIBUTES_ID` = '$attributesId'";
 
 	$qry = mysqli_query($con, $sql);
 

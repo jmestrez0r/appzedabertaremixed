@@ -3,7 +3,7 @@
 	include('../config.php');
 
 
-	$team_id = $data->team_id;
+	$teamId = $data->teamId;
 	$name = $data->name;
 	$position = $data->position;
 	$jerseyNumber = $data->jerseyNumber;
@@ -19,7 +19,7 @@
 
 	$sql = "INSERT INTO `PLAYER`(`TEAM_ID`, `NAME`, `POSITION`, `JERSEY_NUMBER`, `NATIONALITY`,
 		 `PICTURE`, `CONTRACT_UNTIL`, `MARKET_VALUE`, `ATTRIBUTES_ID`)
-		values ('$team_id', '$name', '$position', '$jerseyNumber', '$nationality', '$picture', '$contractUntil',
+		values ('$teamId', '$name', '$position', '$jerseyNumber', '$nationality', '$picture', '$contractUntil',
 			'$marketValue', '$attributesId')";
 
 	$qry = mysqli_query($con, $sql);
