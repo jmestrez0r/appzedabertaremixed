@@ -2,11 +2,11 @@
 
 	include('../config.php');
 
-	$team_id = $data->team_id;
+	$teamId = $data->teamId;
 
 		$sql = "SELECT TEAM_ID as teamId, NAME as name, SHORTNAME as shortName, DESCRIPTION as description,
 		CRESTURL as crestUrl
-		FROM `TEAM` WHERE `TEAM_ID` = '$team_id'";
+		FROM `TEAM` WHERE `TEAM_ID` = '$teamId'";
 
 	$qry = mysqli_query($con, $sql);
 

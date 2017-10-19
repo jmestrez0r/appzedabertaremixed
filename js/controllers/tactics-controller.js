@@ -2,7 +2,7 @@ angular.module("Elifoot").controller('TacticsController',
   function($scope, Tactics, TeamPlayers, ngDialog, Fixtures, Tactics) {
 
     $scope.teamId = sessionStorage.getItem('teamId');
-    $scope.selectedTactic = sessionStorage.getItem('selectedTactic');
+    $scope.selectedTactic = $cookies.putObject('selectedGameId');
 
     //available players
     TeamPlayers.all($scope.teamId).success(function(data) {

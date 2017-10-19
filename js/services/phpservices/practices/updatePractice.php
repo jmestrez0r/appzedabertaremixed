@@ -26,7 +26,7 @@
 		SET `TYPE` = $type,
 		SET `START_DATE` = $startDate,
 		SET `END_DATE` = $endDate,
-		SET `TEAM_ID` = $team_id,
+		SET `TEAM_ID` = $teamId,
 		SET `PLAYER_X_POSITION` = $playerXPosition,
 		SET `PLAYER_Y_POSITION` = $playerYPosition,
 		SET `PLAYER_Z_POSITION` = $playerZPosition,

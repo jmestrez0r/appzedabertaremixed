@@ -4,7 +4,7 @@
 
 	$eventId = $data->eventId;
 
-	$sql = "DELETE FROM `EVENT`
+	$sql = "DELETE FROM `CALENDAR`
 		WHERE `EVENT_ID` = $eventId";
 	$qry = mysqli_query($con, $sql);
 

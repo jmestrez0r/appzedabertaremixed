@@ -1,5 +1,5 @@
 var amodule = angular.module("Elifoot").controller('CalendarController',
-   function($scope, $compile, $timeout, uiCalendarConfig, CalendarInformation, ngDialog) {
+   function($scope, $compile, $timeout, uiCalendarConfig, CalendarInformation, Fixtures, ngDialog) {
 
     var date = new Date();
     var d = date.getDate();
@@ -19,75 +19,67 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
     /* event source that contains custom events on the scope */
 
     //TODO INVOKE FIXTURE EVENTS
-    /*$scope.events = [{
-        title: 'Treino de Adaptação',
-        start: new Date(y, m, d, 19, 0),
+    $scope.events = [{
+        title: 'Dummy',
+        start: new Date(y-9999, m, d, 19, 0),
         url:'#/practices',
         type: 'practice',
         color: 'orange'
-      },{
-        title: 'Treino de Adaptação',
-        start: new Date(y, m, d+7, 19, 0),
-        url:'#/practices',
-        type: 'practice',
-        color: 'orange'
-      }, {
-        id: 999,
-        title: 'Reunião Premier League',
-        start: new Date(y, m, d+4, 10, 0),
-        allDay: false,
-        type: 'meeting',
-        color: 'orange'
-      },{
-        id: 999,
-        title: 'Concentração: ' + selfTeam + ' vs Sporting CP',
-        start: new Date(y, m, d+1, 15, 0),
-        allDay: false,
-        type: 'focus',
-        color: 'blue'
-      },{
-        id: 999,
-        title: selfTeam + ' vs Sporting CP',
-        start: new Date(y, m, d+1, 19, 0),
-        url:'#/tactics',
-        type: 'game',
-        allDay: false,
-        color: 'red'
-      },{
-        id: 999,
-        title: 'Concentração: ' + selfTeam + ' vs SL Benfica',
-        start: new Date(y, m, d+8, 15, 0),
-        allDay: false,
-        type: 'focus',
-        color: 'blue'
-      },{
-        id: 999,
-        title: selfTeam + ' vs SL Benfica',
-        start: new Date(y, m, d+8, 19, 0),
-        url:'#/tactics',
-        type: 'game',
-        allDay: false,
-        color: 'red'
-      },{
-        title: 'Treino Intenso',
-        url:'#/practices',
-        type: 'practice',
-        start: new Date(y, m, d - 5),
-        end: new Date(y, m, d - 2),
-        color: 'red'
-      },{
-        title: 'Treino Intenso',
-        url:'#/practices',
-        type: 'practice',
-        start: new Date(y, m, (d+8) - 5),
-        end: new Date(y, m, (d+8) - 2),
-        color: 'red'
-      }];*/
+      }];
 
     //get the information of the events
-    CalendarEvents.getEvents($scope.teamId).success(function (data) {
-      $scope.events = data;
+    CalendarInformation.getEvents(teamId).success(function (data) {
+
+      for(var i = 0; i < data.length; i++) {
+        var colorVar = colorVerification(data[i].type);
+        var urlVar = urlVerification(data[i].type);
+
+        $scope.events.push({
+          id: data[i].eventId,
+          title: data[i].title,
+          url:   urlVar,
+          type: data[i].type,
+          start: data[i].startDate,
+          end: data[i].endDate,
+          color: colorVar
+        });
+      }
+
+      Fixtures.all(teamId).success(function(data) {
+          for(var i = 0; i < data.fixtures.length; i++) {
+            var game = data.fixtures[i];
+            $scope.events.push({
+              id: '',
+              title: game.homeTeamName + ' vs ' + game.awayTeamName,
+              url:   '#/tactics',
+              type: 'game',
+              start: game.date,
+              end: '',
+              color: 'red'
+            });
+          }
+      });
     });
+
+    function urlVerification(type) {
+      if(type == 'game') {
+        return '#/tactics';
+      } else if (type == 'meeting') {
+        return '';
+      } else if (type == 'practice') {
+        return '#/practices';
+      }
+    }
+
+    function colorVerification(type) {
+      if(type == 'game') {
+        return 'red';
+      } else if (type == 'meeting') {
+        return '';
+      } else if (type == 'practice') {
+        return 'orange';
+      }
+    }
 
     /* event source that calls a function on every view switch */
     $scope.eventsF = function (start, end, timezone, callback) {
@@ -107,9 +99,24 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
           {type:'party',title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
         ]
     };
+
+    //TODO !
     /* alert on eventClick */
-    $scope.alertOnEventClick = function( date, jsEvent, view){
+    $scope.alertOnEventClick = function(date, jsEvent, view){
         $scope.alertMessage = (date.title + ' was clicked ');
+        console.log(date);
+        console.log(' was clicked ');
+
+        if(date.id == null || date.id == '' || date.id == undefined) {
+          //save the event into database
+          CalendarInformation.saveEvent(date.title, '#/tactics', date.type, date.start, '', 'red', teamId).success(function (data) {
+            console.log(data);
+            $cookies.putObject('selectedGame', data.id);
+          });
+        } else {
+          //setElementToLoadTactic
+          $cookies.putObject('selectedGame', date.id);
+        }
     };
     /* alert on Drop */
      $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
@@ -163,6 +170,7 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
       } else if ($scope.eventType.id == 'practice') {
         $scope.eventType.description = 'Treino';
       }
+      return $scope.eventType;
     };
 
     /* add custom event*/
@@ -191,26 +199,22 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
       });
 
       //save the event into database
-      CalendarEvents.saveEvent(eventTitle, defineUrl, $scope.eventType, startDate, endDate, defineColor, $scope.teamId).sucess(function (data) {
+      CalendarInformation.saveEvent(eventTitle, defineUrl, $scope.eventType.id, startDate, endDate, defineColor, teamId).success(function (data) {
         console.log(data);
-
-
       });
     };
 
-    CalendarEvents.getGame($teamId).success(function (data) {
-      console.log(data);
-
-
-    });
-
-    CalendarEvents.deleteEvent($scope.selectedEventId).success(function (data) {
+    CalendarInformation.getGames(teamId).success(function (data) {
       console.log(data);
     });
 
     /* remove event */
     $scope.remove = function(index) {
       $scope.events.splice(index,1);
+
+      CalendarInformation.deleteEvent($scope.selectedEventId).success(function (data) {
+        console.log(data);
+      });
     };
     /* Change View */
     $scope.changeView = function(view,calendar) {

@@ -2,12 +2,12 @@
 
 	include('../config.php');
 
-	$team_id = $data->team_id;
+	$teamId = $data->teamId;
 
 	$sql = "SELECT PLAYER_ID as playerId, TEAM_ID as teamId, NAME as name, POSITION as position,
 		JERSEY_NUMBER as jerseyNumber, NATIONALITY as nationality, PICTURE as pictureBlob,
 		CONTRACT_UNTIL as contractUntil, MARKET_VALUE as marketValue, ATTRIBUTES_ID as attributesId
-		FROM `PLAYER` WHERE `TEAM_ID` = '$team_id'";
+		FROM `PLAYER` WHERE `TEAM_ID` = '$teamId'";
 	$qry = mysqli_query($con, $sql);
 
 	$data = array();

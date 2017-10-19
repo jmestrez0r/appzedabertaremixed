@@ -5,20 +5,17 @@
 	$eventId = $data->eventId;
 	$teamId = $data->teamId;
 	$eventTitle = $data->eventTitle;
-	$defineUrl = $data->defineUrl;
 	$eventType = $data->eventType;
 	$startDate = $data->startDate;
 	$endDate = $data->endDate;
 	$defineColor = $data->defineColor;
 
-	$sql = "UPDATE `EVENT`
+	$sql = "UPDATE `CALENDAR`
 		SET `TITLE` = $eventTitle,
-		SET `DEFINE_URL` = $defineUrl,
 		SET `TYPE` = $eventType,
 		SET `START_DATE` = $startDate,
 		SET `END_DATE` = $endDate,
 		SET `TEAM_ID` = $teamId,
-		SET `DEFINE_COLOR` = $defineColor
 		WHERE `EVENT_ID` = $eventId";
 	$qry = mysqli_query($con, $sql);
 

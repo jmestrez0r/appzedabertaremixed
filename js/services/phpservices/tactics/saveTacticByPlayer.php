@@ -16,7 +16,7 @@
 		`TEAM_ID`, `EVENT_ID`)
 		values ($title, $description, $playerId,
 			$playerXPosition, $playerYPosition, $playerZPosition,
-			$team_id, $eventId)";
+			$teamId, $eventId)";
 	$qry = mysqli_query($con, $sql);
 
 	if($qry === TRUE) {
