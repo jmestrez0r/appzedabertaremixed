@@ -23,6 +23,18 @@ angular.module('Elifoot').factory('CalendarInformation', ['$http', function($htt
           'teamId' : teamId
         });
     },
+    getEventId: function(eventTitle, defineUrl, eventType, startDate, endDate, defineColor, teamId) {
+        //verify first in the database
+        return $http.post('./js/services/phpservices/calendar/getEventId.php', {
+          'eventTitle' : eventTitle,
+          'defineUrl' : defineUrl,
+          'eventType' : eventType,
+          'startDate' : startDate,
+          'endDate' : endDate,
+          'defineColor' : defineColor,
+          'teamId' : teamId
+        });
+    },
     updateEvent: function(eventId, eventTitle, defineUrl, eventType, startDate, endDate, defineColor, teamId) {
         //verify first in the database
         return $http.post('./js/services/phpservices/calendar/saveEvent.php', {

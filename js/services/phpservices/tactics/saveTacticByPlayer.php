@@ -2,21 +2,18 @@
 
 	include('../config.php');
 
-	$title = $data->title;
 	$description = $data->description;
-	$playerXPosition = $data->playerXPosition;
-	$playerYPosition = $data->playerYPosition;
-	$playerZPosition = $data->playerZPosition;
+	$playerXPosition = $data->topPosition;
+	$playerYPosition = $data->leftPosition;
 	$teamId = $data->teamId;
 	$playerId = $data->playerId;
 	$eventId = $data->eventId;
 
-	$sql = "INSERT INTO `TACTICS`(`TITLE`,`DESCRIPTION`, `PLAYER_ID`,
+	$sql = "INSERT INTO `TACTICS`(`DESCRIPTION`, `PLAYER_ID`,
 		`PLAYER_X_POSITION`, `PLAYER_Y_POSITION`, `PLAYER_Z_POSITION`,
 		`TEAM_ID`, `EVENT_ID`)
-		values ($title, $description, $playerId,
-			$playerXPosition, $playerYPosition, $playerZPosition,
-			$teamId, $eventId)";
+		values ('$description', '$playerId', '$playerXPosition', '$playerYPosition', '0', '$teamId', '$eventId')";
+
 	$qry = mysqli_query($con, $sql);
 
 	if($qry === TRUE) {

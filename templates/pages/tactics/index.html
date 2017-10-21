@@ -8,7 +8,7 @@
       <div class="col-lg-12">
         <ol class="breadcrumb">
             <li class="active">
-                <i class="fa fa-dashboard"></i> Dashboard / Táticas - <small>{{selectedTactic}}</small>
+                <i class="fa fa-dashboard"></i> Dashboard / Táticas - <small>{{selectedTacticDescription}}</small>
             </li>
         </ol>
     </div>
@@ -23,10 +23,18 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" ng-show="selectedTacticId != null">
   <div class="col-lg-3">
       <button type="button" class="btn" ng-click="associateTacticToGameDialog()">
         Associar tática a evento
+      </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-3">
+      <button type="button" class="btn" ng-click="createTacticToGame()">
+        Gravar tactica
       </button>
   </div>
 </div>
@@ -55,7 +63,7 @@
                 jqyoui-droppable="{multiple:true}">
                 <div class="btn-draggable div-circle-squre"
                   data-drop="true"
-                      data-drag="true" jqyoui-droppable="{multiple:true}"
+                      data-drag="true" jqyoui-droppable="{multiple:true, onDrop: 'fieldDropCallback'}"
                       data-jqyoui-options="{revert: 'invalid'}"
                       jqyoui-draggable="{animate:true}" id="{{subplayer.number}}"
                       style="height: 500px !important">
@@ -107,7 +115,7 @@
                     ng-repeat="player in players | orderBy: 'number'"
                     data-drag="true"
                     data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
-                    jqyoui-draggable="{animate:true}" id="{{player.number}}" >
+                    jqyoui-draggable="{animate:true, onStop: 'dropCallback'}" id="{{player.number}}">
                     <span class="fa-3x circle-span" >
                       <i class="fa fa-circle-o fa-circle-2x" style="circle"></i>
                       <small>
@@ -122,6 +130,10 @@
         </div>
       </div>
     </div>
+</div>
+
+<div>
+  {{loadPlayersIntoTheTable()}}
 </div>
 
 <script type="text/ng-template" id="associateTacticDialog.html">

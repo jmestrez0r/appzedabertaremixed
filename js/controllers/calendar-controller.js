@@ -1,5 +1,5 @@
 var amodule = angular.module("Elifoot").controller('CalendarController',
-   function($scope, $compile, $timeout, uiCalendarConfig, CalendarInformation, Fixtures, ngDialog) {
+   function($scope, $compile, $timeout, $cookies, uiCalendarConfig, CalendarInformation, Fixtures, ngDialog) {
 
     var date = new Date();
     var d = date.getDate();
@@ -100,7 +100,7 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
         ]
     };
 
-    //TODO !
+
     /* alert on eventClick */
     $scope.alertOnEventClick = function(date, jsEvent, view){
         $scope.alertMessage = (date.title + ' was clicked ');
@@ -108,16 +108,27 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
         console.log(' was clicked ');
 
         if(date.id == null || date.id == '' || date.id == undefined) {
+
+          $cookies.putObject('selectedGameDescription', date.title);
           //save the event into database
           CalendarInformation.saveEvent(date.title, '#/tactics', date.type, date.start, '', 'red', teamId).success(function (data) {
             console.log(data);
-            $cookies.putObject('selectedGame', data.id);
+            if(data == "New record!") {
+              CalendarInformation.getEventId(date.title, '#/tactics', date.type, date.start, '', 'red', teamId).success(function (data2) {
+                console.log(data2);
+                $cookies.putObject('selectedGameId', data2[0].eventId);
+                console.log('selectedGameId ' + data2[0].eventId);
+                $cookies.putObject('selectedGameDescription', date.title);
+              });
+            }
           });
         } else {
           //setElementToLoadTactic
-          $cookies.putObject('selectedGame', date.id);
+          $cookies.putObject('selectedGameId', date.id);
+          console.log('selectedGameId ' + date.id);
         }
     };
+
     /* alert on Drop */
      $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
        $scope.alertMessage = ('Event Dropped to make dayDelta ' + delta);
