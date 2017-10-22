@@ -2,6 +2,7 @@ $(document).ready(function() {
 
     function showChartFFS() {
       var chartData = sessionStorage.getItem('chartData');
+      sessionStorage.removeItem('chartData');
       console.log('chartData');
       console.log(chartData);
 
@@ -20,5 +21,5 @@ $(document).ready(function() {
       }
     }
 
-    setTimeout(showChartFFS, 2000);
+    setTimeout(showChartFFS, 500);
 });
