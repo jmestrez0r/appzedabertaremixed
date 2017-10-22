@@ -11,6 +11,14 @@ angular.module('Elifoot').factory('CalendarInformation', ['$http', function($htt
         //verify first in the database
         return $http.post('./js/services/phpservices/calendar/getGames.php', {'teamId' : teamId});
     },
+    getPracticesList: function(teamId, startDate, endDate) {
+        //verify first in the database
+        return $http.post('./js/services/phpservices/calendar/getPractices.php', {
+          'teamId' : teamId,
+          'startDate' : startDate,
+          'endDate' : endDate
+        });
+    },
     saveEvent: function(eventTitle, defineUrl, eventType, startDate, endDate, defineColor, teamId) {
         //verify first in the database
         return $http.post('./js/services/phpservices/calendar/saveEvent.php', {
@@ -66,6 +74,13 @@ angular.module('Elifoot').factory('CalendarInformation', ['$http', function($htt
       return $http.post('./js/services/phpservices/calendar/getTodaysEventsByType.php', {
         'teamId' : teamId,
         'type' : type
+      });
+    },
+    getEventsCountByTypeStatistics: function(teamId, startDate, endDate) {
+      return $http.post('./js/services/phpservices/calendar/getEventsCountByType.php', {
+        'teamId' : teamId,
+        'startDate' : startDate,
+        'endDate' : endDate,
       });
     }
   };

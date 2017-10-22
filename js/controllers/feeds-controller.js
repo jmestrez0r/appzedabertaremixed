@@ -100,7 +100,6 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
       });
     }
 
-    //TODO
     $scope.showPracticeData = function() {
       ngDialog.open({
         template: 'practiceDetail.html',
@@ -112,11 +111,13 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
       });
     };
 
-    //TODO
     $scope.showPracticesList = function() {
-      Practices.getTodaysPractices($scope.teamId).success(function (data) {
-        console.log('Todays practices... ' + data);
-        $scope.practicesList = data[0];
+      var startOfWeek = moment().startOf('week').toDate();
+      var endOfWeek   = moment().endOf('week').toDate();
+
+      CalendarInformation.getPracticesList($scope.teamId, startOfWeek, endOfWeek).success(function (data) {
+        console.log('Practices list... ' + data);
+        $scope.practicesList = data;
 
         if($scope.practicesList.length > 0) {
           ngDialog.open({
@@ -128,14 +129,14 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
             width: '800px'
           });
         } else {
-          alert('No practices today!');
+          alert('No practices this week!');
         }
       });
     }
 
     $scope.loadInitialValues = function() {
-      var startOfWeek = new Date();
-      var endOfWeek   = moment().endOf('isoweek').toDate();
+      var startOfWeek = moment().startOf('week').toDate();
+      var endOfWeek   = moment().endOf('week').toDate();
 
       $scope.practicesThisWeek = CalendarInformation.getEventsCountByType(
           $scope.teamId,
@@ -143,7 +144,7 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
           startOfWeek,
           endOfWeek).success(function (data) {
         $scope.practicesThisWeek = data[0].eventsThisWeek;
-        console.log("You have " + $scope.practicesThisWeek + " practices until the remaining of this week.");
+        console.log("You have " + $scope.practicesThisWeek + " practices this week.");
       });
 
       $scope.eventsThisWeek = CalendarInformation.getEventsCountByType(
@@ -159,4 +160,60 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
     $scope.loadPracticeDetailsAndConfig = function() {
       sessionStorage.getItem('selectedPractice');
     };
+
+    $scope.chartData = [];
+
+    $scope.loadStatsGraph = function() {
+      if($scope.chartData.length > 0) {
+
+      }
+    }
+
+    $scope.loadAreaChart = function() {
+      var thisStartedMonth = moment().format('YYYY/MM');
+
+      for(var i = 0; i < 5; i++) {
+        var startDate = moment().startOf('month').subtract(i, 'months').format('YYYY/MM/DD');
+        var endDate = moment().endOf('month').subtract(i, 'months').format('YYYY/MM/DD');
+
+        CalendarInformation.getEventsCountByTypeStatistics($scope.teamId, startDate, endDate).success(
+            function (data) {
+          var ocurrenciasJogos = 0;
+          var ocurrenciasReunioes = 0;
+          var ocorrenciasTreinos = 0;
+          var dateTime = '';
+
+          //check if everything is filled
+          if(data[0] != '' && data[0] != undefined) {
+            if(data[0].occurrences != undefined) {
+              ocurrenciasJogos = data[0].occurrences;
+            }
+            if(data[0].startDate != undefined) {
+              dateTime = data[0].startDate;
+            } else {
+              dateTime = data;
+            }
+          }
+          if(data[1] != '' && data[1] != undefined) { ocurrenciasReunioes = data[1].occurrences; }
+          if(data[2] != '' && data[2] != undefined) { ocorrenciasTreinos = data[2].occurrences; }
+
+          console.log('Getting month ' + moment(dateTime, 'YYYY/MM').format('YYYY/MM') + ' information');
+          console.log(data);
+
+          $scope.chartData.push({
+             period: moment(dateTime, 'YYYY/MM').format('YYYY/MM'),
+             jogos: ocurrenciasJogos,
+             reunioes: ocurrenciasReunioes,
+             treinos: ocorrenciasTreinos
+          });
+
+          if(sessionStorage.getItem('chartData') != undefined ||
+            sessionStorage.getItem('chartData') != undefined) {
+            sessionStorage.removeItem('chartData');
+          }
+
+          sessionStorage.setItem('chartData', JSON.stringify($scope.chartData));
+        });
+      }
+    }
 });

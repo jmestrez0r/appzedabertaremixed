@@ -20,6 +20,23 @@ angular.module("Elifoot").controller('PracticesController',
       {'row': 6}
     ];
 
+    $scope.availabletypes = [{
+        selected: false,
+        name: 'Transição ofensiva'
+      }, {
+        selected: false,
+        name: 'Transição defensiva'
+      }, {
+        selected: false,
+        name: 'Organização ofensiva'
+      }, {
+        selected: false,
+        name: 'Organização defensiva'
+      }, {
+        selected: false,
+        name: 'Esquemas tacticos'
+      }];
+
     //component area
     $scope.icons = [
       { 'identification': 'icon1', 'component': 'glyphicon glyphicon-upload', 'drag': true, 'index': 0, 'image': false},
@@ -104,7 +121,6 @@ angular.module("Elifoot").controller('PracticesController',
 
     $scope.selectPracticeType = function() {
 
-      $scope.availabletypes = Practices.getAvailableTypes();
       console.log($scope.availabletypes);
 
       ngDialog.open({

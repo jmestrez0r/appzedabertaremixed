@@ -1,5 +1,5 @@
 <!-- Page Heading -->
-<div class="row" ng-init="validateAlertMessage();loadInitialValues();">
+<div class="row" ng-init="validateAlertMessage();loadInitialValues();loadAreaChart();">
     <div class="col-lg-12">
         <h1 class="page-header">
             <img src="{{crestUrl}}" height="50px" width="50px" /> Bem vindo <small>{{user}}</small>
@@ -8,7 +8,7 @@
       <div class="col-lg-12">
         <ol class="breadcrumb">
             <li class="active">
-                <i class="fa fa-dashboard"></i> Dashboard
+                <i class="fa fa-dashboard"></i> Dashboard Semanal
             </li>
         </ol>
     </div>
@@ -122,7 +122,6 @@
             <div class="panel-body">
                 <div id="morris-area-chart"></div>
             </div>
-
             <script src="js/plugins/morris/morris-data.js"></script>
         </div>
     </div>
@@ -143,11 +142,11 @@
       </thead>
       <tbody>
         <tr ng-repeat="practice in practicesList">
-          <th>{{practice.index}}</th>
-          <th>{{practice.identification}}</th>
+          <th>{{practice.eventId}}</th>
+          <th>{{practice.title}}</th>
           <td>{{practice.description}}</td>
           <td>{{practice.type}}</td>
-          <td>{{practice.datetime}}</td>
+          <td>{{practice.startDate}}</td>
         </tr>
       </tbody>
     </table>

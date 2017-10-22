@@ -1,35 +1,7 @@
 angular.module('Elifoot').factory('Practices', ['$http', function($http) {
 
-  var allPracticesArray = [
-    { title: 'Treino 1', description: 'Treino Dummy 1', exercise: '', type: 'Ofensivo', datetime: new Date(), volume: '', intensity: '', density: '', frequency: ''},
-    { title: 'Treino 2', description: 'Treino de Adaptação', exercise: '', type: 'Treino de preparação para o jogo a disputar.', datetime: new Date(), volume: '', intensity: '', density: '', frequency: ''},
-    { title: 'Treino 3', description: 'Treino Dummy 3', exercise: '', type: 'Ofensivo', datetime: new Date(), volume: '', intensity: '', density: '', frequency: ''},
-    { title: 'Treino 4', description: 'Treino Dummy 4', exercise: '', type: 'Defensivo', datetime: new Date(), volume: '', intensity: '', density: '', frequency: ''},
-    { title: 'Treino 5', description: 'Treino Dummy 5', exercise: '', type: 'Ofensivo', datetime: new Date(), volume: '', intensity: '', density: '', frequency: ''},
-    { title: 'Treino 6', description: 'Treino Dummy 5', exercise: '', type: 'Defensivo', datetime: new Date(), volume: '', intensity: '', density: '', frequency: ''}
-  ];
-
-  var availableTypes = [
-    {
-      selected: false,
-      name: 'Transição ofensiva'
-    }, {
-      selected: false,
-      name: 'Transição defensiva'
-    }, {
-      selected: false,
-      name: 'Organização ofensiva'
-    }, {
-      selected: false,
-      name: 'Organização defensiva'
-    }, {
-      selected: false,
-      name: 'Esquemas tacticos'
-    }
-  ];
-
   return {
-    allPractices: function() {
+    getPracticesList: function() {
       return allPracticesArray;
     },
 
