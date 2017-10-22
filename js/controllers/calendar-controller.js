@@ -48,18 +48,33 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
       Fixtures.all(teamId).success(function(data) {
           for(var i = 0; i < data.fixtures.length; i++) {
             var game = data.fixtures[i];
-            $scope.events.push({
-              id: '',
-              title: game.homeTeamName + ' vs ' + game.awayTeamName,
-              url:   '#/tactics',
-              type: 'game',
-              start: game.date,
-              end: '',
-              color: 'red'
-            });
+
+            //verify if the event exists
+            if(!eventExit(game)) {
+              $scope.events.push({
+                id: '',
+                title: game.homeTeamName + ' vs ' + game.awayTeamName,
+                url:   '#/tactics',
+                type: 'game',
+                start: game.date,
+                end: '',
+                color: 'red'
+              });
+            }
           }
       });
     });
+
+    function eventExit(game) {
+      for(var i = 0; i < $scope.events.length; i++) {
+        var storedGame = $scope.events[i];
+        if(storedGame.title == game.homeTeamName + ' vs ' + game.awayTeamName &&
+          storedGame.start == game.date.replace('T', ' ').replace('Z', '')) {
+            return true;
+        }
+      }
+      return false;
+    }
 
     function urlVerification(type) {
       if(type == 'game') {

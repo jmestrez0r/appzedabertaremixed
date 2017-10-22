@@ -47,6 +47,26 @@ angular.module('Elifoot').factory('CalendarInformation', ['$http', function($htt
           'defineColor' : defineColor,
           'teamId' : teamId
         });
+    },
+    getEventsCountByType: function(teamId, type, startDate, endDate) {
+      return $http.post('./js/services/phpservices/calendar/getEventsCount.php', {
+        'startDate' : startDate,
+        'endDate' : endDate,
+        'teamId' : teamId,
+        'type' : type
+      });
+    },
+    getNearByEventByType: function(teamId, type) {
+      return $http.post('./js/services/phpservices/calendar/getNearByEventByType.php', {
+        'teamId' : teamId,
+        'type' : type
+      });
+    },
+    getTodaysEventsByType: function(teamId, type) {
+      return $http.post('./js/services/phpservices/calendar/getTodaysEventsByType.php', {
+        'teamId' : teamId,
+        'type' : type
+      });
     }
   };
 }]);

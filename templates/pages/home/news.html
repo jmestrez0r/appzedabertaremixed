@@ -9,7 +9,7 @@
 
 <div class="row-fluid" ng-init="loadFeed()">
     <ul class="unstyled">
-        <li ng-repeat="feed in feeds.items">
+        <li ng-repeat="feed in feeds">
             <h4><a href="{{feed.link}}">{{feed.title}}</a></h4>
             <p class="text-left" style="font-size:15px" >{{feed.content}}</p>
             <span class="small">{{feed.pubDate}}</span>
