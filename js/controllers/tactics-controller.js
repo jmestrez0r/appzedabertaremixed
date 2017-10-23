@@ -115,6 +115,8 @@ angular.module("Elifoot").controller('TacticsController',
         return;
       }
 
+      $scope.selectedGameId = $cookies.getObject('selectedGameId');
+
       if($scope.selectedGameId != null && $scope.selectedGameId != '' && $scope.selectedGameId != undefined) {
         Tactics.deleteTactic($scope.teamId, $scope.selectedGameId).success(function (data) {
           console.log(data);

@@ -6,6 +6,8 @@ $(document).ready(function() {
       console.log('chartData');
       console.log(chartData);
 
+
+
       if(chartData != undefined && chartData != '') {
         // Area Chart
         Morris.Area({

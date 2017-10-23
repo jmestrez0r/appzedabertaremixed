@@ -186,7 +186,13 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
           //check if everything is filled
           if(data[0] != '' && data[0] != undefined) {
             if(data[0].occurrences != undefined) {
-              ocurrenciasJogos = data[0].occurrences;
+              if(data[0].type == 'game') {
+                ocurrenciasJogos = data[0].occurrences;
+              } else if(data[0].type == 'meeting') {
+                ocurrenciasReunioes = data[0].occurrences;
+              } else if(data[0].type == 'practice') {
+                ocorrenciasTreinos = data[0].occurrences;
+              }
             }
             if(data[0].startDate != undefined) {
               dateTime = data[0].startDate;
@@ -194,8 +200,24 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
               dateTime = data;
             }
           }
-          if(data[1] != '' && data[1] != undefined) { ocurrenciasReunioes = data[1].occurrences; }
-          if(data[2] != '' && data[2] != undefined) { ocorrenciasTreinos = data[2].occurrences; }
+          if(data[1] != '' && data[1] != undefined) {
+            if(data[1].type == 'game') {
+              ocurrenciasJogos = data[1].occurrences;
+            } else if(data[1].type == 'meeting') {
+              ocurrenciasReunioes = data[1].occurrences;
+            } else if(data[1].type == 'practice') {
+              ocorrenciasTreinos = data[1].occurrences;
+            }
+          }
+          if(data[2] != '' && data[2] != undefined) {
+            if(data[2].type == 'game') {
+              ocurrenciasJogos = data[2].occurrences;
+            } else if(data[2].type == 'meeting') {
+              ocurrenciasReunioes = data[2].occurrences;
+            } else if(data[2].type == 'practice') {
+              ocorrenciasTreinos = data[2].occurrences;
+            }
+          }
 
           console.log('Getting month ' + moment(dateTime, 'YYYY/MM').format('YYYY/MM') + ' information');
           console.log(data);
@@ -216,4 +238,5 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
         });
       }
     }
+
 });

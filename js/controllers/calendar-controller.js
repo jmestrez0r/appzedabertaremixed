@@ -125,11 +125,19 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
         if(date.id == null || date.id == '' || date.id == undefined) {
 
           $cookies.putObject('selectedGameDescription', date.title);
+          var defineUrl = '';
+
+          if(date.type == 'game') {
+            defineUrl = '#/tactics';
+          } else if (date.type == 'practice') {
+            defineUrl = '#/practices';
+          }
+
           //save the event into database
-          CalendarInformation.saveEvent(date.title, '#/tactics', date.type, date.start, '', 'red', teamId).success(function (data) {
+          CalendarInformation.saveEvent(date.title, defineUrl, date.type, date.start, '', 'red', teamId).success(function (data) {
             console.log(data);
             if(data == "New record!") {
-              CalendarInformation.getEventId(date.title, '#/tactics', date.type, date.start, '', 'red', teamId).success(function (data2) {
+              CalendarInformation.getEventId(date.title, defineUrl, date.type, date.start, '', 'red', teamId).success(function (data2) {
                 console.log(data2);
                 $cookies.putObject('selectedGameId', data2[0].eventId);
                 console.log('selectedGameId ' + data2[0].eventId);
@@ -139,6 +147,7 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
           });
         } else {
           //setElementToLoadTactic
+          $cookies.putObject('selectedGameDescription', date.title);
           $cookies.putObject('selectedGameId', date.id);
           console.log('selectedGameId ' + date.id);
         }
