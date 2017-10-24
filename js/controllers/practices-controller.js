@@ -4,6 +4,7 @@ angular.module("Elifoot").controller('PracticesController',
     $scope.selectedField = sessionStorage.getItem('selectedField');
     $scope.reloaded = sessionStorage.getItem('reloaded');
 
+    $scope.droppedPlayers = [];
     $scope.selectedPractice = {
       title: '',
       exercise: '',
@@ -106,6 +107,14 @@ angular.module("Elifoot").controller('PracticesController',
             $scope.selectedField = object.selectedField;
             $scope.selectedFieldSize.weight = object.weight;
             $scope.selectedFieldSize.height = object.height;
+
+            if($scope.selectedField == '') {
+              $scope.selectedField = './images/football_pitch.jpeg';
+              $scope.selectedFieldSize = {
+                'weight': '620px',
+                'height': '320px'
+              };
+            }
           }
         });
     }
@@ -181,12 +190,12 @@ angular.module("Elifoot").controller('PracticesController',
       $scope.typeDescription = '';
       for(var i = 0; i < $scope.availabletypes.length; i++) {
         if($scope.availabletypes[i].selected) {
-          $scope.selectedPractice.type.push($scope.availabletypes[i].name);
+          $scope.selectedPractice.type = $scope.availabletypes[i].name;
 
-          if($scope.typeDescription != '') {
-              $scope.typeDescription += ', ';
+          if($scope.selectedPractice.type != '') {
+              $scope.selectedPractice.type += ', ';
             }
-            $scope.typeDescription += $scope.availabletypes[i].name;
+            $scope.selectedPractice.type += $scope.availabletypes[i].name;
           }
       }
     };
@@ -205,18 +214,35 @@ angular.module("Elifoot").controller('PracticesController',
           savePracticePlayers();
         });
       } else {
-        savePracticePlayers();
+        CalendarInformation.saveEvent($scope.selectedPractice.title, '#/practices', 'practice', $scope.selectedPractice.datetime, '', 'orange', $scope.teamId).success(function (data) {
+            console.log(data);
+            if(data == 'New record!') {
+              CalendarInformation.getEventId($scope.selectedPractice.title, '#/practices', 'practice', $scope.selectedPractice.datetime, '', 'orange', $scope.teamId).success(function (data2) {
+                console.log(data2);
+                $cookies.putObject('selectedGameId', data2[0].eventId);
+                $scope.selectedGameId = data2[0].eventId;
+
+                savePracticePlayers();
+              });
+            } else {
+              alert('Something occurred!');
+            }
+        });
       }
     };
 
-    function savePlayers() {
+    function savePracticePlayers() {
       for(var i = 0; i < $scope.droppedPlayers.length; i++) {
         var player = $scope.droppedPlayers[i];
         console.log(player);
 
-        console.log($scope.selectedTacticDescription + ' , ' +
-          player.playerId + ' , ' + player.topPosition + ' , ' + player.leftPosition + ' , '
-          + $scope.teamId + ' , ' + $scope.selectedGameId);
+        console.log($scope.selectedPractice.title+ ', ' +
+            $scope.selectedPractice.exercise+ ', ' + $scope.selectedPractice.datetime+ ', ' +
+            $scope.selectedPractice.type+ ', ' + $scope.selectedPractice.volume+ ', ' +
+            $scope.selectedPractice.intensity+ ', ' + $scope.selectedPractice.density+ ', ' +
+            $scope.selectedPractice.frequency+ ', ' + $scope.selectedPractice.description+ ', ' +
+            $scope.selectedField+ ', ' + player.playerId+ ', ' + player.topPosition+ ', ' +
+            player.leftPosition+ ', ' + $scope.teamId+ ', ' + $scope.selectedGameId);
 
         Practices.savePlayerInPractice($scope.selectedPractice.title,
             $scope.selectedPractice.exercise, $scope.selectedPractice.datetime,
@@ -233,10 +259,34 @@ angular.module("Elifoot").controller('PracticesController',
       }
     }
 
+    $scope.dropPracticeCallback = function(event, ui) {
+      console.log("selected object with number: " + ui.helper.context.id);
+      console.log("selected player positions:");
+      console.log("TOP: " + ui.position.top);
+      console.log("TOP: " + ui.position.left);
+
+      updatePlayerObjectPracticeLocationAndAddToList(ui.helper.context.id, ui.position.top, ui.position.left);;
+
+      console.log($scope.players);
+    };
+
+    function updatePlayerObjectPracticeLocationAndAddToList(number, topPosition, leftPosition) {
+      for(var i = 0; i < $scope.players.length; i++) {
+        if($scope.players[i].number == number) {
+          for(var j = 0; j < $scope.droppedPlayers.length; j++) {
+            if($scope.droppedPlayers[j].number == number) {
+              $scope.droppedPlayers.splice(j,1);
+            }
+          }
+          $scope.players[i].topPosition = topPosition;
+          $scope.players[i].leftPosition = leftPosition;
+          $scope.droppedPlayers.push($scope.players[i]);
+          return;
+        }
+      }
+    }
+
     $scope.toggleField = function() {
-      Practices.deletePractice($scope.teamId, $scope.selectedGameId).success(function (data) {
-        console.log(data);
-      });
 
       if($scope.selectedField == undefined || $scope.selectedField == '') {
         $scope.selectedField = './images/football_pitch.jpeg';
@@ -256,7 +306,7 @@ angular.module("Elifoot").controller('PracticesController',
           'weight': '500px',
           'height': '425px'
         };
-      } else if($scope.selectedField.indexOf('football_pitch_half_left')) {
+      } else if($scope.selectedField.indexOf('football_pitch_half_left') > 1) {
         $scope.selectedField = './images/football_pitch.jpeg';
         $scope.selectedFieldSize = {
           'weight': '620px',

@@ -126,18 +126,21 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
 
           $cookies.putObject('selectedGameDescription', date.title);
           var defineUrl = '';
+          var defineColor = '';
 
           if(date.type == 'game') {
             defineUrl = '#/tactics';
+            definedColor = 'red';
           } else if (date.type == 'practice') {
             defineUrl = '#/practices';
+            defineColor = 'orange';
           }
 
           //save the event into database
-          CalendarInformation.saveEvent(date.title, defineUrl, date.type, date.start, '', 'red', teamId).success(function (data) {
+          CalendarInformation.saveEvent(date.title, defineUrl, date.type, date.start, '', defineColor, teamId).success(function (data) {
             console.log(data);
             if(data == "New record!") {
-              CalendarInformation.getEventId(date.title, defineUrl, date.type, date.start, '', 'red', teamId).success(function (data2) {
+              CalendarInformation.getEventId(date.title, defineUrl, date.type, date.start, '', defineColor, teamId).success(function (data2) {
                 console.log(data2);
                 $cookies.putObject('selectedGameId', data2[0].eventId);
                 console.log('selectedGameId ' + data2[0].eventId);

@@ -55,8 +55,8 @@
   <div class="col-md-2">
     <div class="form-group">
         <label>Tipo:</label>
-        <input class="form-control" ng-model="typeDescription"
-          value="{{typeDescription}}" ng-click="selectPracticeType();"  />
+        <input class="form-control" ng-model="selectedPractice.type"
+          value="{{selectedPractice.type}}" ng-click="selectPracticeType();"  />
     </div>
   </div>
   <div class="col-md-2">
@@ -151,9 +151,9 @@
               ng-model='icons'
               jqyoui-droppable="{multiple:true}">
               <div class="btn-draggable col-lg-4" ng-repeat="icon in icons"
-                    data-drag="true"
+                    data-drag="true" id="{{icon.identification}}"
                     data-jqyoui-options="{revert: 'invalid'}" ng-model="icons"
-                    jqyoui-draggable="{animate:true}">
+                    jqyoui-draggable="{animate:true, onStop: 'dropPracticeCallback'}">
                     <img ng-if="icon.image" src="./images/{{icon.fileName}}"
                       class="btn-draggable" width="65px" height="65px"/>
                     <i ng-if="!icon.image" class="{{icon.component}} fa-2x"> </i>
@@ -175,7 +175,7 @@
                     ng-repeat="player in players | orderBy: 'number'"
                     data-drag="true"
                     data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
-                    jqyoui-draggable="{animate:true}" id="{{player.number}}" >
+                    jqyoui-draggable="{animate:true, onStop: 'dropPracticeCallback'}" id="{{player.number}}" >
                     <span class="fa-3x circle-span" >
                       <i class="fa fa-circle-o fa-circle-2x" style="circle"></i>
                       <small>

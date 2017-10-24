@@ -8,7 +8,7 @@
 	$sql = "SELECT PR.PRACTICE_ID as practiceId, PR.TITLE as title, PR.PRACTICE_DESC as practiceDescription,
 		PR.START_DATE as startDate, PR.TYPE as type, PR.VOLUME as volume, PR.INTENSITY as intensity,
 		PR.DENSITY as density, PR.FREQUENCY as frequency, PR.DESCRIPTION as description,
-		PR.PLAYER_ID as playerId, PL.NUMBER as jerseyNumber, PL.NAME as name,
+		PR.PLAYER_ID as playerId, PL.JERSEY_NUMBER as jerseyNumber, PL.NAME as name,
 		PR.PLAYER_X_POSITION as topPosition, PR.PLAYER_Y_POSITION as leftPosition,
 		PR.PLAYER_Z_POSITION as playerZPosition, PR.TEAM_ID as teamId, PR.EVENT_ID as eventId,
 		PR.FIELD_LOCATION as selectedField, PR.FIELD_HEIGHT as height, PR.FIELD_WEIGHT as weight
