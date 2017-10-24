@@ -125,6 +125,8 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
         if(date.id == null || date.id == '' || date.id == undefined) {
 
           $cookies.putObject('selectedGameDescription', date.title);
+          $cookies.putObject('selectedGameDate', date.start);
+
           var defineUrl = '';
           var defineColor = '';
 
@@ -152,6 +154,7 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
           //setElementToLoadTactic
           $cookies.putObject('selectedGameDescription', date.title);
           $cookies.putObject('selectedGameId', date.id);
+          $cookies.putObject('selectedGameDate', date.start);
           console.log('selectedGameId ' + date.id);
         }
     };
