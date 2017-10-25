@@ -14,24 +14,8 @@ angular.module('Elifoot').factory('Practices', ['$http', function($http) {
       });
     },
     savePlayerInPractice: function(event, exercise, datetime, type, volume, intensity, density,
-        frequency, description, selectedField, selectedFieldSize, player) {
-          console.log('teamId:' + event.teamId);
-          console.log('eventId:' + event.selectedGameId);
-          console.log('title:' + event.title);
-          console.log('exercise:' + exercise);
-          console.log('startDate:' + datetime);
-          console.log('type:' + type);
-          console.log('volume:' + volume);
-          console.log('intensity:' + intensity);
-          console.log('density:' + density);
-          console.log('frequency:' + frequency);
-          console.log('description:' + description);
-          console.log('fieldLocation:' + selectedField);
-          console.log('fieldWeight:' + selectedFieldSize.weight);
-          console.log('fieldHeight:' + selectedFieldSize.height);
-          console.log('playerId:' + player.playerId);
-          console.log('topPosition:' + player.topPosition);
-          console.log('leftPosition:' + player.leftPosition);
+        frequency, description, selectedField, selectedFieldSize, player, iconId, iconTopPosition,
+        iconLeftPosition) {
           return $http.post('./js/services/phpservices/practices/savePractice.php', {
             'teamId' : event.teamId,
             'eventId' : event.selectedGameId,
@@ -49,7 +33,10 @@ angular.module('Elifoot').factory('Practices', ['$http', function($http) {
             'fieldHeight' : selectedFieldSize.height,
             'playerId' : player.playerId,
             'topPosition' : player.topPosition,
-            'leftPosition' : player.leftPosition
+            'leftPosition' : player.leftPosition,
+            'iconId' : iconId,
+            'iconTopPosition' : iconTopPosition,
+            'iconLeftPosition' : iconLeftPosition
         });
     }
   };

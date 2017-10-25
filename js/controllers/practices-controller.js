@@ -5,6 +5,7 @@ angular.module("Elifoot").controller('PracticesController',
     $scope.reloaded = sessionStorage.getItem('reloaded');
 
     $scope.droppedPlayers = [];
+    $scope.droppedIcons = [];
     $scope.selectedPractice = {
       title: '',
       exercise: '',
@@ -88,15 +89,25 @@ angular.module("Elifoot").controller('PracticesController',
             for(var i = 0; i < data.length; i++) {
               var object = data[i];
 
-              $scope.droppedPlayers.push({
-                'name': object.name,
-                'colorPosition': '',
-                'index': i,
-                'number': object.jerseyNumber,
-                'playerId': object.playerId,
-                'topPosition': object.topPosition,
-                'leftPosition': object.leftPosition
-              });
+              if(object.jerseyNumber != '' && object.jerseyNumber != null &&
+                object.jerseyNumber != undefined) {
+                  $scope.droppedPlayers.push({
+                    'name': object.name,
+                    'colorPosition': '',
+                    'index': i,
+                    'number': object.jerseyNumber,
+                    'playerId': object.playerId,
+                    'topPosition': object.topPosition,
+                    'leftPosition': object.leftPosition
+                  });
+              } else {
+                $scope.droppedIcons.push({
+                  'identification': object.iconId,
+                  'topPosition': object.iconTopPosition,
+                  'leftPosition': object.iconLeftPosition
+                });
+              }
+
 
               $scope.selectedPractice.title = object.title;
               $scope.selectedPractice.exercise = object.practiceDescription;
@@ -130,6 +141,14 @@ angular.module("Elifoot").controller('PracticesController',
           document.getElementById($scope.droppedPlayers[i].number).setAttribute('style',
             'top:' + $scope.droppedPlayers[i].topPosition + 'px;' +
             'left:' + $scope.droppedPlayers[i].leftPosition + 'px');
+        }
+      }
+      for(var i = 0; i < $scope.droppedIcons.length; i++) {
+        if(document.getElementById($scope.droppedIcons[i].identification) != undefined &&
+            document.getElementById($scope.droppedIcons[i].identification) != null) {
+          document.getElementById($scope.droppedIcons[i].identification).setAttribute('style',
+            'top:' + $scope.droppedIcons[i].topPosition + 'px;' +
+            'left:' + $scope.droppedIcons[i].leftPosition + 'px');
         }
       }
     }
@@ -191,18 +210,14 @@ angular.module("Elifoot").controller('PracticesController',
       });
     };
 
-    $scope.typeDescription = '';
-
     $scope.selectedIntensity = function(intensity) {
       $scope.selectedPractice.intensity = intensity;
     };
 
     $scope.addTypesToPractice = function() {
-      $scope.typeDescription = '';
+      $scope.selectedPractice.type = '';
       for(var i = 0; i < $scope.availabletypes.length; i++) {
         if($scope.availabletypes[i].selected) {
-          $scope.selectedPractice.type = $scope.availabletypes[i].name;
-
           if($scope.selectedPractice.type != '') {
               $scope.selectedPractice.type += ', ';
             }
@@ -266,7 +281,46 @@ angular.module("Elifoot").controller('PracticesController',
             $scope.selectedPractice.type, $scope.selectedPractice.volume,
             $scope.selectedPractice.intensity, $scope.selectedPractice.density,
             $scope.selectedPractice.frequency, $scope.selectedPractice.description,
-            $scope.selectedField, $scope.selectedFieldSize, player).success(function (data) {
+            $scope.selectedField, $scope.selectedFieldSize, player, '', '',
+            '').success(function (data) {
+          if(data != "New record!") {
+            alert("Something occurred");
+            console.log(data);
+          }
+        });
+      }
+
+      for(var i = 0; i < $scope.droppedIcons.length; i++) {
+        var icon = $scope.droppedIcons[i];
+        console.log(icon);
+
+        console.log($scope.selectedPractice.title+ ', ' +
+            $scope.selectedPractice.exercise+ ', ' + $scope.selectedPractice.datetime+ ', ' +
+            $scope.selectedPractice.type+ ', ' + $scope.selectedPractice.volume+ ', ' +
+            $scope.selectedPractice.intensity+ ', ' + $scope.selectedPractice.density+ ', ' +
+            $scope.selectedPractice.frequency+ ', ' + $scope.selectedPractice.description+ ', ' +
+            $scope.selectedField+ ', ' + player.playerId+ ', ' + player.topPosition+ ', ' +
+            player.leftPosition+ ', ' + teamId+ ', ' + selectedGameId);
+
+            var eventFeatures = {
+              title: $scope.selectedPractice.title,
+              teamId: teamId,
+              selectedGameId: selectedGameId
+            };
+
+            var player = {
+              playerId : '',
+              topPosition : '',
+              leftPosition : '',
+            };
+
+        Practices.savePlayerInPractice(eventFeatures,
+            $scope.selectedPractice.exercise, $scope.selectedPractice.datetime,
+            $scope.selectedPractice.type, $scope.selectedPractice.volume,
+            $scope.selectedPractice.intensity, $scope.selectedPractice.density,
+            $scope.selectedPractice.frequency, $scope.selectedPractice.description,
+            $scope.selectedField, $scope.selectedFieldSize, player, icon.identification, icon.topPosition,
+            icon.leftPosition).success(function (data) {
           if(data != "New record!") {
             alert("Something occurred");
             console.log(data);
@@ -281,12 +335,13 @@ angular.module("Elifoot").controller('PracticesController',
       console.log("TOP: " + ui.position.top);
       console.log("TOP: " + ui.position.left);
 
-      updatePlayerObjectPracticeLocationAndAddToList(ui.helper.context.id, ui.position.top, ui.position.left);;
+      updatePlayerPracticeLocationAndAddToList(ui.helper.context.id, ui.position.top, ui.position.left);
+      updateObjectPracticeLocationAndAddToList(ui.helper.context.id, ui.position.top, ui.position.left);
 
       console.log($scope.players);
     };
 
-    function updatePlayerObjectPracticeLocationAndAddToList(number, topPosition, leftPosition) {
+    function updatePlayerPracticeLocationAndAddToList(number, topPosition, leftPosition) {
       for(var i = 0; i < $scope.players.length; i++) {
         if($scope.players[i].number == number) {
           for(var j = 0; j < $scope.droppedPlayers.length; j++) {
@@ -297,6 +352,22 @@ angular.module("Elifoot").controller('PracticesController',
           $scope.players[i].topPosition = topPosition;
           $scope.players[i].leftPosition = leftPosition;
           $scope.droppedPlayers.push($scope.players[i]);
+          return;
+        }
+      }
+    }
+
+    function updateObjectPracticeLocationAndAddToList(id, topPosition, leftPosition) {
+      for(var i = 0; i < $scope.icons.length; i++) {
+        if($scope.icons[i].identification == id) {
+          for(var j = 0; j < $scope.droppedIcons.length; j++) {
+            if($scope.droppedIcons[j].identification == id) {
+              $scope.droppedIcons.splice(j,1);
+            }
+          }
+          $scope.icons[i].topPosition = topPosition;
+          $scope.icons[i].leftPosition = leftPosition;
+          $scope.droppedIcons.push($scope.icons[i]);
           return;
         }
       }

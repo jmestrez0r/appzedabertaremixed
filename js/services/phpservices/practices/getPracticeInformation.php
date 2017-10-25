@@ -11,9 +11,11 @@
 		PR.PLAYER_ID as playerId, PL.JERSEY_NUMBER as jerseyNumber, PL.NAME as name,
 		PR.PLAYER_X_POSITION as topPosition, PR.PLAYER_Y_POSITION as leftPosition,
 		PR.PLAYER_Z_POSITION as playerZPosition, PR.TEAM_ID as teamId, PR.EVENT_ID as eventId,
-		PR.FIELD_LOCATION as selectedField, PR.FIELD_HEIGHT as height, PR.FIELD_WEIGHT as weight
+		PR.FIELD_LOCATION as selectedField, PR.FIELD_HEIGHT as height, PR.FIELD_WEIGHT as weight,
+		PR.OBJECT_ICON_ID as iconId, PR.OBJECT_X_POSITION as iconTopPosition,
+		PR.OBJECT_Y_POSITION as iconLeftPosition, PR.OBJECT_Z_POSITION as iconZPosition
 		FROM `PRACTICES` PR
-			INNER JOIN PLAYER PL ON PR.PLAYER_ID = PL.PLAYER_ID
+			LEFT JOIN PLAYER PL ON PR.PLAYER_ID = PL.PLAYER_ID
 		WHERE PR.TEAM_ID = '$teamId' AND PR.EVENT_ID = $eventId";
 	$qry = mysqli_query($con, $sql);
 
