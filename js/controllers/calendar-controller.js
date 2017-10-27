@@ -258,7 +258,7 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
 
                 //go to the pretended screen
                 window.location.href = defineUrl;
-                $scope.reload();
+                $route.reload();
 
                 return;
               }

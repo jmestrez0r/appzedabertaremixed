@@ -4,6 +4,8 @@ angular.module("Elifoot").controller('PracticesController',
     $scope.selectedField = sessionStorage.getItem('selectedField');
     $scope.reloaded = sessionStorage.getItem('reloaded');
 
+    var showed = false;
+
     $scope.droppedPlayers = [];
     $scope.droppedIcons = [];
     $scope.selectedPractice = {
@@ -324,6 +326,15 @@ angular.module("Elifoot").controller('PracticesController',
           if(data != "New record!") {
             alert("Something occurred");
             console.log(data);
+          } else {
+            if(!showed) {
+              showed = true;
+              ngDialog.open({
+                  template: 'successMessage.html',
+                  className: 'ngdialog-theme-default',
+                  showClose: false
+              });
+            }
           }
         });
       }

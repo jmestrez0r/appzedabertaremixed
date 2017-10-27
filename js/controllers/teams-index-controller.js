@@ -152,7 +152,11 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   $scope.loadSelectedPlayer = function() {
     $scope.selectedPlayer = $cookies.getObject('selectedPlayer');
     $scope.details = $cookies.get('readOnly');
-    $scope.loadValuesPlayerValues($scope.selectedPlayer.attributesId);
+    if($scope.selectedPlayer != undefined &&
+      $scope.selectedPlayer.attributesId != '' &&
+      $scope.selectedPlayer.attributesId != null) {
+        $scope.loadValuesPlayerValues($scope.selectedPlayer.attributesId);
+    }
 
     $cookies.remove('selectedPlayer');
     $cookies.remove('readOnly');
@@ -251,6 +255,12 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
             console.log("player updated!");
 
             $location.path('/players');
+
+            ngDialog.open({
+                template: 'successMessage.html',
+                className: 'ngdialog-theme-default',
+                showClose: false
+            });
         });
       });
 
@@ -301,6 +311,13 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
                         console.log("player created!");
 
                         $location.path('/players');
+
+                        ngDialog.open({
+                            template: 'successMessage.html',
+                            className: 'ngdialog-theme-default',
+                            showClose: false,
+                            height: 400
+                        });
                     });
                 }
           });

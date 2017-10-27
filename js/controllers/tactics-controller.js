@@ -5,6 +5,8 @@ angular.module("Elifoot").controller('TacticsController',
     $scope.selectedGameId = $cookies.getObject('selectedGameId');
     $scope.selectedTacticDescription = $cookies.getObject('selectedGameDescription');
 
+    var showed = false;
+
     //Load tactic board if exists
     if($scope.selectedGameId != null &&
       $scope.selectedGameId != undefined &&
@@ -141,6 +143,15 @@ angular.module("Elifoot").controller('TacticsController',
           if(data != "New record!") {
             alert("Something occurred");
             console.log(data);
+          } else {
+            if(!showed) {
+              showed = true;
+              ngDialog.open({
+                  template: 'successMessage.html',
+                  className: 'ngdialog-theme-default',
+                  showClose: false
+              });
+            }
           }
         });
       }

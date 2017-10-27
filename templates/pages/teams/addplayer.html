@@ -81,7 +81,7 @@
         <div class="form-group">
             <label>Número:</label>
             <input class="form-control" ng-disabled="details"
-              ng-model="selectedPlayer.jerseyNumber"  />
+              ng-model="selectedPlayer.jerseyNumber" integer  />
         </div>
       </div>
       <div class="col-md-2">
@@ -95,7 +95,7 @@
         <div class="form-group">
             <label>Idade:</label>
             <input class="form-control" ng-disabled="details"
-              ng-model="ageCalculation"  />
+              ng-model="ageCalculation" integer />
         </div>
       </div>
       <div class="col-md-2">
@@ -114,38 +114,38 @@
           <thead>
             <tr>
               <th>Altura</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="physicalHeight" style="width: 45px" /></td>
               <th>Resistência</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="physicalResist" style="width: 45px" /></td>
               <th>Agilidade</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="physicalAgility" style="width: 45px" /></td>
               <th>Salto Altura</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="physicalJumpHeight" style="width: 45px" /></td>
               <th>Salto Comprimento</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="physicalJumpLong" style="width: 45px" /></td>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th>Aceleração</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="acelaration" style="width: 45px" /></td>
               <th>Velocidade 10m</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="velocity10m" style="width: 45px" /></td>
               <th>Velocidade 20m</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="velocity20m" style="width: 45px" /></td>
               <th>Velocidade 50m</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="velocity50m" style="width: 45px" /></td>
               <th>Velocidade 100m</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="velocity100m" style="width: 45px" /></td>
             </tr>
           </tbody>
@@ -156,29 +156,29 @@
           <thead>
             <tr>
               <th>Liderança</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="mentalLeadership" style="width: 45px" /></td>
               <th>Equipa</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="mentalTeam" style="width: 45px" /></td>
               <th>Rácio de Trabalho</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="mentalTeamWork" style="width: 45px" /></td>
               <th>Determinação</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="mentalDetermination" style="width: 45px" /></td>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th>Criatividade</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="mentalCreativity" style="width: 45px" /></td>
               <th>Concentração</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="mentalFocus" style="width: 45px" /></td>
               <th>Agressividade</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="mentalAgressive" style="width: 45px" /></td>
             </tr>
           </tbody>
@@ -193,32 +193,32 @@
           <thead>
             <tr>
               <th>Cruzamento</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalCruzamento" style="width: 45px" /></td>
               <th>Drible</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalDrible" style="width: 45px" /></td>
               <th>Finta</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalWork" style="width: 45px" /></td>
               <th>Remate</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalShoot" style="width: 45px" /></td>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th>Finalização</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalFinish" style="width: 45px" /></td>
               <th>Cabeceamento</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalHead" style="width: 45px" /></td>
               <th>Primeiro Toque</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalFirst" style="width: 45px" /></td>
               <th>Recepção Orientada</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalReceive" style="width: 45px" /></td>
             </tr>
           </tbody>
@@ -232,32 +232,32 @@
           <thead>
             <tr>
               <th>Livres</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalFree" style="width: 45px" /></td>
               <th>Lançamentos</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalLaunch" style="width: 45px" /></td>
               <th>Penalties</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalPenalty" style="width: 45px" /></td>
               <th>Cantos</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalCorner" style="width: 45px" /></td>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th>Técnica</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalTech" style="width: 45px" /></td>
               <th>Passe Curto</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalShortPass" style="width: 45px" /></td>
               <th>Passe Longo</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalLongPass" style="width: 45px" /></td>
               <th>Remate Longa Distância</th>
-              <td><input class="form-control" ng-disabled="details"
+              <td><input class="form-control" ng-disabled="details" integer
                 ng-model="technicalLongShoot" style="width: 45px" /></td>
             </tr>
           </tbody>
