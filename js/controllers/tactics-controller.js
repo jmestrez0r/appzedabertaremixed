@@ -152,7 +152,7 @@ angular.module("Elifoot").controller('TacticsController',
           console.log(data.fixtures);
           var currentDate = new Date();
           for(var i = 0; i < data.fixtures.length; i++) {
-            var description = data.fixture[i].homeTeamName + ' vs ' + data.fixture[i].awayTeamName;
+            var description = data.fixtures[i].homeTeamName + ' vs ' + data.fixtures[i].awayTeamName;
             if(description != $scope.selectedTacticDescription) {
               if(new Date(data.fixtures[i].date) > currentDate) {
                 $scope.gamesList.push(data.fixtures[i]);

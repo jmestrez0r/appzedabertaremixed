@@ -32,8 +32,8 @@
 </div>
 
 <script type="text/ng-template" id="createNewEvent.html">
-    <div class="ngdialog-message" style="text-align: center !important;"
-      onshow="$('#startDateId').datetimepicker();$('#endDateId').datetimepicker();">
+    <div class="ngdialog-message" style="text-align: center !important;">
+      {{forceDatePickers()}}
       <h3><i class="fa fa-fw fa-futbol-o"></i> Criar um novo evento. </h3>
       <br/>
 

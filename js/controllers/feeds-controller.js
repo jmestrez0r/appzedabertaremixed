@@ -16,6 +16,13 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
     $scope.crestUrl = data.crestUrl;
   });
 
+  $scope.refreshCookies = function () {
+    $cookies.remove('selectedGameDescription');
+    $cookies.remove('selectedGameId');
+    $cookies.remove('selectedGameDate');
+    $cookies.remove('selectedPlayer');
+  }
+
   Feeds.parseFeed().success(function(data) {
       $scope.feeds = [];
       var currentDate = moment().format('YYYY/MM/DD');

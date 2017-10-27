@@ -9,6 +9,11 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
     var selfTeam = sessionStorage.getItem('effectiveTeamName');
     var teamId = sessionStorage.getItem('teamId');
 
+    $scope.forceDatePickers = function () {
+      $('#startDateId').datetimepicker();
+      $('#endDateId').datetimepicker();
+    }
+
     $scope.changeTo = 'Hungarian';
     /* event source that pulls from google.com */
     $scope.eventSource = {
@@ -242,6 +247,23 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
       //save the event into database
       CalendarInformation.saveEvent(eventTitle, defineUrl, $scope.eventType.id, startDate, endDate, defineColor, teamId).success(function (data) {
         console.log(data);
+        CalendarInformation.getEventId(eventTitle, defineUrl, $scope.eventType.id, startDate, endDate, defineColor, teamId).success(function (data2) {
+            for(var i = 0; i < $scope.events.length; i++) {
+              if($scope.events[i].title == eventTitle) {
+                $scope.events[i].id = data2[0].eventId;
+
+                $cookies.putObject('selectedGameDescription', eventTitle);
+                $cookies.putObject('selectedGameId', data2[0].eventId);
+                $cookies.putObject('selectedGameDate', startDate);
+
+                //go to the pretended screen
+                window.location.href = defineUrl;
+                $scope.reload();
+
+                return;
+              }
+            }
+          });
       });
     };
 
