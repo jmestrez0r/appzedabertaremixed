@@ -59,7 +59,7 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
           $scope.data.nearByGame != '') {
             $scope.data.message = "Mister, tem jogo muito em breve!";
             $scope.data.nearByGameShow = true;
-            $cookies.putObject('selectedGameId', $scope.data.nearByGame.eventId);
+            sessionStorage.setItem('selectedGameId', $scope.data.nearByGame.eventId);
             loadAlertDialog();
             $scope.nearEventDetail = $scope.data.nearByGame;
           } else {

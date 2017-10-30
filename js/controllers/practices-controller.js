@@ -20,9 +20,9 @@ angular.module("Elifoot").controller('PracticesController',
       description: ''
     };
 
-    $scope.selectedPractice.title = $cookies.getObject('selectedGameDescription');
-    $scope.selectedPractice.datetime = $cookies.getObject('selectedGameDate');
-    $scope.selectedGameId = $cookies.getObject('selectedGameId');
+    $scope.selectedPractice.title = sessionStorage.getItem('selectedGameDescription');
+    $scope.selectedPractice.datetime = sessionStorage.getItem('selectedGameDate');
+    $scope.selectedGameId = sessionStorage.getItem('selectedGameId');
 
     $scope.teamId = sessionStorage.getItem('teamId');
 
@@ -234,7 +234,7 @@ angular.module("Elifoot").controller('PracticesController',
         return;
       }
 
-      $scope.selectedGameId = $cookies.getObject('selectedGameId');
+      $scope.selectedGameId = sessionStorage.getItem('selectedGameId');
 
       if($scope.selectedGameId != null && $scope.selectedGameId != '' && $scope.selectedGameId != undefined) {
         Practices.deletePractice($scope.teamId, $scope.selectedGameId).success(function (data) {
@@ -247,7 +247,7 @@ angular.module("Elifoot").controller('PracticesController',
             if(data == 'New record!') {
               CalendarInformation.getEventId($scope.selectedPractice.title, '#/practices', 'practice', $scope.selectedPractice.datetime, '', 'orange', $scope.teamId).success(function (data2) {
                 console.log(data2);
-                $cookies.putObject('selectedGameId', data2[0].eventId);
+                sessionStorage.setItem('selectedGameId', data2[0].eventId);
                 $scope.selectedGameId = data2[0].eventId;
 
                 savePracticePlayers($scope.teamId, $scope.selectedGameId);

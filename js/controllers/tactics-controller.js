@@ -2,8 +2,8 @@ angular.module("Elifoot").controller('TacticsController',
   function($scope, $cookies, Tactics, TeamPlayers, ngDialog, Fixtures, Tactics) {
 
     $scope.teamId = sessionStorage.getItem('teamId');
-    $scope.selectedGameId = $cookies.getObject('selectedGameId');
-    $scope.selectedTacticDescription = $cookies.getObject('selectedGameDescription');
+    $scope.selectedGameId = sessionStorage.getItem('selectedGameId');
+    $scope.selectedTacticDescription = sessionStorage.getItem('selectedGameDescription');
 
     var showed = false;
 
@@ -117,7 +117,7 @@ angular.module("Elifoot").controller('TacticsController',
         return;
       }
 
-      $scope.selectedGameId = $cookies.getObject('selectedGameId');
+      $scope.selectedGameId = sessionStorage.getItem('selectedGameId');
 
       if($scope.selectedGameId != null && $scope.selectedGameId != '' && $scope.selectedGameId != undefined) {
         Tactics.deleteTactic($scope.teamId, $scope.selectedGameId).success(function (data) {

@@ -129,8 +129,8 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
 
         if(date.id == null || date.id == '' || date.id == undefined) {
 
-          $cookies.putObject('selectedGameDescription', date.title);
-          $cookies.putObject('selectedGameDate', date.start);
+          sessionStorage.setItem('selectedGameDescription', date.title);
+          sessionStorage.setItem('selectedGameDate', date.start);
 
           var defineUrl = '';
           var defineColor = '';
@@ -149,17 +149,17 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
             if(data == "New record!") {
               CalendarInformation.getEventId(date.title, defineUrl, date.type, date.start, '', defineColor, teamId).success(function (data2) {
                 console.log(data2);
-                $cookies.putObject('selectedGameId', data2[0].eventId);
+                sessionStorage.setItem('selectedGameId', data2[0].eventId);
                 console.log('selectedGameId ' + data2[0].eventId);
-                $cookies.putObject('selectedGameDescription', date.title);
+                sessionStorage.setItem('selectedGameDescription', date.title);
               });
             }
           });
         } else {
           //setElementToLoadTactic
-          $cookies.putObject('selectedGameDescription', date.title);
-          $cookies.putObject('selectedGameId', date.id);
-          $cookies.putObject('selectedGameDate', date.start);
+          sessionStorage.setItem('selectedGameDescription', date.title);
+          sessionStorage.setItem('selectedGameId', date.id);
+          sessionStorage.setItem('selectedGameDate', date.start);
           console.log('selectedGameId ' + date.id);
         }
     };
@@ -252,9 +252,9 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
               if($scope.events[i].title == eventTitle) {
                 $scope.events[i].id = data2[0].eventId;
 
-                $cookies.putObject('selectedGameDescription', eventTitle);
-                $cookies.putObject('selectedGameId', data2[0].eventId);
-                $cookies.putObject('selectedGameDate', startDate);
+                sessionStorage.setItem('selectedGameDescription', eventTitle);
+                sessionStorage.setItem('selectedGameId', data2[0].eventId);
+                sessionStorage.setItem('selectedGameDate', startDate);
 
                 //go to the pretended screen
                 window.location.href = defineUrl;
