@@ -43,7 +43,9 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
       todaysPractices: '',
       todaysShow : false,
       nearByGame: '',
-      nearByGameShow : false
+      nearByGameShow : false,
+      nearByMeeting: '',
+      nearByMeetingShow : true
    };
 
   $scope.validateAlertMessage = function() {
@@ -72,7 +74,9 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
                 $scope.data.nearPractice != '') {
                   $scope.data.message = "Mister, tem treino agora!";
                   $scope.data.nearShow = true;
-                  sessionStorage.setItem('selectedPractice', $scope.data.nearPractice.identification);
+                  sessionStorage.setItem('selectedGameId', $scope.data.nearPractice.eventId);
+                  sessionStorage.setItem('selectedGameDate', $scope.data.nearPractice.startDate);
+                  sessionStorage.setItem('selectedGameDescription', $scope.data.nearPractice.title);
                   loadAlertDialog();
                   $scope.nearEventDetail = $scope.data.nearPractice;
               } else {
@@ -88,6 +92,14 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
                       $scope.data.todaysShow = true;
                       loadAlertDialog();
                       $scope.nearEventDetail = $scope.data.todaysPractices;
+                  } else {
+                    //verify if there are any GAMES today
+                    CalendarInformation.getTodaysEventsByType($scope.teamId, 'meeting').success(function (data) {
+                      console.log('At last, checking todays meetings... ' + data);
+                      $scope.data.nearByMeetingShow = false;
+                      $scope.data.message = "Tem uma reunião brevemente, verifique o seu calendário.";
+                      loadAlertDialog();
+                    });
                   }
                 });
               }
@@ -162,10 +174,6 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
         $scope.eventsThisWeek = data[0].eventsThisWeek;
         console.log("You have " + $scope.eventsThisWeek + " events this week.");
       });
-    };
-
-    $scope.loadPracticeDetailsAndConfig = function() {
-      sessionStorage.getItem('selectedPractice');
     };
 
     $scope.chartData = [];

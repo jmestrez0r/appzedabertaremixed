@@ -23,18 +23,16 @@
   </div>
 </div>
 
-<div class="row" ng-show="selectedTacticId != null">
-  <div class="col-lg-3">
-      <button type="button" class="btn" ng-click="associateTacticToGameDialog()">
-        Associar tática a evento
-      </button>
-  </div>
-</div>
-
 <div class="row">
   <div class="col-lg-3">
-      <button type="button" class="btn" ng-click="createTacticToGame()">
-        Gravar tactica
+      <button type="button" class="btn" ng-click="associateTacticToGameDialog()" ng-show="selectedTacticId == null">
+        <i class="glyphicon glyphicon-paperclip"></i> Associar tática a um evento
+      </button>
+      <button type="button" class="btn" ng-click="associateTacticToGameDialog()" ng-show="selectedTacticId != null" >
+        <i class="glyphicon glyphicon-paperclip"></i> Associar tática a um outro evento
+      </button>
+      <button type="button" class="btn" ng-click="createTacticToGame()" ng-show="selectedTacticId != null">
+        <i class="glyphicon glyphicon-save"></i> Gravar tactica
       </button>
   </div>
 </div>
@@ -42,7 +40,7 @@
 <div class="row">
   <!-- CAMPO -->
   <div class="col-lg-6" style="align:center">
-    <h3><i class="glyphicon glyphicon-wrench"></i><small>Quadro Tactico</small></h3>
+    <h3><i class="glyphicon glyphicon-wrench"></i><small> Quadro Tactico</small></h3>
     <!-- drop area -->
     <div class="caption">
       <div data-drag="true" data-drop="true" jqyoui-droppable="{multiple:true}">
@@ -154,14 +152,14 @@
             <th>
               <input type="checkbox" ng-model="game.selected" />
             </th>
-            <th>{{game.homeTeamName}} vs {{game.awayTeamName}}</th>
-            <th>{{game.date}}</th>
+            <th>{{game.title}}</th>
+            <th>{{game.start}}</th>
           </tr>
         </tbody>
       </table>
 
       <button type="button" class="btn"
-        ng-click="associateTacticToGamesDialog(gamesList);closeThisDialog();">
+        ng-click="associateTacticToGamesDialog();closeThisDialog();">
         Associar Táticas
       </button>
     </div>

@@ -291,7 +291,7 @@
     <script type="text/ng-template" id="alertTemplate.html">
         <div class="ngdialog-message" style="text-align: center !important;">
     				<h2><i class="fa fa-exclamation-triangle" style="color: red;"></i> {{data.message}}</h2></i>
-            <h3>Vamos a isso?
+            <h3 ng-show="data.nearByMeetingShow">Vamos a isso?
               <a href="#/practices" style="color: black;" ng-click="closeThisDialog();loadPracticeDetailsAndConfig();">
                 <i class="fa fa-arrow-circle-o-right" />
               </a>
@@ -324,6 +324,13 @@
     <script type="text/ng-template" id="successMessage.html">
         <div class="ngdialog-message" style="text-align: center !important;">
           <h3><i class="glyphicon glyphicon-ok"></i> Operação efectuada com sucesso.</h3>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="errorMessage.html">
+        <div class="ngdialog-message" style="text-align: center !important;">
+          <h3><i class="glyphicon glyphicon-link"></i> Operação indisponivel de momento.</h3>
+          <small>Funcionalidade em Desenvolvimento.</h3>
         </div>
     </script>
 </body>

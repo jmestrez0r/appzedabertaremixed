@@ -1,5 +1,5 @@
 angular.module("Elifoot").controller('TacticsController',
-  function($scope, $cookies, Tactics, TeamPlayers, ngDialog, Fixtures, Tactics) {
+  function($scope, $cookies, Tactics, TeamPlayers, ngDialog, Fixtures, Tactics, CalendarInformation) {
 
     $scope.teamId = sessionStorage.getItem('teamId');
     $scope.selectedGameId = sessionStorage.getItem('selectedGameId');
@@ -157,49 +157,160 @@ angular.module("Elifoot").controller('TacticsController',
       }
     }
 
-    //mostrar os jogos a disputar!
-    $scope.associateTacticToGameDialog = function() {
-        Fixtures.all($scope.teamId).success(function(data) {
-          console.log(data.fixtures);
-          var currentDate = new Date();
-          for(var i = 0; i < data.fixtures.length; i++) {
-            var description = data.fixtures[i].homeTeamName + ' vs ' + data.fixtures[i].awayTeamName;
-            if(description != $scope.selectedTacticDescription) {
-              if(new Date(data.fixtures[i].date) > currentDate) {
-                $scope.gamesList.push(data.fixtures[i]);
-              }
+    function associatedTacticSavePlayers(gameOfTheList) {
+      for(var i = 0; i < $scope.droppedPlayers.length; i++) {
+        var player = $scope.droppedPlayers[i];
+        console.log(player);
+
+        console.log(gameOfTheList.title + ' , ' +
+          player.playerId + ' , ' + player.topPosition + ' , ' + player.leftPosition + ' , '
+          + $scope.teamId + ' , ' + gameOfTheList.id);
+
+        Tactics.savePlayerInTactic(gameOfTheList.title, player.playerId, player.topPosition,
+            player.leftPosition, $scope.teamId, gameOfTheList.id).success(function (data) {
+          if(data != "New record!") {
+            alert("Something occurred");
+            console.log(data);
+          } else {
+            if(!showed) {
+              showed = true;
+              ngDialog.open({
+                  template: 'successMessage.html',
+                  className: 'ngdialog-theme-default',
+                  showClose: false
+              });
             }
           }
         });
+      }
+    }
 
-        console.log('gameslist');
-        console.log($scope.gamesList);
+    function urlVerification(type) {
+      if(type == 'game') {
+        return '#/tactics';
+      } else if (type == 'meeting') {
+        return '';
+      } else if (type == 'practice') {
+        return '#/practices';
+      }
+    }
 
-        ngDialog.open({
-          template: 'associateTacticDialog.html',
-          className: 'ngdialog-theme-default',
-          scope: $scope,
-          showClose: false,
-          height: 350,
-          weight: 700
+    function colorVerification(type) {
+      if(type == 'game') {
+        return 'red';
+      } else if (type == 'meeting') {
+        return '';
+      } else if (type == 'practice') {
+        return 'orange';
+      }
+    }
+
+    function eventExit(game) {
+      for(var i = 0; i < $scope.gamesList.length; i++) {
+        var storedGame = $scope.gamesList[i];
+        if(storedGame.title == game.homeTeamName + ' vs ' + game.awayTeamName &&
+          storedGame.start == game.date.replace('T', ' ').replace('Z', '')) {
+            return true;
+        }
+      }
+      return false;
+    }
+
+
+    //mostrar os jogos a disputar!
+    $scope.associateTacticToGameDialog = function() {
+      //get the information of the events
+      CalendarInformation.getEvents($scope.teamId).success(function (data) {
+        var currentDate = new Date();
+        for(var i = 0; i < data.length; i++) {
+          var colorVar = colorVerification(data[i].type);
+          var urlVar = urlVerification(data[i].type);
+
+          if(data[i].type == 'game' && new Date(data[i].startDate) > currentDate) {
+            $scope.gamesList.push({
+              id: data[i].eventId,
+              title: data[i].title,
+              url:   urlVar,
+              type: data[i].type,
+              start: data[i].startDate,
+              end: data[i].endDate,
+              color: colorVar
+            });
+          }
+        }
+
+        Fixtures.all($scope.teamId).success(function(data) {
+            var currentDate = new Date();
+            for(var i = 0; i < data.fixtures.length; i++) {
+              var game = data.fixtures[i];
+
+              //verify if the event exists
+              if(!eventExit(game) && new Date(game.date) > currentDate) {
+                $scope.gamesList.push({
+                  id: '',
+                  title: game.homeTeamName + ' vs ' + game.awayTeamName,
+                  url:   '#/tactics',
+                  type: 'game',
+                  start: game.date.replace('T', ' ').replace('Z', ''),
+                  end: '',
+                  color: 'red'
+                });
+              }
+            }
         });
+      });
+
+      console.log('gameslist');
+      console.log($scope.gamesList);
+
+      ngDialog.open({
+        template: 'associateTacticDialog.html',
+        className: 'ngdialog-theme-default',
+        scope: $scope,
+        showClose: false,
+        height: 350,
+        weight: 700
+      });
     };
 
-    //TODO
+    //BUG TODO
     //Compile All the Information of the previous game and put it into the new game association
-    $scope.associateTacticToGamesDialog = function(gamesList) {
+    $scope.associateTacticToGamesDialog = function() {
+        if(true) {
+          ngDialog.open({
+            template: 'errorMessage.html',
+            className: 'ngdialog-theme-default'
+          });
+          return;
+        }
 
-        for(var i = 0; i < gamesList.length; i++) {
-          if(gamesList[i].selected != undefined &&
-              gamesList[i].selected) {
+        for(var i = 0; i < $scope.gamesList.length; i++) {
+          var gameOfTheList = $scope.gamesList[i];
+          if(gameOfTheList.selected != undefined &&
+              gameOfTheList.selected) {
+                //event exists in the database
+              if(gameOfTheList.id != '' && gameOfTheList.id != undefined &&
+                gameOfTheList.id != null) {
+                  Tactics.deleteTactic($scope.teamId, gameOfTheList.id).success(function (data) {
+                    console.log(data);
+                    associatedTacticSavePlayers(gameOfTheList);
+                  });
 
-              if($scope.selectedGameId != null &&
-                $scope.selectedGameId != '' &&
-                $scope.selectedGameId != undefined) {
-
+                } else {
+                  //event doesn't exists in the database
+                  //it's necessary to create it
+                  //save the event into database
+                  CalendarInformation.saveEvent(gameOfTheList.title, '#/tactics', 'game', gameOfTheList.start, '', 'red', $scope.teamId).success(function (data) {
+                    console.log(data);
+                    if(data == "New record!") {
+                      CalendarInformation.getEventId(gameOfTheList.title, '#/tactics', 'game', gameOfTheList.start, '', 'red', $scope.teamId).success(function (data2) {
+                        gameOfTheList.id = data2[0].eventId;
+                        associatedTacticSavePlayers(gameOfTheList);
+                      });
+                    }
+                  });
+                }
               }
-              var tacticIdentification = Tactics.createTacticDetail(gamesList[i].matchday);
-          }
         }
     };
 });

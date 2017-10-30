@@ -1,5 +1,5 @@
 angular.module("Elifoot").controller('PracticesController',
-  function($scope, $timeout, $cookies, $route, Practices, TeamPlayers, ngDialog) {
+  function($scope, $timeout, $cookies, $route, Practices, TeamPlayers, ngDialog, CalendarInformation) {
 
     $scope.selectedField = sessionStorage.getItem('selectedField');
     $scope.reloaded = sessionStorage.getItem('reloaded');
