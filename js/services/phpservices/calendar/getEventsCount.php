@@ -31,6 +31,6 @@
 
 	$con->close();
 
-	echo json_encode(utf8ize($data));
+	echo json_encode($data);
 
 ?>

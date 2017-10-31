@@ -12,6 +12,8 @@
 		die("DB connection failed:" . $con->connect_error);
 	}
 
+	mysqli_query($con, "SET NAMES 'utf8'");
+
 	function utf8ize($d) {
     if (is_array($d))
         foreach ($d as $k => $v)

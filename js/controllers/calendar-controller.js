@@ -257,8 +257,10 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
                 sessionStorage.setItem('selectedGameDate', startDate);
 
                 //go to the pretended screen
-                window.location.href = defineUrl;
-                $route.reload();
+                if($scope.eventType.id != 'meeting') {
+                  window.location.href = defineUrl;
+                  $route.reload();
+                }
 
                 return;
               }

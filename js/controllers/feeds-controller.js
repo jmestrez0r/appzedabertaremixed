@@ -96,9 +96,13 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
                     //verify if there are any GAMES today
                     CalendarInformation.getTodaysEventsByType($scope.teamId, 'meeting').success(function (data) {
                       console.log('At last, checking todays meetings... ' + data);
-                      $scope.data.nearByMeetingShow = false;
-                      $scope.data.message = "Tem uma reunião brevemente, verifique o seu calendário.";
-                      loadAlertDialog();
+                      $scope.data.nearByMeeting = data[0];
+                      if($scope.data.nearByMeeting != null && $scope.data.nearByMeeting != undefined &&
+                        $scope.data.nearByMeeting != '') {
+                          $scope.data.nearByMeetingShow = false;
+                          $scope.data.message = "Tem uma reunião brevemente, verifique o seu calendário.";
+                          loadAlertDialog();
+                        }
                     });
                   }
                 });
