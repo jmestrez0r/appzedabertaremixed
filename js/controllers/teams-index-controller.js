@@ -163,10 +163,19 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   $scope.loadSelectedPlayer = function() {
     $scope.selectedPlayer = $cookies.getObject('selectedPlayer');
     $scope.details = $cookies.get('readOnly');
-    if($scope.selectedPlayer != undefined &&
-      $scope.selectedPlayer.attributesId != '' &&
+    if($scope.selectedPlayer != undefined) {
+      if($scope.selectedPlayer.dateOfBirth != '' && $scope.selectedPlayer.dateOfBirth != undefined) {
+        var birthdate = new Date($scope.selectedPlayer.dateOfBirth);
+        var cur = new Date();
+        var diff = cur-birthdate; // This is the difference in milliseconds
+        var age = Math.floor(diff/31557600000);
+        $scope.selectedPlayer.age = age;
+      }
+
+      if($scope.selectedPlayer.attributesId != '' &&
       $scope.selectedPlayer.attributesId != null) {
         $scope.loadValuesPlayerValues($scope.selectedPlayer.attributesId);
+      }
     }
 
     $cookies.remove('selectedPlayer');

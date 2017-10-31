@@ -101,7 +101,8 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
         'teamId':player.teamId, 'name':player.name, 'position':player.position,
         'jerseyNumber': player.jerseyNumber, 'nationality': player.nationality,
         'picture': player.pictureBlob, 'contractUntil': player.contractUntil,
-        'marketValue': player.marketValue, 'attributesId': player.attributesId});
+        'marketValue': player.marketValue, 'attributesId': player.attributesId,
+        'age' : player.age});
     },
 
     updatePlayerInformation: function(player, physicalHeight, physicalResist, physicalAgility,
@@ -132,7 +133,8 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
       return $http.post('./js/services/phpservices/playerInformation/updatePlayer.php', {
         'playerId': player.playerId, 'teamId':player.teamId, 'name':player.name,
         'position':player.position, 'jerseyNumber':player.jerseyNumber, 'nationality':player.nationality,
-        'picture':player.pictureBlob, 'contractUntil':player.contractUntil, 'marketValue':player.marketValue});
+        'picture':player.pictureBlob, 'contractUntil':player.contractUntil, 'marketValue':player.marketValue,
+        'age': player.age });
     },
 
     deletePlayer: function(player) {
