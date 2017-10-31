@@ -13,6 +13,7 @@
 	$contractUntil = $data->contractUntil;
 	$marketValue = $data->marketValue;
 	$age = $data->age;
+	$attributesId = $data->attributesId;
 
 	$sql = "UPDATE `PLAYER`
 		SET `NAME` = '$name',
@@ -23,6 +24,7 @@
 				`PICTURE` = '$picture',
 				`CONTRACT_UNTIL` = '$contractUntil',
 				`MARKET_VALUE` = '$marketValue',
+				`ATTRIBUTES_ID` = '$attributesId',
 				`UPDATE_DATE` = NOW()
 				WHERE `TEAM_ID` = $teamId AND `PLAYER_ID` = $playerId";
 

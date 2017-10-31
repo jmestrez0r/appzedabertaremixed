@@ -2,6 +2,8 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
 
   //initial configuration;
   sessionStorage.setItem('user', 'José Amador');
+
+  //it's necessary to create a record in TEAM table with this ID
   sessionStorage.setItem('leagueTable', '445');
   sessionStorage.setItem('teamId', '57');
   sessionStorage.setItem('effectiveTeamName', 'Arsenal FC');

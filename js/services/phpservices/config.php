@@ -2,8 +2,8 @@
 	$data = json_decode(file_get_contents("php://input"));
 
 	$host = "127.0.0.1";
-	$user = "root";
-	$pass = "esumamerda";
+	$user = "mypocketcoachUSR";
+	$pass = "mypocketcoachPW";
 	$db = "mypocketcoach";
 
 	$con = new mysqli($host, $user, $pass, $db);

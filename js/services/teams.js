@@ -134,7 +134,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
         'playerId': player.playerId, 'teamId':player.teamId, 'name':player.name,
         'position':player.position, 'jerseyNumber':player.jerseyNumber, 'nationality':player.nationality,
         'picture':player.pictureBlob, 'contractUntil':player.contractUntil, 'marketValue':player.marketValue,
-        'age': player.age });
+        'age': player.age, 'attributesId': player.attributesId });
     },
 
     deletePlayer: function(player) {

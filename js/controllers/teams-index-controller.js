@@ -257,32 +257,92 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     //it exists
     if($scope.selectedPlayer.playerId != undefined &&
       $scope.selectedPlayer.playerId != null && $scope.selectedPlayer.playerId != '') {
-      TeamPlayers.updatePlayerInformation($scope.selectedPlayer, $scope.physicalHeight,
-          $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight,
-          $scope.physicalJumpLong, $scope.acelaration, $scope.velocity10m, $scope.velocity20m,
-          $scope.velocity50m, $scope.velocity100m, $scope.mentalLeadership, $scope.mentalTeam,
-          $scope.mentalTeamWork, $scope.mentalDetermination, $scope.mentalCreativity, $scope.mentalFocus,
-          $scope.mentalAgressive, $scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork,
-          $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst,
-          $scope.technicalReceive, $scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty,
-          $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass,
-         $scope.technicalLongShoot).success(function (data) {
-        console.log(data);
-        console.log("player information updated!");
-        //UPDATE PLAYER IN DATABASE
-        TeamPlayers.updatePlayer($scope.selectedPlayer).success(function (data) {
-            console.log(data);
-            console.log("player updated!");
 
-            $location.path('/players');
+      if($scope.selectedPlayer.attributesId != '' && $scope.selectedPlayer.attributesId != undefined &&
+        $scope.selectedPlayer.attributesId != null) {
+        TeamPlayers.updatePlayerInformation($scope.selectedPlayer, $scope.physicalHeight,
+            $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight,
+            $scope.physicalJumpLong, $scope.acelaration, $scope.velocity10m, $scope.velocity20m,
+            $scope.velocity50m, $scope.velocity100m, $scope.mentalLeadership, $scope.mentalTeam,
+            $scope.mentalTeamWork, $scope.mentalDetermination, $scope.mentalCreativity, $scope.mentalFocus,
+            $scope.mentalAgressive, $scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork,
+            $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst,
+            $scope.technicalReceive, $scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty,
+            $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass,
+           $scope.technicalLongShoot).success(function (data) {
+          console.log(data);
+          console.log("player information updated!");
+          //UPDATE PLAYER IN DATABASE
+          TeamPlayers.updatePlayer($scope.selectedPlayer).success(function (data) {
+              console.log(data);
+              console.log("player updated!");
 
-            ngDialog.open({
-                template: 'successMessage.html',
-                className: 'ngdialog-theme-default',
-                showClose: false
-            });
+              $location.path('/players');
+
+              ngDialog.open({
+                  template: 'successMessage.html',
+                  className: 'ngdialog-theme-default',
+                  showClose: false
+              });
+          });
         });
-      });
+      } else {
+        TeamPlayers.createPlayerInformation($scope.selectedPlayer, $scope.physicalHeight,
+            $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight,
+            $scope.physicalJumpLong, $scope.acelaration, $scope.velocity10m, $scope.velocity20m,
+            $scope.velocity50m, $scope.velocity100m, $scope.mentalLeadership, $scope.mentalTeam,
+            $scope.mentalTeamWork, $scope.mentalDetermination, $scope.mentalCreativity, $scope.mentalFocus,
+            $scope.mentalAgressive, $scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork,
+            $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst,
+            $scope.technicalReceive, $scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty,
+            $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass,
+            $scope.technicalLongShoot).success(function (data) {
+              //verify if exists
+              TeamPlayers.getPlayerInformationId($scope.physicalHeight,
+                  $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight,
+                  $scope.physicalJumpLong, $scope.acelaration, $scope.velocity10m, $scope.velocity20m,
+                  $scope.velocity50m, $scope.velocity100m, $scope.mentalLeadership, $scope.mentalTeam,
+                  $scope.mentalTeamWork, $scope.mentalDetermination, $scope.mentalCreativity, $scope.mentalFocus,
+                  $scope.mentalAgressive, $scope.technicalCruzamento, $scope.technicalDrible, $scope.technicalWork,
+                  $scope.technicalShoot, $scope.technicalFinish, $scope.technicalHead, $scope.technicalFirst,
+                  $scope.technicalReceive, $scope.technicalFree, $scope.technicalLaunch, $scope.technicalPenalty,
+                  $scope.technicalCorner, $scope.technicalTech, $scope.technicalShortPass, $scope.technicalLongPass,
+                  $scope.technicalLongShoot).success(function (data2) {
+                    console.log(data2);
+                    if(data2[0] != undefined && data2[0] != null && data2[0] != '') {
+                        console.log("player information created!");
+                        $scope.selectedPlayer.attributesId = data2[0].attributesId;
+
+                        $scope.selectedPlayer.pictureBlob = '';
+
+                        if($scope.selectedPlayer.contractUntil == undefined || $scope.selectedPlayer.contractUntil == '') {
+                          var date = new Date();
+                          var d = date.getDate();
+                          var m = date.getMonth();
+                          var y = date.getFullYear();
+                          $scope.selectedPlayer.contractUntil = $.datepicker.formatDate("yy-mm-dd", new Date(y+10, m, d, 0, 0));
+                        }
+
+                        $scope.selectedPlayer.marketValue = '';
+
+                        //UPDATE PLAYER IN DATABASE
+                        TeamPlayers.updatePlayer($scope.selectedPlayer).success(function (data) {
+                            console.log(data);
+                            console.log("player updated!");
+
+                            $location.path('/players');
+
+                            ngDialog.open({
+                                template: 'successMessage.html',
+                                className: 'ngdialog-theme-default',
+                                showClose: false
+                            });
+                        });
+                    }
+
+                  });
+         });
+      }
 
     } else {
       $scope.selectedPlayer.teamId = $scope.teamId;
