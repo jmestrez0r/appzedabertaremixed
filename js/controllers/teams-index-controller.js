@@ -87,6 +87,10 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     }
   });
 
+  $scope.selectedPlayerPosition = function(value) {
+    $scope.selectedPlayer.position = value;
+  }
+
 
   function loadPlayers(data) {
     var keepersIndex = 0;
@@ -104,7 +108,7 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
         keepersIndex++;
         playerConfirmation = true;
       } else if ((a.position.includes('Centre') && !a.position.includes('Forward'))
-        || a.position.includes('Wing')) {
+        || a.position.includes('Wing') || a.position.includes('Central') || a.position.includes('Midfield')) {
         $scope.middles[middlesIndex] = a;
         middlesIndex++;
         playerConfirmation = true;

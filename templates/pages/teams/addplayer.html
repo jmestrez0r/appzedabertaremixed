@@ -98,14 +98,44 @@
               ng-model="selectedPlayer.age" integer />
         </div>
       </div>
-      <div class="col-md-2">
+      <!--div class="col-md-2">
         <div class="form-group">
             <label>Posição:</label>
             <input class="form-control" ng-disabled="details"
               ng-model="selectedPlayer.position"  />
         </div>
-      </div>
+      </div-->
+
+      <div class="col-md-2">
+        <div class="form-group">
+            <label>Posição/Função:</label>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+                ng-disabled="details" ng-show="selectedPlayer.position == undefined || selectedPlayer.position == null ||
+                  selectedPlayer.position == ''">
+                Selecione a posição
+              <span class="caret"></span></button>
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+                ng-disabled="details" ng-show="!(selectedPlayer.position == undefined || selectedPlayer.position == null ||
+                  selectedPlayer.position == '')">
+                {{selectedPlayer.position}}
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu" value="{{selectedPlayer.position}}">
+                <li ng-click="selectedPlayerPosition('Keeper');"><a>Guarda-Redes</a></li>
+                <li ng-click="selectedPlayerPosition('Left-Back');"><a>Defesa Esq.</a></li>
+                <li ng-click="selectedPlayerPosition('Right-Back');"><a>Defesa Dir.</a></li>
+                <li ng-click="selectedPlayerPosition('Centre-Back');"><a>Defesa Central</a></li>
+                <li ng-click="selectedPlayerPosition('Central Midfield');"><a>Médio Centro</a></li>
+                <li ng-click="selectedPlayerPosition('Attacking Midfield');"><a>Médio Atacante</a></li>
+                <li ng-click="selectedPlayerPosition('Left-Wing');"><a>Ala Esq.</a></li>
+                <li ng-click="selectedPlayerPosition('Right-Wing');"><a>Ala Dir.</a></li>
+                <li ng-click="selectedPlayerPosition('Forward');"><a>Avançado</a></li>
+              </ul>
+            </div>
+        </div>
     </div>
+
+    <div class="row" />
 
     <div class="row">
       <div class="col-lg-2">
