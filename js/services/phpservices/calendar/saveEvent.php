@@ -19,11 +19,11 @@
 	}
 
 	if($endDate === NULL) {
-		$sql = "INSERT INTO `CALENDAR`(`TITLE`, `TYPE`, `START_DATE`,  `TEAM_ID`)
-				values ('$eventTitle', '$eventType', '$startDate', '$teamId')";
+		$sql = "INSERT INTO `CALENDAR`(`TITLE`, `TYPE`, `START_DATE`,  `TEAM_ID`, `CREATION_DATE`, `UPDATE_DATE`)
+				values ('$eventTitle', '$eventType', '$startDate', '$teamId', NOW(), NOW())";
 	} else {
-		$sql = "INSERT INTO `CALENDAR`(`TITLE`, `TYPE`, `START_DATE`, `END_DATE`, `TEAM_ID`)
-				values ('$eventTitle', '$eventType', '$startDate', '$endDate', '$teamId')";
+		$sql = "INSERT INTO `CALENDAR`(`TITLE`, `TYPE`, `START_DATE`, `END_DATE`, `TEAM_ID`, `CREATION_DATE`, `UPDATE_DATE`)
+				values ('$eventTitle', '$eventType', '$startDate', '$endDate', '$teamId', NOW(), NOW())";
 	}
 
 	$qry = mysqli_query($con, $sql);

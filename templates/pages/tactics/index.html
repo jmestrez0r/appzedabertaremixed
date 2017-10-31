@@ -25,13 +25,13 @@
 
 <div class="row">
   <div class="col-lg-3">
-      <button type="button" class="btn" ng-click="associateTacticToGameDialog()" ng-show="selectedTacticId == null">
+      <button type="button" class="btn" ng-click="associateTacticToGameDialog()" ng-show="selectedGameId == null && selectedGameId != ''">
         <i class="glyphicon glyphicon-paperclip"></i> Associar tática a um evento
       </button>
-      <button type="button" class="btn" ng-click="associateTacticToGameDialog()" ng-show="selectedTacticId != null" >
+      <button type="button" class="btn" ng-click="associateTacticToGameDialog()" ng-show="selectedGameId != null && selectedGameId != ''" >
         <i class="glyphicon glyphicon-paperclip"></i> Associar tática a um outro evento
       </button>
-      <button type="button" class="btn" ng-click="createTacticToGame()" ng-show="selectedTacticId != null">
+      <button type="button" class="btn" ng-click="createTacticToGame()" ng-show="selectedGameId != null && selectedGameId != ''">
         <i class="glyphicon glyphicon-save"></i> Gravar tactica
       </button>
   </div>

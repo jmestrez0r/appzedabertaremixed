@@ -15,7 +15,8 @@
 		SET `TYPE` = $eventType,
 		SET `START_DATE` = $startDate,
 		SET `END_DATE` = $endDate,
-		SET `TEAM_ID` = $teamId,
+		SET `TEAM_ID` = $teamId
+		SET `UPDATE_DATE` = NOW()
 		WHERE `EVENT_ID` = $eventId";
 	$qry = mysqli_query($con, $sql);
 

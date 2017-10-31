@@ -19,9 +19,9 @@
 	}
 
 	$sql = "INSERT INTO `PLAYER`(`TEAM_ID`, `NAME`, `AGE`, `POSITION`, `JERSEY_NUMBER`, `NATIONALITY`,
-		 `PICTURE`, `CONTRACT_UNTIL`, `MARKET_VALUE`, `ATTRIBUTES_ID`)
+		 `PICTURE`, `CONTRACT_UNTIL`, `MARKET_VALUE`, `ATTRIBUTES_ID`, `CREATION_DATE`, `UPDATE_DATE`)
 		values ('$teamId', '$name', '$age', '$position', '$jerseyNumber', '$nationality', '$picture', '$contractUntil',
-			'$marketValue', '$attributesId')";
+			'$marketValue', '$attributesId', NOW(), NOW())";
 
 	$qry = mysqli_query($con, $sql);
 

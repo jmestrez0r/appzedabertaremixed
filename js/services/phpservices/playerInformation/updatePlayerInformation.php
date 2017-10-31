@@ -70,7 +70,8 @@
 			 `TECNICA`= $technicalTech,
 			 `PASSE_CURTO`= $technicalShortPass,
 			 `PASSE_LONGO`= $technicalLongPass,
-			 `REMATE_LONGA_DISTANCIA`= $technicalLongShoot
+			 `REMATE_LONGA_DISTANCIA`= $technicalLongShoot,
+			 `UPDATE_DATE` = NOW()
 		WHERE ATTRIBUTES_ID = $attributesId";
 
 	$qryid = mysqli_query($con, $sqlid);

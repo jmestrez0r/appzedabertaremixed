@@ -22,7 +22,8 @@
 				`AGE` = '$age',
 				`PICTURE` = '$picture',
 				`CONTRACT_UNTIL` = '$contractUntil',
-				`MARKET_VALUE` = '$marketValue'
+				`MARKET_VALUE` = '$marketValue',
+				`UPDATE_DATE` = NOW()
 				WHERE `TEAM_ID` = $teamId AND `PLAYER_ID` = $playerId";
 
 	$qry = mysqli_query($con, $sql);

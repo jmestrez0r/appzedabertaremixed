@@ -41,14 +41,14 @@
 		`VELOCIDADE_100m`, `LIDERANCA`, `EQUIPA`, `RACIO_TRABALHO`, `DETERMINACAO`,	`CRIATIVIDADE`,
 		`CONCENTRACAO`, `AGRESSIVIDADE`, `CRUZAMENTO`, `DRIBLE`, `FINTA`, `REMATE`, `FINALIZACAO`,
 		`CABECEAMENTO`, `PRIMEIRO_TOQUE`, `RECEPCAO_ORIENTADA`, `LIVRES`, `LANCAMENTOS`, `PENALTIES`,
-		`CANTOS`, `TECNICA`, `PASSE_CURTO`,	`PASSE_LONGO`, `REMATE_LONGA_DISTANCIA`)
+		`CANTOS`, `TECNICA`, `PASSE_CURTO`,	`PASSE_LONGO`, `REMATE_LONGA_DISTANCIA`, `CREATION_DATE`, `UPDATE_DATE` )
 		values ($physicalHeight, $physicalResist, $physicalAgility, $physicalJumpHeight, $physicalJumpLong,
 				$acelaration, $velocity10m, $velocity20m, $velocity50m, $velocity100m, $mentalLeadership,
 				$mentalTeam, $mentalTeamWork, $mentalDetermination, $mentalCreativity, $mentalFocus,
 				$mentalAgressive, $technicalCruzamento, $technicalDrible, $technicalWork, $technicalShoot,
 				$technicalFinish, $technicalHead, $technicalFirst, $technicalReceive, $technicalFree,
 				$technicalLaunch, $technicalPenalty, $technicalCorner, $technicalTech, $technicalShortPass,
-				$technicalLongPass, $technicalLongShoot)";
+				$technicalLongPass, $technicalLongShoot, NOW(), NOW())";
 
 	$qry = mysqli_query($con, $sql);
 

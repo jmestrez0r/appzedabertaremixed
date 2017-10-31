@@ -26,20 +26,20 @@
 	if($playerId === '') {
 		$sql = "INSERT INTO `PRACTICES`(`TITLE`, `PRACTICE_DESC`, `START_DATE`, `TYPE`, `VOLUME`, `INTENSITY`,
 			`DENSITY`, `FREQUENCY`, `DESCRIPTION`, `TEAM_ID`, `EVENT_ID`, `FIELD_LOCATION`, `FIELD_HEIGHT`, `FIELD_WEIGHT`,
-			`OBJECT_ICON_ID`, `OBJECT_X_POSITION`, `OBJECT_Y_POSITION`, `OBJECT_Z_POSITION`)
+			`OBJECT_ICON_ID`, `OBJECT_X_POSITION`, `OBJECT_Y_POSITION`, `OBJECT_Z_POSITION`, `CREATION_DATE`, `UPDATE_DATE`)
 			values ('$title', '$practiceDesc', '$startDate', '$type', '$volume', '$intensity',
 				'$density', '$frequency', '$description', '$teamId', '$eventId', '$fieldLocation',
 				'$fieldHeight', '$fieldWeight',
-				'$iconId', '$iconXPosition', '$iconYPosition', '0')";
+				'$iconId', '$iconXPosition', '$iconYPosition', '0', NOW(), NOW())";
 	} else {
 		$sql = "INSERT INTO `PRACTICES`(`TITLE`, `PRACTICE_DESC`, `START_DATE`, `TYPE`, `VOLUME`, `INTENSITY`,
 			`DENSITY`, `FREQUENCY`, `DESCRIPTION`, `PLAYER_ID`, `PLAYER_X_POSITION`, `PLAYER_Y_POSITION`,
 			`PLAYER_Z_POSITION`, `TEAM_ID`, `EVENT_ID`, `FIELD_LOCATION`, `FIELD_HEIGHT`, `FIELD_WEIGHT`,
-			`OBJECT_ICON_ID`, `OBJECT_X_POSITION`, `OBJECT_Y_POSITION`, `OBJECT_Z_POSITION`)
+			`OBJECT_ICON_ID`, `OBJECT_X_POSITION`, `OBJECT_Y_POSITION`, `OBJECT_Z_POSITION`, `CREATION_DATE`, `UPDATE_DATE`)
 			values ('$title', '$practiceDesc', '$startDate', '$type', '$volume', '$intensity',
 				'$density', '$frequency', '$description', '$playerId', '$playerXPosition', '$playerYPosition',
 				'0', '$teamId', '$eventId', '$fieldLocation', '$fieldHeight', '$fieldWeight',
-				'$iconId', '$iconXPosition', '$iconYPosition', '0')";
+				'$iconId', '$iconXPosition', '$iconYPosition', '0', NOW(), NOW())";
 	}
 
 	$qry = mysqli_query($con, $sql);
