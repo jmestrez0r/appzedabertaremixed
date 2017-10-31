@@ -328,7 +328,6 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
 
 
   $scope.loadValuesPlayerValues = function(id) {
-    $scope.ageCalculation = $scope.selectedPlayer.dateOfBirth;
 
     if(id != undefined) {
       TeamPlayers.getPlayerSpecs(id).success(function (data) {

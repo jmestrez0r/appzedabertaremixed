@@ -12,14 +12,15 @@
 	$contractUntil = $data->contractUntil;
 	$marketValue = $data->marketValue;
 	$attributesId = $data->attributesId;
+	$age = $data->age;
 
 	if($contractUntil === '') {
 		$contractUntil = NULL;
 	}
 
-	$sql = "INSERT INTO `PLAYER`(`TEAM_ID`, `NAME`, `POSITION`, `JERSEY_NUMBER`, `NATIONALITY`,
+	$sql = "INSERT INTO `PLAYER`(`TEAM_ID`, `NAME`, `AGE`, `POSITION`, `JERSEY_NUMBER`, `NATIONALITY`,
 		 `PICTURE`, `CONTRACT_UNTIL`, `MARKET_VALUE`, `ATTRIBUTES_ID`)
-		values ('$teamId', '$name', '$position', '$jerseyNumber', '$nationality', '$picture', '$contractUntil',
+		values ('$teamId', '$name', '$age', '$position', '$jerseyNumber', '$nationality', '$picture', '$contractUntil',
 			'$marketValue', '$attributesId')";
 
 	$qry = mysqli_query($con, $sql);
