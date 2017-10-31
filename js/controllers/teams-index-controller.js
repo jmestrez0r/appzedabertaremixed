@@ -44,6 +44,13 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
       sessionStorage.getItem('selectedTeamId') != '') {
       console.log('changing team id');
       $scope.teamId = sessionStorage.getItem('selectedTeamId');
+      sessionStorage.getItem('otherTeamView', false);
+  }
+
+  if(sessionStorage.getItem('otherTeamView') == "true") {
+    $scope.otherTeamView = true;
+  } else {
+    $scope.otherTeamView = false;
   }
 
   TeamPlayers.all($scope.teamId).success(function(data) {

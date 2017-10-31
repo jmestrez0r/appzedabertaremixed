@@ -163,33 +163,43 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="#/home"><i class="fa fa-fw fa-dashboard"></i> Home</a>
+                        <a href="#/home" onclick="sessionStorage.setItem('otherTeamView', true);"><i class="fa fa-fw fa-dashboard"></i> Home</a>
                     </li>
                     <li>
-                        <a href="#/classification"><i class="fa fa-fw fa-table"></i> Classificação</a>
+                        <a href="#/classification" onclick="sessionStorage.setItem('otherTeamView', true);"><i class="fa fa-fw fa-table"></i> Classificação</a>
                     </li>
                     <li>
                       <a href="javascript:;" data-toggle="collapse" data-target="#allteam"><i class="fa fa-fw fa-folder-open-o"></i> Plantel <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="allteam" class="collapse">
                           <li>
-                            <a href="#/players" ng-click="sessionStorage.setItem('selectedTeamId', '')"><i class="glyphicon glyphicon-paste"></i> Plantel Geral</a>
+                            <a href="#/players" ng-click="sessionStorage.setItem('otherTeamView', true);sessionStorage.setItem('selectedTeamId', '')"><i class="glyphicon glyphicon-paste"></i> Plantel Geral</a>
                           </li>
                           <li>
-                              <a href="#/addplayer"><i class="glyphicon glyphicon-user"></i> Adicionar Jogador</a>
+                              <a href="#/addplayer" ng-click="sessionStorage.setItem('otherTeamView', true);"><i class="glyphicon glyphicon-user"></i> Adicionar Jogador</a>
                           </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#/calendar" onclick="sessionStorage.setItem('selectedGameDate', '');sessionStorage.setItem('selectedGameId', '');sessionStorage.setItem('selectedGameDescription', '');"><i class="fa fa-fw fa-calendar"></i> Calendário</a>
+                        <a href="#/calendar" onclick="sessionStorage.setItem('otherTeamView', true);
+                          sessionStorage.setItem('selectedGameDate', '');
+                          sessionStorage.setItem('selectedGameId', '');
+                          sessionStorage.setItem('selectedGameDescription', '');
+                          sessionStorage.setItem('otherTeamView', true);"><i class="fa fa-fw fa-calendar"></i> Calendário</a>
                     </li>
                     <li>
                         <a href="#/gamescalendar" ng-click="loadGamesCalendar()"><i class="fa fa-fw fa-calendar"></i> Calendário de Jogos</a>
                     </li>
                     <li>
-                        <a href="#/practices" onclick="sessionStorage.setItem('selectedGameDate', '');sessionStorage.setItem('selectedGameId', '');sessionStorage.setItem('selectedGameDescription', '');"><i class="fa fa-fw fa-futbol-o"></i> Treinos</a>
+                        <a href="#/practices" onclick="sessionStorage.setItem('selectedGameDate', '');
+                          sessionStorage.setItem('selectedGameId', '');
+                          sessionStorage.setItem('selectedGameDescription', '');
+                          sessionStorage.setItem('otherTeamView', true);"><i class="fa fa-fw fa-futbol-o"></i> Treinos</a>
                     </li>
                     <li>
-                        <a href="#/tactics" onclick="sessionStorage.setItem('selectedGameDate', '');sessionStorage.setItem('selectedGameId', '');sessionStorage.setItem('selectedGameDescription', '');"><i class="fa fa-fw fa-cogs"></i> Táticas</a>
+                        <a href="#/tactics" onclick="sessionStorage.setItem('selectedGameDate', '');
+                          sessionStorage.setItem('selectedGameId', '');
+                          sessionStorage.setItem('selectedGameDescription', '');
+                          sessionStorage.setItem('otherTeamView', true);"><i class="fa fa-fw fa-cogs"></i> Táticas</a>
                     </li>
                     <li>
                       <a href="javascript:;" data-toggle="collapse" data-target="#suplements"><i class="fa fa-fw fa-heart"></i> Suplementação <i class="fa fa-fw fa-caret-down"></i></a>

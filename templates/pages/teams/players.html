@@ -78,9 +78,9 @@
           <th>{{player.jerseyNumber}}</th>
           <th ng-click="openPlayerInformationDialog(player,true)"><a href="#/addplayer">{{player.name}}</a></th>
           <td>{{player.position}}</td>
-          <td align="center"><i class="glyphicon glyphicon-pencil"
+          <td align="center" ng-show="otherTeamView"><i class="glyphicon glyphicon-pencil"
             ng-click="openPlayerInformationDialog(player,false)"></i></td>
-          <td><i class="glyphicon glyphicon-remove" ng-click="openDeletePlayerDialog(player,false)"></i></td>
+          <td ng-show="otherTeamView"><i class="glyphicon glyphicon-remove" ng-click="openDeletePlayerDialog(player,false)"></i></td>
         </tr>
       </tbody>
     </table>
@@ -103,9 +103,9 @@
           <th>{{player.jerseyNumber}}</th>
           <th ng-click="openPlayerInformationDialog(player,true)"><a href="#/addplayer">{{player.name}}</a></th>
           <td>{{player.position}}</td>
-          <td align="center"><i class="glyphicon glyphicon-pencil"
+          <td align="center" ng-show="otherTeamView"><i class="glyphicon glyphicon-pencil"
             ng-click="openPlayerInformationDialog(player, false)"><a href="#/addplayer"></a></i></td>
-          <td><i class="glyphicon glyphicon-remove" ng-click="openDeletePlayerDialog(player,false)"></i></td>
+          <td ng-show="otherTeamView"><i class="glyphicon glyphicon-remove" ng-click="openDeletePlayerDialog(player,false)"></i></td>
         </tr>
       </tbody>
     </table>
@@ -131,9 +131,9 @@
           <th>{{player.jerseyNumber}}</th>
           <th ng-click="openPlayerInformationDialog(player,true)"><a href="#/addplayer">{{player.name}}</a></th>
           <td>{{player.position}}</td>
-          <td align="center"><i class="glyphicon glyphicon-pencil"
+          <td align="center" ng-show="otherTeamView"><i class="glyphicon glyphicon-pencil"
             ng-click="openPlayerInformationDialog(player, false)"><a href="#/addplayer"></a></i></td>
-          <td><i class="glyphicon glyphicon-remove" ng-click="openDeletePlayerDialog(player,false)"></i></td>
+          <td ng-show="otherTeamView"><i class="glyphicon glyphicon-remove" ng-click="openDeletePlayerDialog(player,false)"></i></td>
         </tr>
       </tbody>
     </table>
@@ -156,9 +156,9 @@
           <th>{{player.jerseyNumber}}</th>
           <th ng-click="openPlayerInformationDialog(player,true)"><a href="#/addplayer">{{player.name}}</a></th>
           <td>{{player.position}}</td>
-          <td align="center"><i class="glyphicon glyphicon-pencil"
+          <td align="center" ng-show="otherTeamView"><i class="glyphicon glyphicon-pencil"
             ng-click="openPlayerInformationDialog(player, false)"><a href="#/addplayer"></a></i></td>
-          <td><i class="glyphicon glyphicon-remove" ng-click="openDeletePlayerDialog(player,false)"></i></td>
+          <td ng-show="otherTeamView"><i class="glyphicon glyphicon-remove" ng-click="openDeletePlayerDialog(player,false)"></i></td>
         </tr>
       </tbody>
     </table>

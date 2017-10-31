@@ -12,13 +12,14 @@ angular.module("Elifoot").controller('ClassificationController', function($scope
       console.log(data);
   });
 
-  $scope.setSelectedTeam = function(teamName) {
+  $scope.setSelectedTeam = function(teamName, disable) {
     for(var i = 0; i < $scope.teamMap.length; i++) {
       if($scope.teamMap[i].name == teamName) {
         $scope.selectedTeamId = $scope.teamMap[i]._links.players.href.replace('http://api.football-data.org/v1/teams/', '');
         $scope.selectedTeamId = $scope.selectedTeamId.replace('/players', '');
         sessionStorage.setItem('selectedTeamId', $scope.selectedTeamId);
         sessionStorage.setItem('selectedEffectiveTeamName', teamName);
+        sessionStorage.setItem('otherTeamView', false);
         console.log("selected Team id " + $scope.selectedTeamId);
         return ;
       }
