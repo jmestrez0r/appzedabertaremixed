@@ -89,8 +89,8 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
 
                   if($scope.data.todaysPractices != null && $scope.data.todaysPractices != undefined &&
                     $scope.data.todaysPractices != '') {
-                      $scope.data.message = "Tem um treino hoje às " + moment($scope.data.todaysPractices.startDate).format('HH:MM')
-                        + " de " + $scope.data.todaysPractices.title + "!";
+                      $scope.data.message = "Tem um treino às " + moment($scope.data.todaysPractices.startDate).format('HH:MM')
+                        + " do dia " + moment($scope.data.todaysPractices.startDate).format('DD') + " de " + $scope.data.todaysPractices.title + "!";
                       $scope.data.todaysShow = true;
                       loadAlertDialog();
                       $scope.nearEventDetail = $scope.data.todaysPractices;
