@@ -172,10 +172,13 @@
                       <a href="javascript:;" data-toggle="collapse" data-target="#allteam"><i class="fa fa-fw fa-folder-open-o"></i> Plantel <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="allteam" class="collapse">
                           <li>
-                            <a href="#/players" onclick="sessionStorage.setItem('otherTeamView', true);sessionStorage.setItem('selectedTeamId', '')"><i class="glyphicon glyphicon-paste"></i> Plantel Geral</a>
+                            <a href="#/players" onclick="sessionStorage.setItem('otherTeamView', true);sessionStorage.setItem('selectedTeamId', '');sessionStorage.setItem('staffMember', false);"><i class="glyphicon glyphicon-paste"></i> Plantel Geral</a>
                           </li>
                           <li>
-                              <a href="#/addplayer" onclick="sessionStorage.setItem('otherTeamView', true);"><i class="glyphicon glyphicon-user"></i> Adicionar Jogador</a>
+                              <a href="#/addplayer" onclick="sessionStorage.setItem('otherTeamView', true);sessionStorage.setItem('staffMember', false);"><i class="glyphicon glyphicon-user"></i> Adicionar Jogador</a>
+                          </li>
+                          <li>
+                              <a href="#/addplayer" onclick="sessionStorage.setItem('otherTeamView', true);sessionStorage.setItem('staffMember', true);"><i class="glyphicon glyphicon-user"></i> Adicionar Staff</a>
                           </li>
                         </ul>
                     </li>
@@ -188,6 +191,12 @@
                     </li>
                     <li>
                         <a href="#/gamescalendar" ng-click="loadGamesCalendar()"><i class="fa fa-fw fa-calendar"></i> Calendário de Jogos</a>
+                    </li>
+                    <li>
+                        <a href="#/gamecall" onclick="sessionStorage.setItem('selectedGameDate', '');
+                          sessionStorage.setItem('selectedGameId', '');
+                          sessionStorage.setItem('selectedGameDescription', '');
+                          sessionStorage.setItem('otherTeamView', true);"><i class="fa fa-fw fa-calendar"></i> Convocatória</a>
                     </li>
                     <li>
                         <a href="#/practices" onclick="sessionStorage.setItem('selectedGameDate', '');

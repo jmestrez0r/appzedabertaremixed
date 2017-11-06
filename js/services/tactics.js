@@ -23,6 +23,11 @@ angular.module('Elifoot').factory('Tactics', ['$http', function($http) {
           'teamId' : teamId,
           'eventId' : eventId
         });
+      },
+      getNextTactic: function(teamId) {
+        return $http.post('./js/services/phpservices/tactics/getNextTactic.php', {
+          'teamId' : teamId
+        });
       }
   }
 }]);

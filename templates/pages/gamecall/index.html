@@ -1,0 +1,39 @@
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            <i class="fa fa-fw fa-calendar"></i> Convocatória
+        </h1>
+      </div>
+      <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li class="active">
+                <i class="fa fa-dashboard"></i> Dashboard / Convocatória para {{callPlayerList[0].description}}
+            </li>
+        </ol>
+    </div>
+</div>
+
+{{loadCallPlayerList}}
+
+<div class="col-lg-12">
+  <table class="table">
+    <caption><i class="fa fa-fw fa-futbol-o"/> Convocados</caption>
+    <thead>
+      <tr>
+        <th align="center">#</th>
+        <th align="center">Número</th>
+        <th align="center">Nome</th>
+        <th align="center">Nacionalidade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="player in callPlayerList">
+        <th>-</th>
+        <th>{{player.jerseyNumber}}</th>
+        <td>{{player.name}}</td>
+        <td>{{player.nationality}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

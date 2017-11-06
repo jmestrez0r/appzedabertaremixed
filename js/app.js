@@ -12,8 +12,14 @@ angular.module("Elifoot", ['ngRoute', 'ui.calendar', 'kendo.directives',
         }
 
         if (INTEGER_REGEXP.test(viewValue)) {
-          // it is valid
-          return true;
+
+          if(viewValue >= 0 && viewValue <= 100) {
+            // it is valid
+            return true;
+          } else {
+            alert('Insira um valor entre 0 e 100!');
+            return false; 
+          }
         }
 
         alert('Campo Inválido!');

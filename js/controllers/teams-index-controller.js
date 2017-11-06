@@ -39,6 +39,14 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   $scope.effectiveTeamName = sessionStorage.getItem('effectiveTeamName');
   $scope.selectedTeamId = sessionStorage.getItem('selectedTeamId');
 
+  if(sessionStorage.getItem('staffMember') != undefined &&
+    sessionStorage.getItem('staffMember') != '' &&
+    sessionStorage.getItem('staffMember') == 'true') {
+    $scope.addStaffMember = true;
+  } else {
+    $scope.addStaffMember = false;
+  }
+
   //load the values with the selected team
   if(sessionStorage.getItem('selectedTeamId') != undefined &&
       sessionStorage.getItem('selectedTeamId') != '') {
@@ -253,6 +261,56 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
         $scope.strikers.push($scope.selectedPlayer);
       }
     }
+
+
+    if($scope.addStaffMember == true) {
+        $scope.selectedPlayer.teamId = $scope.teamId;
+        $scope.selectedPlayer.attributesId = '';
+        if($scope.selectedPlayer.contractUntil == undefined || $scope.selectedPlayer.contractUntil == '') {
+          var date = new Date();
+          var d = date.getDate();
+          var m = date.getMonth();
+          var y = date.getFullYear();
+          $scope.selectedPlayer.contractUntil = $.datepicker.formatDate("yy-mm-dd", new Date(y+10, m, d, 0, 0));
+        }
+
+        $scope.selectedPlayer.marketValue = '';
+
+        if($scope.selectedPlayer.playerId != null && $scope.selectedPlayer.playerId != '' &&
+          $scope.selectedPlayer.playerId != undefined) {
+        //UPDATE PLAYER IN DATABASE
+        TeamPlayers.updatePlayer($scope.selectedPlayer).success(function (data) {
+            console.log(data);
+            console.log("player updated!");
+
+            $location.path('/players');
+
+            ngDialog.open({
+                template: 'successMessage.html',
+                className: 'ngdialog-theme-default',
+                showClose: false
+            });
+        });
+        return;
+      } else {
+        //SAVE PLAYER IN DATABASE
+        TeamPlayers.savePlayer($scope.selectedPlayer).success(function (data3) {
+            console.log(data3);
+            console.log("player created!");
+
+            $location.path('/players');
+
+            ngDialog.open({
+                template: 'successMessage.html',
+                className: 'ngdialog-theme-default',
+                showClose: false,
+                height: 400
+            });
+          });
+          return;
+      }
+    }
+
 
     //it exists
     if($scope.selectedPlayer.playerId != undefined &&

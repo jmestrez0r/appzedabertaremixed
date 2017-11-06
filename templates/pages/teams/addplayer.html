@@ -2,22 +2,36 @@
 <!-- Page Heading -->
 <div class="row" ng-init="loadSelectedPlayer()">
     <div class="col-lg-12" >
-      <h1 class="page-header" ng-if="selectedPlayer.playerId == undefined">
+      <h1 class="page-header" ng-if="selectedPlayer.playerId == undefined && addStaffMember == false">
           <i><img src="{{effectiveTeam.crestUrl}}" height="50px" width="50px"></img></i>
           Adicionar Jogador
       </h1>
-      <h1 class="page-header" ng-if="selectedPlayer.playerId != undefined">
+      <h1 class="page-header" ng-if="selectedPlayer.playerId != undefined && addStaffMember == false">
           <i><img src="{{effectiveTeam.crestUrl}}" height="50px" width="50px"></img></i>
           Informação de Jogador
+      </h1>
+      <h1 class="page-header" ng-if="selectedPlayer.playerId == undefined && addStaffMember == true">
+          <i><img src="{{effectiveTeam.crestUrl}}" height="50px" width="50px"></img></i>
+          Adicionar Staff
+      </h1>
+      <h1 class="page-header" ng-if="selectedPlayer.playerId != undefined && addStaffMember == true">
+          <i><img src="{{effectiveTeam.crestUrl}}" height="50px" width="50px"></img></i>
+          Informação de Staff
       </h1>
     </div>
     <div class="col-lg-12">
       <ol class="breadcrumb">
-          <li ng-if="selectedPlayer.playerId == undefined">
+          <li ng-if="selectedPlayer.playerId == undefined && addStaffMember == true">
+              <i class="fa fa-dashboard"></i> Dashboard / Plantel - <b>{{effectiveTeam.name}}</b> / Adicionar Staff
+          </li>
+          <li ng-if="selectedPlayer.playerId == undefined && addStaffMember == false">
               <i class="fa fa-dashboard"></i> Dashboard / Plantel - <b>{{effectiveTeam.name}}</b> / Adicionar Jogador
           </li>
-          <li ng-if="selectedPlayer.playerId != undefined">
+          <li ng-if="selectedPlayer.playerId != undefined && addStaffMember == false">
               <i class="fa fa-dashboard"></i> Dashboard / Plantel - <b>{{effectiveTeam.name}}</b> / Informação de Jogador
+          </li>
+          <li ng-if="selectedPlayer.playerId != undefined && addStaffMember == true">
+              <i class="fa fa-dashboard"></i> Dashboard / Plantel - <b>{{effectiveTeam.name}}</b> / Informação de Staff
           </li>
       </ol>
     </div>
@@ -40,7 +54,7 @@
       </div>
 
       <div class="col-lg-2" style="width: 420px !important; height: 200px !important;"
-        width="420px" height="200px">
+        width="420px" height="200px" ng-show="addStaffMember == false">
         <canvas id="physicalRadar" class="chart chart-radar"
           chart-data="physicalData" chart-options="options" chart-labels="physicalLabels"
           style="display: block; width: 420px !important; height: 200px !important;">
@@ -48,7 +62,7 @@
       </div>
 
       <div class="col-lg-2" style="width: 420px !important; height: 200px !important;"
-        width="420px" height="200px">
+        width="420px" height="200px" ng-show="addStaffMember == false">
         <canvas id="velocityRadar" class="chart chart-radar"
           chart-data="velocityData" chart-options="options" chart-labels="velocityLabels"
           style="display: block; width: 420px !important; height: 200px !important;">
@@ -63,8 +77,12 @@
     <div class="row">
       <div class="col-lg-2">
           <button type="button" class="btn" ng-disabled="details"
-            ng-click="savePlayer()">
+            ng-click="savePlayer()" ng-show="addStaffMember == false">
             Gravar Jogador
+          </button>
+          <button type="button" class="btn" ng-disabled="details"
+            ng-click="savePlayer()" ng-show="addStaffMember == true">
+            Gravar Staff
           </button>
       </div>
     </div>
@@ -99,9 +117,9 @@
         </div>
       </div>
 
-      <div class="col-md-2">
+      <div class="col-md-2" ng-show="addStaffMember == false">
         <div class="form-group">
-            <label>Posição/Função:</label>
+            <label>Posição:</label>
             <div class="dropdown">
               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
                 ng-disabled="details" ng-show="selectedPlayer.position == undefined || selectedPlayer.position == null ||
@@ -128,9 +146,38 @@
         </div>
     </div>
 
+    <div class="col-md-2" ng-show="addStaffMember == true">
+        <div class="form-group">
+            <label>Função:</label>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+                ng-disabled="details" ng-show="selectedPlayer.position == undefined || selectedPlayer.position == null ||
+                  selectedPlayer.position == ''">
+                Selecione a função
+              <span class="caret"></span></button>
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+                ng-disabled="details" ng-show="!(selectedPlayer.position == undefined || selectedPlayer.position == null ||
+                  selectedPlayer.position == '')">
+                {{selectedPlayer.position}}
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu" value="{{selectedPlayer.position}}">
+                <li ng-click="selectedPlayerPosition('Assitant Coach');"><a>Treinador Adjunto</a></li>
+                <li ng-click="selectedPlayerPosition('Goalkeeper Coach');"><a>Treinador Guarda Redes</a></li>
+                <li ng-click="selectedPlayerPosition('Physical Prep.');"><a>Preparador Fisico</a></li>
+                <li ng-click="selectedPlayerPosition('President');"><a>Presidente</a></li>
+                <li ng-click="selectedPlayerPosition('Leader');"><a>Dirigente</a></li>
+                <li ng-click="selectedPlayerPosition('Closet');"><a>Roupeiro</a></li>
+                <li ng-click="selectedPlayerPosition('Physiotherapist');"><a>Fisioterapeuta</a></li>
+                <li ng-click="selectedPlayerPosition('Medic');"><a>Médico</a></li>
+                <li ng-click="selectedPlayerPosition('Watcher');"><a>Observador</a></li>
+              </ul>
+            </div>
+        </div>
+    </div>
+
     <div class="row" />
 
-    <div class="row">
+    <div class="row" ng-show="addStaffMember == false">
       <div class="col-lg-2">
         <table class="table">
           <caption>Atributos Físicos</caption>
@@ -209,7 +256,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" ng-show="addStaffMember == false">
       <div class="col-lg-2">
         <table class="table">
           <caption>Atributos Técnicos</caption>
@@ -249,7 +296,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" ng-show="addStaffMember == false">
       <div class="col-lg-2">
         <table class="table">
           <thead>

@@ -7,6 +7,16 @@ angular.module("Elifoot").controller('TacticsController',
 
     var showed = false;
 
+    //information for the playerCallList
+    $scope.callPlayerList = [];
+    $scope.loadCallPlayerList = Tactics.getNextTactic($scope.teamId).success(function (data) {
+        console.log(data);
+        if(data != undefined && data != null && data.length > 0) {
+          $scope.callPlayerList = data;
+        }
+    });
+
+
     //Load tactic board if exists
     if($scope.selectedGameId != null &&
       $scope.selectedGameId != undefined &&
