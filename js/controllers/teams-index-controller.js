@@ -223,6 +223,11 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   //SAVE PLAYER INFORMATION
   $scope.savePlayer = function() {
 
+    if(!validateIfFieldsAreCorrect() && $scope.addStaffMember != true) {
+      alert('Por favor, preencha os campos todos!');
+      return;
+    }
+
     //it exists
     if($scope.selectedPlayer.$$hashKey != null && $scope.selectedPlayer.$$hashKey != '') {
         if($scope.selectedPlayer.position.includes('Keeper')) {
@@ -529,4 +534,118 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
       [$scope.physicalHeight, $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight, $scope.physicalJumpLong]
     ];
   }
+
+  $scope.availablePositions = [{
+      selected: false,
+      name: 'Guarda-Redes',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Libero',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Defesa Central',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Defesa Lateral',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Médio Defensivo',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Médio Ofensivo',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Extremo',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Avançado',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Ponta de Lança',
+      esqSelected : false,
+      dirSelected : false
+    }];
+
+  $scope.addPositionsToPlayer = function() {
+    $scope.selectedPlayer.position = '';
+    for(var i = 0; i < $scope.availablePositions.length; i++) {
+      if($scope.availablePositions[i].selected) {
+        if($scope.selectedPlayer.position != '') {
+            $scope.selectedPlayer.position += ', ';
+          }
+          $scope.selectedPlayer.position += $scope.availablePositions[i].name;
+          if($scope.availablePositions[i].esqSelected) {
+            $scope.selectedPlayer.position += ' Esquerdo';
+          }
+          if($scope.availablePositions[i].dirSelected) {
+            $scope.selectedPlayer.position += ' Direito';
+          }
+        }
+    }
+  };
+
+  $scope.selectPlayerPosition = function() {
+    console.log($scope.availablePositions);
+
+    ngDialog.open({
+      template: 'selectPlayerPosition.html',
+      className: 'ngdialog-theme-default',
+      scope: $scope,
+      showClose: false,
+      height: 300
+    });
+  };
+
+  function validateIfFieldsAreCorrect() {
+    return $scope.physicalHeight != '' &&  $scope.physicalHeight != undefined &&
+    $scope.physicalResist != '' &&  $scope.physicalResist != undefined &&
+    $scope.physicalAgility != '' &&  $scope.physicalAgility != undefined &&
+    $scope.physicalJumpHeight != '' &&  $scope.physicalJumpHeight != undefined &&
+    $scope.physicalJumpLong != '' &&  $scope.physicalJumpLong != undefined &&
+    $scope.acelaration != '' &&  $scope.acelaration != undefined &&
+    $scope.velocity10m != '' &&  $scope.velocity10m != undefined &&
+    $scope.velocity20m != '' &&  $scope.velocity20m != undefined &&
+    $scope.velocity50m != '' &&  $scope.velocity50m != undefined &&
+    $scope.velocity100m != '' &&  $scope.velocity100m != undefined &&
+    $scope.mentalLeadership != '' &&  $scope.mentalLeadership != undefined &&
+    $scope.mentalTeam != '' &&  $scope.mentalTeam != undefined &&
+    $scope.mentalTeamWork != '' &&  $scope.mentalTeamWork != undefined &&
+    $scope.mentalDetermination != '' &&  $scope.mentalDetermination != undefined &&
+    $scope.mentalCreativity != '' &&  $scope.mentalCreativity != undefined &&
+    $scope.mentalFocus != '' &&  $scope.mentalFocus
+    $scope.mentalAgressive != '' &&  $scope.mentalAgressive != undefined &&
+    $scope.technicalCruzamento != '' &&  $scope.technicalCruzamento != undefined &&
+    $scope.technicalDrible != '' &&  $scope.technicalDrible != undefined &&
+    $scope.technicalWork != '' &&  $scope.technicalWork != undefined &&
+    $scope.technicalShoot != '' &&  $scope.technicalShoot
+    $scope.technicalFinish != '' &&  $scope.technicalFinish
+    $scope.technicalHead != '' &&  $scope.technicalHead != undefined &&
+    $scope.technicalFirst != '' &&  $scope.technicalFirst != undefined &&
+    $scope.technicalReceive != '' &&  $scope.technicalReceive != undefined &&
+    $scope.technicalFree != '' &&  $scope.technicalFree != undefined &&
+    $scope.technicalLaunch != '' &&  $scope.technicalLaunch != undefined &&
+    $scope.technicalPenalty != '' &&  $scope.technicalPenalty != undefined &&
+    $scope.technicalCorner != '' &&  $scope.technicalCorner != undefined &&
+    $scope.technicalTech != '' &&  $scope.technicalTech != undefined &&
+    $scope.technicalShortPass != '' &&  $scope.technicalShortPass != undefined &&
+    $scope.technicalLongPass != '' &&  $scope.technicalLongPass != undefined &&
+    $scope.technicalLongShoot != '' &&  $scope.technicalLongShoot != undefined;
+  }
+
 });

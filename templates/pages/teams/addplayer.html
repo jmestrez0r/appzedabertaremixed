@@ -119,8 +119,7 @@
 
       <div class="col-md-2" ng-show="addStaffMember == false">
         <div class="form-group">
-            <label>Posição:</label>
-            <div class="dropdown">
+            <!--div class="dropdown">
               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
                 ng-disabled="details" ng-show="selectedPlayer.position == undefined || selectedPlayer.position == null ||
                   selectedPlayer.position == ''">
@@ -142,7 +141,10 @@
                 <li ng-click="selectedPlayerPosition('Right-Wing');"><a>Ala Dir.</a></li>
                 <li ng-click="selectedPlayerPosition('Forward');"><a>Avançado</a></li>
               </ul>
-            </div>
+            </div-->
+            <label>Posição:</label>
+            <input class="form-control" ng-model="selectedPlayer.position" ng-disabled="details"
+              value="{{selectedPlayer.position}}" ng-click="selectPlayerPosition();" />
         </div>
     </div>
 
@@ -335,3 +337,39 @@
       </div>
     </div>
   </div>
+
+  <script type="text/ng-template" id="selectPlayerPosition.html">
+    <div class="ngdialog-message" style="text-align: center !important;">
+      <h3><i class="fa fa-fw fa-futbol-o"></i> Seleccione a posição do Jogador</h3>
+      <br/>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th align="center">#</th>
+            <th align="center"></th>
+            <th align="center">Esquerdo</th>
+            <th align="center">Direito</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="position in availablePositions">
+            <th>
+              <input type="checkbox" ng-model="position.selected" />
+            </th>
+            <th>{{position.name}}</th>
+            <th align="center" ng-if="position.name != 'Guarda-Redes'">
+              <input type="checkbox" ng-model="position.esqSelected" />
+            </th>
+            <th align="center" ng-if="position.name != 'Guarda-Redes'">
+              <input type="checkbox" ng-model="position.dirSelected" />
+            </th>
+          </tr>
+        </tbody>
+      </table>
+
+      <button type="button" class="btn"
+        ng-click="addPositionsToPlayer();closeThisDialog();">
+        OK
+      </button>
+  </script>
