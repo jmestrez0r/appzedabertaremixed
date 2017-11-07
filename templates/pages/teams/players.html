@@ -49,7 +49,12 @@
       </thead>
       <tbody>
         <tr ng-repeat="player in staff">
-          <th scope="row" align="center"><img src="https://dummyimage.com/40x40/000/fff"></th>
+          <th align="center">
+            <img ng-if="player.pictureBlob == '' || player.pictureBlob == undefined"
+              src="https://dummyimage.com/40x40/000/fff" />
+            <img ng-if="player.pictureBlob != '' && player.pictureBlob != undefined"
+              src="{{player.pictureBlob}}" width="40px" height="40px" />
+          </th>
           <th>{{player.name}}</th>
           <td>{{player.position}}</td>
         </tr>
@@ -74,7 +79,12 @@
       </thead>
       <tbody>
         <tr ng-repeat="player in goalKeepers">
-          <th scope="row" align="center"><img src="https://dummyimage.com/40x40/000/fff"></th>
+          <th align="center">
+            <img ng-if="player.pictureBlob == '' || player.pictureBlob == undefined"
+              src="https://dummyimage.com/40x40/000/fff" />
+            <img ng-if="player.pictureBlob != '' && player.pictureBlob != undefined"
+              src="{{player.pictureBlob}}" width="40px" height="40px" />
+          </th>
           <th>{{player.jerseyNumber}}</th>
           <th ng-click="openPlayerInformationDialog(player,true)"><a href="#/addplayer">{{player.name}}</a></th>
           <td>{{player.position}}</td>
@@ -99,7 +109,12 @@
       </thead>
       <tbody>
         <tr ng-repeat="player in defenses">
-          <th scope="row" align="center"><img src="https://dummyimage.com/40x40/000/fff"></th>
+          <th align="center">
+            <img ng-if="player.pictureBlob == '' || player.pictureBlob == undefined"
+              src="https://dummyimage.com/40x40/000/fff" />
+            <img ng-if="player.pictureBlob != '' && player.pictureBlob != undefined"
+              src="{{player.pictureBlob}}" width="40px" height="40px" />
+          </th>
           <th>{{player.jerseyNumber}}</th>
           <th ng-click="openPlayerInformationDialog(player,true)"><a href="#/addplayer">{{player.name}}</a></th>
           <td>{{player.position}}</td>
@@ -127,7 +142,12 @@
       </thead>
       <tbody>
         <tr ng-repeat="player in middles">
-          <th scope="row" align="center"><img src="https://dummyimage.com/40x40/000/fff"></th>
+          <th align="center">
+            <img ng-if="player.pictureBlob == '' || player.pictureBlob == undefined"
+              src="https://dummyimage.com/40x40/000/fff" />
+            <img ng-if="player.pictureBlob != '' && player.pictureBlob != undefined"
+              src="{{player.pictureBlob}}" width="40px" height="40px" />
+          </th>
           <th>{{player.jerseyNumber}}</th>
           <th ng-click="openPlayerInformationDialog(player,true)"><a href="#/addplayer">{{player.name}}</a></th>
           <td>{{player.position}}</td>
@@ -152,7 +172,12 @@
       </thead>
       <tbody>
         <tr ng-repeat="player in strikers">
-          <th scope="row" align="center"><img src="https://dummyimage.com/40x40/000/fff"></th>
+          <th align="center">
+            <img ng-if="player.pictureBlob == '' || player.pictureBlob == undefined"
+              src="https://dummyimage.com/40x40/000/fff" />
+            <img ng-if="player.pictureBlob != '' && player.pictureBlob != undefined"
+              src="{{player.pictureBlob}}" width="40px" height="40px"/>
+          </th>
           <th>{{player.jerseyNumber}}</th>
           <th ng-click="openPlayerInformationDialog(player,true)"><a href="#/addplayer">{{player.name}}</a></th>
           <td>{{player.position}}</td>

@@ -366,10 +366,7 @@
                 '     </div>\n' +
                 '</div>';
             tSize = ' <samp>({sizeText})</samp>';
-            tFooter = '<div class="file-thumbnail-footer">\n' +
-                '    <div class="file-footer-caption" title="{caption}">{caption}<br>{size}</div>\n' +
-                '    {progress} {actions}\n' +
-                '</div>';
+            tFooter = '';
             tActions = '<div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>\n' +
                 '{drag}\n' +
                 '<div class="file-actions">\n' +
@@ -391,7 +388,7 @@
             tTagAft = '</div>{footer}\n</div>\n';
             tGeneric = '{content}\n';
             tHtml = '<div class="kv-preview-data file-preview-html" title="{caption}" ' + STYLE_SETTING + '>{data}</div>\n';
-            tImage = '<img src="{data}" class="kv-preview-data file-preview-image" title="{caption}" alt="{caption}" ' +
+            tImage = '<img id="avatarImageSourceId" src="{data}" class="kv-preview-data file-preview-image" title="{caption}" alt="{caption}" ' +
                 STYLE_SETTING + '>\n';
             tText = '<textarea class="kv-preview-data file-preview-text" title="{caption}" readonly ' + STYLE_SETTING +
                 '>{data}</textarea>\n';
@@ -505,8 +502,8 @@
                 fileActionSettings: {
                     showRemove: true,
                     showUpload: true,
-                    showZoom: true,
-                    showDrag: true,
+                    showZoom: false,
+                    showDrag: false,
                     removeIcon: '<i class="glyphicon glyphicon-trash text-danger"></i>',
                     removeClass: 'btn btn-xs btn-default',
                     removeTitle: 'Remove file',

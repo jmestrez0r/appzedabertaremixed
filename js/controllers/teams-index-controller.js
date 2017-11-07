@@ -157,7 +157,10 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
 
 
   $scope.openPlayerInformationDialog = function(player, details) {
+    //to avoid cookie overflow
+    player.pictureBlob = '';
     $cookies.putObject('selectedPlayer', player);
+
     if(details == true) {
       $cookies.put('readOnly', 'disabled');
     } else {
@@ -226,6 +229,17 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     if(!validateIfFieldsAreCorrect() && $scope.addStaffMember != true) {
       alert('Por favor, preencha os campos todos!');
       return;
+    }
+
+    for(var i = 0; i < document.getElementById('avatar-2').files.length; i++) {
+      if(document.getElementById('avatar-2').files[i].size/1024 > 100) {
+        alert('Por favor, coloque uma imagem inferior a 100kb. A atual tem ' +
+          (document.getElementById('avatar-2').files[i].size/1024 + "").substring(0, 5) + 'kb.');
+        return;
+      }
+      document.getElementById('avatar-2').files[i].name = $scope.selectedPlayer.name + '.jpg';
+      document.getElementById('avatarImageSourceId').title = $scope.selectedPlayer.name;
+      $scope.selectedPlayer.pictureBlob = document.getElementById('avatarImageSourceId').src;
     }
 
     //it exists
@@ -376,8 +390,6 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
                         console.log("player information created!");
                         $scope.selectedPlayer.attributesId = data2[0].attributesId;
 
-                        $scope.selectedPlayer.pictureBlob = '';
-
                         if($scope.selectedPlayer.contractUntil == undefined || $scope.selectedPlayer.contractUntil == '') {
                           var date = new Date();
                           var d = date.getDate();
@@ -436,8 +448,6 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
                     console.log("player information created!");
                     $scope.selectedPlayer.attributesId = data2[0].attributesId;
 
-                    $scope.selectedPlayer.pictureBlob = '';
-
                     if($scope.selectedPlayer.contractUntil == undefined || $scope.selectedPlayer.contractUntil == '') {
                       var date = new Date();
                       var d = date.getDate();
@@ -472,7 +482,7 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
 
   $scope.loadValuesPlayerValues = function(id) {
 
-    if(id != undefined) {
+    if(id != undefined && id != '') {
       TeamPlayers.getPlayerSpecs(id).success(function (data) {
         console.log(data);
         var playerSpecs = data[0];
@@ -509,6 +519,9 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
         $scope.technicalShortPass = data[0].technicalShortPass;
         $scope.technicalLongPass = data[0].technicalLongPass;
         $scope.technicalLongShoot = data[0].technicalLongShoot;
+
+        $scope.selectedPlayer.pictureBlob = data[0].pictureBlob;
+
         loadSpecsList();
       });
     } else {
@@ -533,6 +546,12 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     $scope.physicalData = [
       [$scope.physicalHeight, $scope.physicalResist, $scope.physicalAgility, $scope.physicalJumpHeight, $scope.physicalJumpLong]
     ];
+
+    if($scope.selectedPlayer.pictureBlob != '' && $scope.selectedPlayer.pictureBlob != null &&
+      $scope.selectedPlayer.pictureBlob != undefined) {
+        document.getElementById('avatarImageSourceId').title = $scope.selectedPlayer.name;
+        document.getElementById('avatarImageSourceId').src = $scope.selectedPlayer.pictureBlob;
+      }
   }
 
   $scope.availablePositions = [{
