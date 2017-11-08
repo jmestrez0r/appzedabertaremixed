@@ -7,6 +7,11 @@ angular.module('Elifoot').factory('Practices', ['$http', function($http) {
         'eventId' : eventId
       });
     },
+    getAllPracticesInfo: function(teamId) {
+      return $http.post('./js/services/phpservices/practices/getAllPracticesInfo.php', {
+        'teamId' : teamId
+      });
+    },
     deletePractice: function(teamId, eventId) {
       return $http.post('./js/services/phpservices/practices/deletePractice.php', {
         'teamId' : teamId,

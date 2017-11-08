@@ -30,6 +30,30 @@
 </div>
 
 <div class="row">
+  <div class="col-lg-12">
+    <button class="btn btn-default dropdown-toggle col-lg-12" type="button" id="dropdownMenu1" data-toggle="dropdown">
+      Seleccione um Treino previamente registado. <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+            <div class="input-group input-group-sm search-control">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-search"></span>
+                </span>
+                <input type="text" class="form-control" placeholder="Filtro" ng-model="query"></input>
+            </div>
+        </li>
+        <li role="presentation" ng-repeat='item in allPractices | filter:query'>
+          <a ng-click="refreshIcons();loadPracticeValues(item.eventId);"> {{item.practiceDesc}} - I: {{item.intensity}} | D: {{item.density}} | V: {{item.volume}}</a>
+        </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+</div>
+
+<div class="row">
   <div class="col-md-2">
     <div class="form-group">
         <label>Título:</label>
@@ -137,7 +161,7 @@
     <div ng-init="toggleField();">
       <button type="button" class="btn"
         ng-click="toggleField();">
-        Rodar campo
+        Trocar visual do Campo
       </button>
     </div>
   </div>

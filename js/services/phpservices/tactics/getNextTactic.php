@@ -17,6 +17,8 @@
 						INNER JOIN (
 							SELECT * FROM `CALENDAR` C
 							where C.START_DATE > NOW() and C.TEAM_ID = '$teamId'
+							AND C.TYPE = 'game'
+							order by START_DATE asc
 							limit 1
 						) C ON T.EVENT_ID = C.EVENT_ID
 		WHERE T.TEAM_ID = '$teamId'
