@@ -4,8 +4,9 @@
 
 	$teamId = $data->teamId;
 	$eventId = $data->eventId;
+	$exercise = $data->exercise;
 
-	$sql = "SELECT PR.PRACTICE_ID as practiceId, PR.TITLE as title, PR.PRACTICE_DESC as practiceDescription,
+	$sql = "SELECT PR.PRACTICE_ID as practiceId, PR.TITLE as title, PR.PRACTICE_DESC as exercise,
 		PR.START_DATE as startDate, PR.TYPE as type, PR.VOLUME as volume, PR.INTENSITY as intensity,
 		PR.DENSITY as density, PR.FREQUENCY as frequency, PR.DESCRIPTION as description,
 		PR.PLAYER_ID as playerId, PL.JERSEY_NUMBER as jerseyNumber, PL.NAME as name,
@@ -16,7 +17,7 @@
 		PR.OBJECT_Y_POSITION as iconLeftPosition, PR.OBJECT_Z_POSITION as iconZPosition
 		FROM `PRACTICES` PR
 			LEFT JOIN PLAYER PL ON PR.PLAYER_ID = PL.PLAYER_ID
-		WHERE PR.TEAM_ID = '$teamId' AND PR.EVENT_ID = $eventId";
+		WHERE PR.TEAM_ID = $teamId AND PR.EVENT_ID = $eventId AND PR.PRACTICE_DESC = '$exercise'";
 	$qry = mysqli_query($con, $sql);
 
 	$data = array();

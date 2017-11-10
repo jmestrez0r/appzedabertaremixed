@@ -26,6 +26,106 @@ angular.module("Elifoot").controller('PracticesController',
 
     $scope.teamId = sessionStorage.getItem('teamId');
 
+    $scope.selectedExercise = function(val) {
+      if(val == 'Adicionar um novo exercicio.') {
+        $scope.selectedPractice.exercise = '';
+        $scope.newExerciseDialog();
+      } else {
+        $scope.selectedPractice.exercise = val;
+      }
+    }
+
+    $scope.createNewExercise = function() {
+      $scope.allExercisesOfThisPractice.push({
+          exercise : $scope.selectedPractice.exercise
+      });
+    }
+
+    Practices.getAllExercisesOfAPractice($scope.teamId, $scope.selectedGameId).success(function (data) {
+        $scope.allExercisesOfThisPractice = [];
+
+        for(var i = 0; i < data.length; i++) {
+          if(i == 0) {
+            $scope.selectedPractice.exercise = data[0].exercise;
+            $scope.allExercisesOfThisPractice.push({
+                exercise : 'Adicionar um novo exercicio.'
+            });
+          }
+          $scope.allExercisesOfThisPractice.push({
+              exercise : data[i].exercise
+          });
+        }
+
+        if($scope.selectedPractice.title != undefined &&
+            $scope.selectedPractice.title != null &&
+            $scope.selectedPractice.title != '') {
+              //loadRecordedPracticeDetails
+            Practices.getPractice($scope.selectedGameId, $scope.teamId, $scope.selectedPractice.exercise).success(function (data) {
+              console.log('getPractice');
+              console.log(data);
+
+              if(data != '') {
+                for(var i = 0; i < data.length; i++) {
+                  var object = data[i];
+
+                  if(object.jerseyNumber != '' && object.jerseyNumber != null &&
+                    object.jerseyNumber != undefined) {
+                      $scope.droppedPlayers.push({
+                        'name': object.name,
+                        'colorPosition': '',
+                        'index': i,
+                        'number': object.jerseyNumber,
+                        'playerId': object.playerId,
+                        'topPosition': object.topPosition,
+                        'leftPosition': object.leftPosition
+                      });
+                  } else {
+                    $scope.droppedIcons.push({
+                      'identification': object.iconId,
+                      'topPosition': object.iconTopPosition,
+                      'leftPosition': object.iconLeftPosition
+                    });
+                  }
+
+
+                  $scope.selectedPractice.title = object.title;
+                  $scope.selectedPractice.exercise = object.exercise;
+                  $scope.selectedPractice.datetime = object.startDate;
+                  $scope.selectedPractice.type = object.type;
+                  $scope.selectedPractice.volume = object.volume;
+                  $scope.selectedPractice.intensity = object.intensity;
+                  $scope.selectedPractice.density = object.density;
+                  $scope.selectedPractice.frequency = object.frequency;
+                  $scope.selectedPractice.description = object.description;
+                  $scope.selectedField = object.selectedField;
+                  $scope.selectedFieldSize.weight = object.weight;
+                  $scope.selectedFieldSize.height = object.height;
+
+                  if($scope.selectedField == '' || $scope.selectedField == undefined) {
+                    $scope.selectedField = './images/football_pitch.jpeg';
+                    $scope.selectedFieldSize = {
+                      'weight': '620px',
+                      'height': '320px'
+                    };
+                  }
+                }
+              }
+            });
+        }
+
+    });
+
+    $scope.newExerciseDialog = function() {
+      ngDialog.open({
+        template: 'newExerciseDialog.html',
+        className: 'ngdialog-theme-default',
+        scope: $scope,
+        showClose: false,
+        height: 250,
+        weight: 250
+      });
+    };
+
     Practices.getAllPracticesInfo($scope.teamId).success(function (data) {
       console.log('get all practices info to load the combo-box.');
       console.log(data);
@@ -48,6 +148,7 @@ angular.module("Elifoot").controller('PracticesController',
         if(document.getElementById($scope.players[i].number) != undefined &&
             document.getElementById($scope.players[i].number) != null) {
           document.getElementById($scope.players[i].number).removeAttribute('style');
+          document.getElementById($scope.players[i].number).style = CSSStyleDeclaration;
           console.log('refreshing ' + $scope.players[i].name);
         }
       }
@@ -55,6 +156,7 @@ angular.module("Elifoot").controller('PracticesController',
         if(document.getElementById($scope.icons[i].identification) != undefined &&
             document.getElementById($scope.icons[i].identification) != null) {
           document.getElementById($scope.icons[i].identification).removeAttribute('style');
+          document.getElementById($scope.icons[i].identification).style = CSSStyleDeclaration;
           console.log('refreshing ' + $scope.icons[i].identification);
         }
       }
@@ -64,7 +166,7 @@ angular.module("Elifoot").controller('PracticesController',
       if(eventId == '') {
         return;
       }
-      Practices.getPractice(eventId, $scope.teamId).success(function (data) {
+      Practices.getPractice(eventId, $scope.teamId, $scope.selectedPractice.exercise).success(function (data) {
         console.log('getPractice');
         console.log(data);
 
@@ -92,7 +194,7 @@ angular.module("Elifoot").controller('PracticesController',
             }
 
             $scope.selectedPractice.title = object.title;
-            $scope.selectedPractice.exercise = object.practiceDescription;
+            $scope.selectedPractice.exercise = object.exercise;
             $scope.selectedPractice.type = object.type;
             $scope.selectedPractice.volume = object.volume;
             $scope.selectedPractice.intensity = object.intensity;
@@ -168,63 +270,6 @@ angular.module("Elifoot").controller('PracticesController',
       { 'identification': 'icon15', 'fileName': 'arrow_up_left.png', 'image': true},
       { 'identification': 'icon16', 'fileName': 'arrow_up_right.png', 'image': true}
     ];
-
-    if($scope.selectedPractice.title != undefined &&
-        $scope.selectedPractice.title != null &&
-        $scope.selectedPractice.title != '') {
-          //loadRecordedPracticeDetails
-        Practices.getPractice($scope.selectedGameId, $scope.teamId).success(function (data) {
-          console.log('getPractice');
-          console.log(data);
-
-          if(data != '') {
-            for(var i = 0; i < data.length; i++) {
-              var object = data[i];
-
-              if(object.jerseyNumber != '' && object.jerseyNumber != null &&
-                object.jerseyNumber != undefined) {
-                  $scope.droppedPlayers.push({
-                    'name': object.name,
-                    'colorPosition': '',
-                    'index': i,
-                    'number': object.jerseyNumber,
-                    'playerId': object.playerId,
-                    'topPosition': object.topPosition,
-                    'leftPosition': object.leftPosition
-                  });
-              } else {
-                $scope.droppedIcons.push({
-                  'identification': object.iconId,
-                  'topPosition': object.iconTopPosition,
-                  'leftPosition': object.iconLeftPosition
-                });
-              }
-
-
-              $scope.selectedPractice.title = object.title;
-              $scope.selectedPractice.exercise = object.practiceDescription;
-              $scope.selectedPractice.datetime = object.startDate;
-              $scope.selectedPractice.type = object.type;
-              $scope.selectedPractice.volume = object.volume;
-              $scope.selectedPractice.intensity = object.intensity;
-              $scope.selectedPractice.density = object.density;
-              $scope.selectedPractice.frequency = object.frequency;
-              $scope.selectedPractice.description = object.description;
-              $scope.selectedField = object.selectedField;
-              $scope.selectedFieldSize.weight = object.weight;
-              $scope.selectedFieldSize.height = object.height;
-
-              if($scope.selectedField == '' || $scope.selectedField == undefined) {
-                $scope.selectedField = './images/football_pitch.jpeg';
-                $scope.selectedFieldSize = {
-                  'weight': '620px',
-                  'height': '320px'
-                };
-              }
-            }
-          }
-        });
-    }
 
     $scope.loadPlayersIntoThePracticeTable = function() {
       for(var i = 0; i < $scope.droppedPlayers.length; i++) {
@@ -327,7 +372,7 @@ angular.module("Elifoot").controller('PracticesController',
       $scope.selectedGameId = sessionStorage.getItem('selectedGameId');
 
       if($scope.selectedGameId != null && $scope.selectedGameId != '' && $scope.selectedGameId != undefined) {
-        Practices.deletePractice($scope.teamId, $scope.selectedGameId).success(function (data) {
+        Practices.deletePractice($scope.teamId, $scope.selectedGameId, $scope.selectedPractice.exercise).success(function (data) {
           console.log(data);
           savePracticePlayers($scope.teamId, $scope.selectedGameId);
         });

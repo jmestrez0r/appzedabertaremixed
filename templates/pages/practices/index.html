@@ -44,7 +44,7 @@
             </div>
         </li>
         <li role="presentation" ng-repeat='item in allPractices | filter:query'>
-          <a ng-click="refreshIcons();loadPracticeValues(item.eventId);"> {{item.practiceDesc}} - I: {{item.intensity}} | D: {{item.density}} | V: {{item.volume}}</a>
+          <a ng-click="refreshIcons();loadPracticeValues(item.eventId);"> {{item.title}} - I: {{item.intensity}} | D: {{item.density}} | V: {{item.volume}}</a>
         </li>
     </ul>
   </div>
@@ -63,9 +63,25 @@
   </div>
   <div class="col-md-2">
     <div class="form-group">
-        <label>Treino:</label>
-        <input class="form-control" ng-model="selectedPractice.exercise"
-          value="{{selectedPractice.exercise}}" />
+        <label>Exercicio:</label>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+            ng-disabled="details" ng-click="newExerciseDialog()" ng-show="selectedPractice.exercise == undefined || selectedPractice.exercise == null ||
+              selectedPractice.exercise == ''">
+            Selecione o exercicio.
+          <span class="caret"></span></button>
+          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+            ng-disabled="details" ng-show="!(selectedPractice.exercise == undefined || selectedPractice.exercise == null ||
+              selectedPractice.exercise == '')">
+            {{selectedPractice.exercise}}
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li ng-click="selectedExercise(exercise.exercise);"
+              ng-repeat="exercise in allExercisesOfThisPractice">
+              <a>{{exercise.exercise}}</a>
+            </li>
+          </ul>
+        </div>
     </div>
   </div>
   <div class="col-md-2">
@@ -339,6 +355,25 @@
       <button type="button" class="btn"
         ng-click="createOrSavePractice();closeThisDialog();">
         Criar treino
+      </button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="newExerciseDialog.html">
+    <div class="ngdialog-message" style="text-align: center !important;">
+      <h3><i class="fa fa-fw fa-futbol-o"></i> Introduza o titulo do novo exercicio.</h3>
+      <br/>
+
+      <div class="row" style="text-align: center !important;">
+        <div class="col-md-5" style="text-align: center !important;">
+          <input class="form-control" ng-model="selectedPractice.exercise"
+            value="{{selectedPractice.exercise}}" />
+        </div>
+      </div>
+
+      <button type="button" class="btn"
+        ng-click="createNewExercise();closeThisDialog();">
+        OK
       </button>
     </div>
 </script>

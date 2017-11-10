@@ -4,7 +4,7 @@
 
 	$teamId = $data->teamId;
 
-	$sql = "SELECT distinct(PR.EVENT_ID) as eventId, PR.PRACTICE_DESC as practiceDesc, PR.TYPE as type, PR.VOLUME as volume, PR.INTENSITY as intensity,
+	$sql = "SELECT distinct(PR.EVENT_ID) as eventId, PR.PRACTICE_DESC as exercise, PR.TYPE as type, PR.VOLUME as volume, PR.INTENSITY as intensity,
 		PR.DENSITY as density, PR.FREQUENCY as frequency, PR.DESCRIPTION as description, PR.START_DATE as startDate
 		FROM `PRACTICES` PR
 		WHERE PR.TEAM_ID = '$teamId'

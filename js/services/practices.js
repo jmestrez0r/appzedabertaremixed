@@ -1,10 +1,11 @@
 angular.module('Elifoot').factory('Practices', ['$http', function($http) {
 
   return {
-    getPractice: function(eventId, teamId) {
+    getPractice: function(eventId, teamId, exercise) {
       return $http.post('./js/services/phpservices/practices/getPracticeInformation.php', {
         'teamId' : teamId,
-        'eventId' : eventId
+        'eventId' : eventId,
+        'exercise' : exercise
       });
     },
     getAllPracticesInfo: function(teamId) {
@@ -12,10 +13,17 @@ angular.module('Elifoot').factory('Practices', ['$http', function($http) {
         'teamId' : teamId
       });
     },
-    deletePractice: function(teamId, eventId) {
-      return $http.post('./js/services/phpservices/practices/deletePractice.php', {
+    getAllExercisesOfAPractice: function(teamId, eventId) {
+      return $http.post('./js/services/phpservices/practices/getAllExercisesOfAPractice.php', {
         'teamId' : teamId,
         'eventId' : eventId
+      });
+    },
+    deletePractice: function(teamId, eventId, exercise) {
+      return $http.post('./js/services/phpservices/practices/deletePractice.php', {
+        'teamId' : teamId,
+        'eventId' : eventId,
+        'exercise' : exercise
       });
     },
     savePlayerInPractice: function(event, exercise, datetime, type, volume, intensity, density,
