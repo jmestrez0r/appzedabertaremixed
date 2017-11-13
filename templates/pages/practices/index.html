@@ -44,7 +44,7 @@
             </div>
         </li>
         <li role="presentation" ng-repeat='item in allPractices | filter:query'>
-          <a ng-click="refreshIcons();loadPracticeValues(item.eventId);"> {{item.title}} - I: {{item.intensity}} | D: {{item.density}} | V: {{item.volume}}</a>
+          <a ng-click="refreshIcons();loadPracticeValues(item.eventId, item.exercise);forceObtentionOfAllExercisesOfAPractice(item.eventId);"> {{item.title}} - I: {{item.intensity}} | D: {{item.density}} | V: {{item.volume}}</a>
         </li>
     </ul>
   </div>

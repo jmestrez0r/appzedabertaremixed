@@ -41,6 +41,25 @@ angular.module("Elifoot").controller('PracticesController',
       });
     }
 
+    $scope.forceObtentionOfAllExercisesOfAPractice = function (eventId) {
+      Practices.getAllExercisesOfAPractice($scope.teamId, eventId).success(function (data) {
+        $scope.allExercisesOfThisPractice = [];
+        for(var i = 0; i < data.length; i++) {
+          if(i == 0 && $scope.selectedPractice.exercise != '' &&
+              $scope.selectedPractice.exercise != undefined &&
+              $scope.selectedPractice.exercise != null) {
+            $scope.selectedPractice.exercise = data[0].exercise;
+            $scope.allExercisesOfThisPractice.push({
+                exercise : 'Adicionar um novo exercicio.'
+            });
+          }
+          $scope.allExercisesOfThisPractice.push({
+              exercise : data[i].exercise
+          });
+        }
+      });
+    }
+
     Practices.getAllExercisesOfAPractice($scope.teamId, $scope.selectedGameId).success(function (data) {
         $scope.allExercisesOfThisPractice = [];
 
@@ -112,7 +131,6 @@ angular.module("Elifoot").controller('PracticesController',
               }
             });
         }
-
     });
 
     $scope.newExerciseDialog = function() {
@@ -136,7 +154,7 @@ angular.module("Elifoot").controller('PracticesController',
         eventId: '',
         frequency: '',
         intensity: '',
-        practiceDesc: 'Repor definições',
+        title: 'Repor definições',
         startDate: '',
         type: '',
         volume: ''
@@ -162,11 +180,11 @@ angular.module("Elifoot").controller('PracticesController',
       }
     }
 
-    $scope.loadPracticeValues = function(eventId) {
+    $scope.loadPracticeValues = function(eventId, exercise) {
       if(eventId == '') {
         return;
       }
-      Practices.getPractice(eventId, $scope.teamId, $scope.selectedPractice.exercise).success(function (data) {
+      Practices.getPractice(eventId, $scope.teamId, exercise).success(function (data) {
         console.log('getPractice');
         console.log(data);
 
