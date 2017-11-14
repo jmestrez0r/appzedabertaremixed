@@ -199,10 +199,24 @@
                           sessionStorage.setItem('otherTeamView', true);"><i class="fa fa-fw fa-calendar"></i> Convocatória</a>
                     </li>
                     <li>
-                        <a href="#/practices" onclick="sessionStorage.setItem('selectedGameDate', '');
-                          sessionStorage.setItem('selectedGameId', '');
-                          sessionStorage.setItem('selectedGameDescription', '');
-                          sessionStorage.setItem('otherTeamView', true);"><i class="fa fa-fw fa-futbol-o"></i> Treinos</a>
+
+                    </li>
+                    <li>
+                      <a href="javascript:;" data-toggle="collapse" data-target="#practicesDropDown"><i class="fa fa-fw fa-futbol-o"></i> Treinos <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="practicesDropDown" class="collapse">
+                          <li>
+                              <a href="#/practices" onclick="sessionStorage.setItem('selectedGameDate', '');
+                                sessionStorage.setItem('selectedGameId', '');
+                                sessionStorage.setItem('selectedGameDescription', '');
+                                sessionStorage.setItem('otherTeamView', true);"><i class="fa fa-fw fa-futbol-o"></i> Estruturar Treino</a>
+                          </li>
+                          <li>
+                              <a href="#/mesocycle" onclick="sessionStorage.setItem('selectedGameDate', '');
+                                sessionStorage.setItem('selectedGameId', '');
+                                sessionStorage.setItem('selectedGameDescription', '');
+                                sessionStorage.setItem('otherTeamView', true);"><i class="glyphicon glyphicon-paste"></i> Mesociclo Mensal</a>
+                          </li>
+                      </ul>
                     </li>
                     <li>
                         <a href="#/tactics" onclick="sessionStorage.setItem('selectedGameDate', '');
@@ -295,6 +309,7 @@
     <script type="text/javascript" src="js/controllers/calendar-controller.js"></script>
     <script type="text/javascript" src="js/controllers/practices-controller.js"></script>
     <script type="text/javascript" src="js/controllers/tactics-controller.js"></script>
+    <script type="text/javascript" src="js/controllers/mesocycle-controller.js"></script>
 
     <!-- Services -->
     <script type="text/javascript" src="js/services/leagues.js"></script>

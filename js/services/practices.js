@@ -26,6 +26,13 @@ angular.module('Elifoot').factory('Practices', ['$http', function($http) {
         'exercise' : exercise
       });
     },
+    getPracticesOfATimelineToLoadTheGraphics: function(startDate, endDate, teamId) {
+      return $http.post('./js/services/phpservices/practices/getPracticesOfATimelineToLoadTheGraphics.php', {
+        'startDate' : startDate,
+        'endDate' : endDate,
+        'teamId' : teamId
+      });
+    },
     savePlayerInPractice: function(event, exercise, datetime, type, volume, intensity, density,
         frequency, description, selectedField, selectedFieldSize, player, iconId, iconTopPosition,
         iconLeftPosition) {

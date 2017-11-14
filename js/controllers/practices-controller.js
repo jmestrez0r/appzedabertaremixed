@@ -64,15 +64,17 @@ angular.module("Elifoot").controller('PracticesController',
         $scope.allExercisesOfThisPractice = [];
 
         for(var i = 0; i < data.length; i++) {
-          if(i == 0) {
-            $scope.selectedPractice.exercise = data[0].exercise;
+          if(data[0] != null) {
+            if(i == 0) {
+              $scope.selectedPractice.exercise = data[0].exercise;
+              $scope.allExercisesOfThisPractice.push({
+                  exercise : 'Adicionar um novo exercicio.'
+              });
+            }
             $scope.allExercisesOfThisPractice.push({
-                exercise : 'Adicionar um novo exercicio.'
+                exercise : data[i].exercise
             });
           }
-          $scope.allExercisesOfThisPractice.push({
-              exercise : data[i].exercise
-          });
         }
 
         if($scope.selectedPractice.title != undefined &&
