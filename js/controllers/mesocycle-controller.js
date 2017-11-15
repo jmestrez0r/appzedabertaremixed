@@ -3,10 +3,10 @@ angular.module("Elifoot").controller('MesocycleController',
 
     $scope.week = 0; //this variable goes to 0 from 4
     $scope.weekLoopInside = 0;
-    $scope.colors = ['#45b7cd', '#ff6384', '#ff8e72'];
+    $scope.colors = ['#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1'];
 
-    $scope.series = ['Tática', 'Intensidade', 'Volume', 'Density', 'OO', 'OD', 'TD', 'TO']; //séries
-    $scope.labels = []; //labels
+    $scope.series = ['Tática', 'Intensidade', 'Volume', 'Density']; //séries
+    $scope.seriesOTD = ['OO', 'OD', 'TD', 'TO'];
     $scope.labelsOfTheWeek = []; //dias da semana que sao variaveis durante o mes
 
     $scope.teamId = sessionStorage.getItem('teamId');
@@ -26,10 +26,12 @@ angular.module("Elifoot").controller('MesocycleController',
 
       $scope.labelsOfTheWeek.push($scope.startWeek.getDate() + ' - ' + $scope.endWeek.getDate());
 
+      //workaround to keep things on track
+      setTimeout(function(){}, 3000);
+
       //Preenchimento das Datas após pedido à BD
       Practices.getPracticesOfATimelineToLoadTheGraphics($scope.startWeek, $scope.endWeek, $scope.teamId).success(function (data) {
         $scope.rawValues.push(data);
-        console.log($scope.rawValues);
         if($scope.weekLoopInside == 4) {
           handleAllTheData();
           return;
@@ -87,20 +89,100 @@ angular.module("Elifoot").controller('MesocycleController',
         var arrayWithData = $scope.rawValues[i];
         if(arrayWithData[0] != null && arrayWithData != undefined) {
           if(i == 0) {
-            fillVariables(week1TacticTO, week1TacticTD, week1TacticOO, week1TacticOD,
-              week1Intensity, week1Volume, week1Density, week1Frequency, arrayWithData);
+            for(var j = 0; j < arrayWithData.length; j++) {
+                var practiceDetail = arrayWithData[j];
+
+                week1Frequency = parseInt(week1Frequency) + parseInt(practiceDetail.frequency);
+                week1Volume = parseInt(week1Volume) + parseInt(practiceDetail.volume);
+                week1Density = parseInt(week1Density) + parseInt(practiceDetail.density);
+
+                if(practiceDetail.type.indexOf('Transição ofensiva') >= 0) { week1TacticTO = parseInt(week1TacticTO) + 1;}
+                if(practiceDetail.type.indexOf('Transição defensiva') >= 0) { week1TacticTD = parseInt(week1TacticTD) + 1;}
+                if(practiceDetail.type.indexOf('Organização ofensiva') >= 0) { week1TacticOO = parseInt(week1TacticOO) + 1;}
+                if(practiceDetail.type.indexOf('Organização defensiva') >= 0) { week1TacticOD = parseInt(week1TacticOD) + 1;}
+
+                if(practiceDetail.intensity.indexOf('Baixa') == 0) { week1Intensity = parseInt(week1Intensity) + 20;}
+                else if(practiceDetail.intensity.indexOf('Média Baixa') == 0) { week1Intensity = parseInt(week1Intensity) + 40;}
+                else if(practiceDetail.intensity.indexOf('Média Alta') == 0) { week1Intensity = parseInt(week1Intensity) + 60;}
+                else if(practiceDetail.intensity.indexOf('Alta') == 0) { week1Intensity = parseInt(week1Intensity) + 80;}
+                else if(practiceDetail.intensity.indexOf('Máxima') == 0) { week1Intensity = parseInt(week1Intensity) + 100;}
+            }
           } else if (i == 1) {
-            fillVariables(week2TacticTO, week2TacticTD, week2TacticOO, week2TacticOD,
-              week2Intensity, week2Volume, week2Density, week2Frequency, arrayWithData);
+            for(var j = 0; j < arrayWithData.length; j++) {
+                var practiceDetail = arrayWithData[j];
+
+                week2Frequency = parseInt(week2Frequency) + parseInt(practiceDetail.frequency);
+                week2Volume = parseInt(week2Volume) + parseInt(practiceDetail.volume);
+                week2Density = parseInt(week2Density) + parseInt(practiceDetail.density);
+
+                if(practiceDetail.type.indexOf('Transição ofensiva') >= 0) { week2TacticTO = parseInt(week2TacticTO) + 1;}
+                if(practiceDetail.type.indexOf('Transição defensiva') >= 0) { week2TacticTD = parseInt(week2TacticTD) + 1;}
+                if(practiceDetail.type.indexOf('Organização ofensiva') >= 0) { week2TacticOO = parseInt(week2TacticOO) + 1;}
+                if(practiceDetail.type.indexOf('Organização defensiva') >= 0) { week2TacticOD = parseInt(week2TacticOD) + 1;}
+
+                if(practiceDetail.intensity.indexOf('Baixa') == 0) { week2Intensity = parseInt(week2Intensity) + 20;}
+                else if(practiceDetail.intensity.indexOf('Média Baixa') == 0) { week2Intensity = parseInt(week2Intensity) + 40;}
+                else if(practiceDetail.intensity.indexOf('Média Alta') == 0) { week2Intensity = parseInt(week2Intensity) + 60;}
+                else if(practiceDetail.intensity.indexOf('Alta') == 0) { week2Intensity = parseInt(week2Intensity) + 80;}
+                else if(practiceDetail.intensity.indexOf('Máxima') == 0) { week2Intensity = parseInt(week2Intensity) + 100;}
+            }
           } else if (i == 2) {
-            fillVariables(week3TacticTO, week3TacticTD, week3TacticOO, week3TacticOD,
-              week3Intensity, week3Volume, week3Density, week3Frequency, arrayWithData);
+            for(var j = 0; j < arrayWithData.length; j++) {
+                var practiceDetail = arrayWithData[j];
+
+                week3Frequency = parseInt(week3Frequency) + parseInt(practiceDetail.frequency);
+                week3Volume = parseInt(week3Volume) + parseInt(practiceDetail.volume);
+                week3Density = parseInt(week3Density) + parseInt(practiceDetail.density);
+
+                if(practiceDetail.type.indexOf('Transição ofensiva') >= 0) { week3TacticTO = parseInt(week3TacticTO) + 1;}
+                if(practiceDetail.type.indexOf('Transição defensiva') >= 0) { week3TacticTD = parseInt(week3TacticTD) + 1;}
+                if(practiceDetail.type.indexOf('Organização ofensiva') >= 0) { week3TacticOO = parseInt(week3TacticOO) + 1;}
+                if(practiceDetail.type.indexOf('Organização defensiva') >= 0) { week3TacticOD = parseInt(week3TacticOD) + 1;}
+
+                if(practiceDetail.intensity.indexOf('Baixa') == 0) { week3Intensity = parseInt(week3Intensity) + 20;}
+                else if(practiceDetail.intensity.indexOf('Média Baixa') == 0) { week3Intensity = parseInt(week3Intensity) + 40;}
+                else if(practiceDetail.intensity.indexOf('Média Alta') == 0) { week3Intensity = parseInt(week3Intensity) + 60;}
+                else if(practiceDetail.intensity.indexOf('Alta') == 0) { week3Intensity = parseInt(week3Intensity) + 80;}
+                else if(practiceDetail.intensity.indexOf('Máxima') == 0) { week3Intensity = parseInt(week3Intensity) + 100;}
+            }
           } else if (i == 3) {
-            fillVariables(week4TacticTO, week4TacticTD, week4TacticOO, week4TacticOD,
-              week4Intensity, week4Volume, week4Density, week4Frequency, arrayWithData);
+            for(var j = 0; j < arrayWithData.length; j++) {
+                var practiceDetail = arrayWithData[j];
+
+                week4Frequency = parseInt(week4Frequency) + parseInt(practiceDetail.frequency);
+                week4Volume = parseInt(week4Volume) + parseInt(practiceDetail.volume);
+                week4Density = parseInt(week4Density) + parseInt(practiceDetail.density);
+
+                if(practiceDetail.type.indexOf('Transição ofensiva') >= 0) { week4TacticTO = parseInt(week4TacticTO) + 1;}
+                if(practiceDetail.type.indexOf('Transição defensiva') >= 0) { week4TacticTD = parseInt(week4TacticTD) + 1;}
+                if(practiceDetail.type.indexOf('Organização ofensiva') >= 0) { week4TacticOO = parseInt(week4TacticOO) + 1;}
+                if(practiceDetail.type.indexOf('Organização defensiva') >= 0) { week4TacticOD = parseInt(week4TacticOD) + 1;}
+
+                if(practiceDetail.intensity.indexOf('Baixa') == 0) { week4Intensity = parseInt(week4Intensity) + 20;}
+                else if(practiceDetail.intensity.indexOf('Média Baixa') == 0) { week4Intensity = parseInt(week4Intensity) + 40;}
+                else if(practiceDetail.intensity.indexOf('Média Alta') == 0) { week4Intensity = parseInt(week4Intensity) + 60;}
+                else if(practiceDetail.intensity.indexOf('Alta') == 0) { week4Intensity = parseInt(week4Intensity) + 80;}
+                else if(practiceDetail.intensity.indexOf('Máxima') == 0) { week4Intensity = parseInt(week4Intensity) + 100;}
+            }
           } else if (i == 4) {
-            fillVariables(week5TacticTO, week5TacticTD, week5TacticOO, week5TacticOD,
-              week5Intensity, week5Volume, week5Density, week5Frequency, arrayWithData);
+            for(var j = 0; j < arrayWithData.length; j++) {
+                var practiceDetail = arrayWithData[j];
+
+                week5Frequency = parseInt(week5Frequency) + parseInt(practiceDetail.frequency);
+                week5Volume = parseInt(week5Volume) + parseInt(practiceDetail.volume);
+                week5Density = parseInt(week5Density) + parseInt(practiceDetail.density);
+
+                if(practiceDetail.type.indexOf('Transição ofensiva') >= 0) { week5TacticTO = parseInt(week5TacticTO) + 1;}
+                if(practiceDetail.type.indexOf('Transição defensiva') >= 0) { week5TacticTD = parseInt(week5TacticTD) + 1;}
+                if(practiceDetail.type.indexOf('Organização ofensiva') >= 0) { week5TacticOO = parseInt(week5TacticOO) + 1;}
+                if(practiceDetail.type.indexOf('Organização defensiva') >= 0) { week5TacticOD = parseInt(week5TacticOD) + 1;}
+
+                if(practiceDetail.intensity.indexOf('Baixa') == 0) { week5Intensity = parseInt(week5Intensity) + 20;}
+                else if(practiceDetail.intensity.indexOf('Média Baixa') == 0) { week5Intensity = parseInt(week5Intensity) + 40;}
+                else if(practiceDetail.intensity.indexOf('Média Alta') == 0) { week5Intensity = parseInt(week5Intensity) + 60;}
+                else if(practiceDetail.intensity.indexOf('Alta') == 0) { week5Intensity = parseInt(week5Intensity) + 80;}
+                else if(practiceDetail.intensity.indexOf('Máxima') == 0) { week5Intensity = parseInt(week5Intensity) + 100;}
+            }
           }
         }
       }
@@ -111,35 +193,18 @@ angular.module("Elifoot").controller('MesocycleController',
         [week1Intensity/100, week2Intensity/100, week3Intensity/100, week4Intensity/100, week5Intensity/100],
         [week1Volume/100, week2Volume/100, week3Volume/100, week4Volume/100, week5Volume/100],
         [week1Density/100, week2Density/100, week3Density/100, week4Density/100, week5Density/100],
-        [week1Frequency/100, week2Frequency/100, week3Frequency/100, week4Frequency/100, week5Frequency/100],
-        [(week1TacticOO*100/25), (week2TacticOO*100/25), (week3TacticOO*100/25), (week4TacticOO*100/25), (week5TacticOO*100/25)],
-        [(week1TacticOD*100/25), (week2TacticOD*100/25), (week3TacticOD*100/25), (week4TacticOD*100/25), (week5TacticOD*100/25)],
-        [(week1TacticTD*100/25), (week2TacticTD*100/25), (week3TacticTD*100/25), (week4TacticTD*100/25), (week5TacticTD*100/25)],
-        [(week1TacticTO*100/25), (week2TacticTO*100/25), (week3TacticTO*100/25), (week4TacticTO*100/25), (week5TacticTO*100/25)]
+        [week1Frequency/100, week2Frequency/100, week3Frequency/100, week4Frequency/100, week5Frequency/100]
       ];
-    }
 
-    console.log(data);
+      console.log($scope.data);
 
-    function fillVariables(weekTacticTO, weekTacticTD, weekTacticOO, weekTacticOD,
-      weekIntensity, weekVolume, weekDensity, weekFrequency, arrayWithData) {
-      for(var i = 0; i < arrayWithData.length; i++) {
-        var practiceDetail = arrayWithData[i];
+      $scope.dataOTD = [
+        [(week1TacticOO*100)/25, (week2TacticOO*100)/25, (week3TacticOO*100)/25, (week4TacticOO*100)/25, (week5TacticOO*100)/25],
+        [(week1TacticOD*100)/25, (week2TacticOD*100)/25, (week3TacticOD*100)/25, (week4TacticOD*100)/25, (week5TacticOD*100)/25],
+        [(week1TacticTD*100)/25, (week2TacticTD*100)/25, (week3TacticTD*100)/25, (week4TacticTD*100)/25, (week5TacticTD*100)/25],
+        [(week1TacticTO*100)/25, (week2TacticTO*100)/25, (week3TacticTO*100)/25, (week4TacticTO*100)/25, (week5TacticTO*100)/25]
+      ];
 
-        weekFrequency = weekFrequency + practiceDetail.frequency;
-        weekVolume = weekVolume + practiceDetail.volume;
-        weekDensity = weekDensity + practiceDetail.density;
-
-        if(practiceDetail.type.indexOf('Transição ofensiva') == 0) { weekTacticTO = weekTacticTO + 1;}
-        if(practiceDetail.type.indexOf('Transição defensiva') == 0) { weekTacticTD = weekTacticTD + 1;}
-        if(practiceDetail.type.indexOf('Organização ofensiva') == 0) { weekTacticOO = weekTacticOO + 1;}
-        if(practiceDetail.type.indexOf('Organização defensiva') == 0) { weekTacticOD = weekTacticOD + 1;}
-
-        if(practiceDetail.intensity.indexOf('Baixa') == 0) { weekIntensity = weekIntensity + 20;}
-        else if(practiceDetail.intensity.indexOf('Média Baixa') == 0) { weekIntensity = weekIntensity + 40;}
-        else if(practiceDetail.intensity.indexOf('Média Alta') == 0) { weekIntensity = weekIntensity + 60;}
-        else if(practiceDetail.intensity.indexOf('Alta') == 0) { weekIntensity = weekIntensity + 80;}
-        else if(practiceDetail.intensity.indexOf('Máxima') == 0) { weekIntensity = weekIntensity + 100;}
-      }
+      console.log($scope.dataOTD);
     }
 });

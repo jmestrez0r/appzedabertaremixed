@@ -15,10 +15,23 @@
 
 <div class="row">
 
-  <!-- AREA DE TACTICAS -->
-  <canvas id="bar" class="chart chart-bar"
-    chart-data="data" chart-labels="labels" chart-series="series">
-  </canvas>
+  <div class="col-lg-6" style="width: 500px !important; height: 250px !important; align: center !important"
+    width="420px" height="200px"
+    <!-- AREA DE TACTICAS -->
+    <canvas id="bar" class="chart chart-bar" chart-colors="colors"
+      chart-data="data" chart-labels="labelsOfTheWeek" chart-series="series">
+    </canvas>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6" style="width: 500px !important; height: 250px !important; align: center !important"
+    width="420px" height="250px"
+    <!-- AREA DE TACTICAS -->
+    <canvas id="barOTD" class="chart chart-bar" chart-colors="colors"
+      chart-data="dataOTD" chart-labels="labelsOfTheWeek" chart-series="seriesOTD">
+    </canvas>
+  </div>
 
   <!-- AREA DE VOLUME E INTENSIDADE >
   <canvas id="base" class="chart-bar"
