@@ -183,81 +183,43 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $cookie
     };
 
     $scope.chartData = [];
+    $scope.chartLabels = [];
 
     $scope.loadStatsGraph = function() {
-      if($scope.chartData.length > 0) {
+        if($scope.chartData.length == 0) {
+          CalendarInformation.getLastGameStats($scope.teamId).success(function (data) {
+              if($scope.chartData.length == 0) {
+                var homeTeam = [];
+                var otherTeam = [];
+                for(var i = 0; i < data.length; i++) {
+                  homeTeam.push(data[0].successPass); $scope.chartLabels.push( 'Passe');
+                  homeTeam.push(data[0].crossingPass); $scope.chartLabels.push( 'Cruzamento');
+                  homeTeam.push(data[0].ballWon); $scope.chartLabels.push( 'Bolas ganhas');
+                  homeTeam.push(data[0].heading); $scope.chartLabels.push( 'Cabeceamento');
+                  homeTeam.push(data[0].disarm); $scope.chartLabels.push( 'Desarme');
+                  homeTeam.push(data[0].drible); $scope.chartLabels.push( 'Drible');
+                  homeTeam.push(data[0].shootSide); $scope.chartLabels.push( 'Remates ao Lado');
+                  homeTeam.push(data[0].shootGoal); $scope.chartLabels.push( 'Remates a Golo');
+                  homeTeam.push(data[0].interceptedShoot); $scope.chartLabels.push( 'Remates Interceptados');
+                  homeTeam.push(data[0].goal); $scope.chartLabels.push( 'Golos');
+                  homeTeam.push(data[0].failedPass); $scope.chartLabels.push( 'Passes Falhados');
+                  homeTeam.push(data[0].failedCrossingPass); $scope.chartLabels.push( 'Cruzamentos Falhados');
+                  homeTeam.push(data[0].ballFailed); $scope.chartLabels.push( 'Bolas Falhadas');
+                  homeTeam.push(data[0].foul); $scope.chartLabels.push( 'Faltas');
+                  homeTeam.push(data[0].yellowCard); $scope.chartLabels.push( 'Cartões Amarelos');
+                  homeTeam.push(data[0].redCard); $scope.chartLabels.push( 'Cartões Vermelhos');
+                  homeTeam.push(data[0].selfGoal); $scope.chartLabels.push( 'Auto-golos');
+                  homeTeam.push(data[0].offside); $scope.chartLabels.push( 'Foras de Jogo');
+                  homeTeam.push(data[0].assist); $scope.chartLabels.push( 'Assitências');
+                  homeTeam.push(data[0].wonHeading); $scope.chartLabels.push( 'Cabeceamentos ganhos');
 
-      }
-    }
-
-    $scope.loadAreaChart = function() {
-      var thisStartedMonth = moment().format('YYYY/MM');
-
-      for(var i = 0; i < 5; i++) {
-        var startDate = moment().startOf('month').subtract(i, 'months').format('YYYY/MM/DD');
-        var endDate = moment().endOf('month').subtract(i, 'months').format('YYYY/MM/DD');
-
-        CalendarInformation.getEventsCountByTypeStatistics($scope.teamId, startDate, endDate).success(
-            function (data) {
-          var ocurrenciasJogos = 0;
-          var ocurrenciasReunioes = 0;
-          var ocorrenciasTreinos = 0;
-          var dateTime = '';
-
-          //check if everything is filled
-          if(data[0] != '' && data[0] != undefined) {
-            if(data[0].occurrences != undefined) {
-              if(data[0].type == 'game') {
-                ocurrenciasJogos = data[0].occurrences;
-              } else if(data[0].type == 'meeting') {
-                ocurrenciasReunioes = data[0].occurrences;
-              } else if(data[0].type == 'practice') {
-                ocorrenciasTreinos = data[0].occurrences;
+                  $scope.chartData.push(homeTeam);
+                  //TODO
+                  //$scope.chartData.push(otherTeam);
+                }
               }
-            }
-            if(data[0].startDate != undefined) {
-              dateTime = data[0].startDate;
-            } else {
-              dateTime = data;
-            }
-          }
-          if(data[1] != '' && data[1] != undefined) {
-            if(data[1].type == 'game') {
-              ocurrenciasJogos = data[1].occurrences;
-            } else if(data[1].type == 'meeting') {
-              ocurrenciasReunioes = data[1].occurrences;
-            } else if(data[1].type == 'practice') {
-              ocorrenciasTreinos = data[1].occurrences;
-            }
-          }
-          if(data[2] != '' && data[2] != undefined) {
-            if(data[2].type == 'game') {
-              ocurrenciasJogos = data[2].occurrences;
-            } else if(data[2].type == 'meeting') {
-              ocurrenciasReunioes = data[2].occurrences;
-            } else if(data[2].type == 'practice') {
-              ocorrenciasTreinos = data[2].occurrences;
-            }
-          }
-
-          console.log('Getting month ' + moment(dateTime, 'YYYY/MM').format('YYYY/MM') + ' information');
-          console.log(data);
-
-          $scope.chartData.push({
-             period: moment(dateTime, 'YYYY/MM').format('YYYY/MM'),
-             jogos: ocurrenciasJogos,
-             reunioes: ocurrenciasReunioes,
-             treinos: ocorrenciasTreinos
           });
-
-          if(sessionStorage.getItem('chartData') != undefined ||
-            sessionStorage.getItem('chartData') != undefined) {
-            sessionStorage.removeItem('chartData');
-          }
-
-          sessionStorage.setItem('chartData', JSON.stringify($scope.chartData));
-        });
-      }
-    }
+        }
+    };
 
 });

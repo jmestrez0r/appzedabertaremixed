@@ -96,6 +96,9 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   });
 
   $scope.selectedPlayerPosition = function(value) {
+    if($scope.selectedPlayer == undefined) {
+      $scope.selectedPlayer = { position : '' };
+    }
     $scope.selectedPlayer.position = value;
   }
 

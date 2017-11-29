@@ -11,6 +11,9 @@ angular.module('Elifoot').factory('CalendarInformation', ['$http', function($htt
         //verify first in the database
         return $http.post('./js/services/phpservices/calendar/getGames.php', {'teamId' : teamId});
     },
+    getLastGameStats: function(teamId) {
+      return $http.post('./js/services/phpservices/calendar/getLastGameStats.php', {'teamId' : teamId});
+    },
     getPracticesList: function(teamId, startDate, endDate) {
         //verify first in the database
         return $http.post('./js/services/phpservices/calendar/getPractices.php', {
