@@ -35,19 +35,21 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
     //get the information of the events
     CalendarInformation.getEvents(teamId).success(function (data) {
 
-      for(var i = 0; i < data.length; i++) {
-        var colorVar = colorVerification(data[i].type);
-        var urlVar = urlVerification(data[i].type);
+      if(data[0] != null) {
+        for(var i = 0; i < data.length; i++) {
+          var colorVar = colorVerification(data[i].type);
+          var urlVar = urlVerification(data[i].type);
 
-        $scope.events.push({
-          id: data[i].eventId,
-          title: data[i].title,
-          url:   urlVar,
-          type: data[i].type,
-          start: data[i].startDate,
-          end: data[i].endDate,
-          color: colorVar
-        });
+          $scope.events.push({
+            id: data[i].eventId,
+            title: data[i].title,
+            url:   urlVar,
+            type: data[i].type,
+            start: data[i].startDate,
+            end: data[i].endDate,
+            color: colorVar
+          });
+        }
       }
 
       Fixtures.all(teamId).success(function(data) {
