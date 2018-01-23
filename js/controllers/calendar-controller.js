@@ -1,5 +1,14 @@
 var amodule = angular.module("Elifoot").controller('CalendarController',
-   function($scope, $compile, $timeout, $cookies, uiCalendarConfig, CalendarInformation, Fixtures, ngDialog) {
+   function($scope, $compile, $timeout, $cookies, uiCalendarConfig, CalendarInformation, Fixtures, ngDialog, $location) {
+
+     // INITIAL LOGIN module
+     $scope.username = sessionStorage.getItem('user');
+     $scope.password;
+
+     if($scope.username == undefined || $scope.username == '' || $scope.username == 'undefined') {
+       $location.path('/home');
+       return;
+     }
 
     var date = new Date();
     var d = date.getDate();

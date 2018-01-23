@@ -1,5 +1,14 @@
 angular.module("Elifoot").controller('MesocycleController',
-  function($scope, Practices) {
+  function($scope, Practices, $location) {
+
+    // INITIAL LOGIN module
+    $scope.username = sessionStorage.getItem('user');
+    $scope.password;
+
+    if($scope.username == undefined || $scope.username == '' || $scope.username == 'undefined') {
+      $location.path('/home');
+      return;
+    }
 
     $scope.week = 0; //this variable goes to 0 from 4
     $scope.weekLoopInside = 0;

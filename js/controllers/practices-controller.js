@@ -1,5 +1,14 @@
 angular.module("Elifoot").controller('PracticesController',
-  function($scope, $timeout, $cookies, $route, Practices, TeamPlayers, ngDialog, CalendarInformation) {
+  function($scope, $timeout, $cookies, $route, Practices, TeamPlayers, ngDialog, CalendarInformation, $location) {
+
+    // INITIAL LOGIN module
+    $scope.username = sessionStorage.getItem('user');
+    $scope.password;
+
+    if($scope.username == undefined || $scope.username == '' || $scope.username == 'undefined') {
+      $location.path('/home');
+      return;
+    }
 
     $scope.selectedField = sessionStorage.getItem('selectedField');
     $scope.reloaded = sessionStorage.getItem('reloaded');

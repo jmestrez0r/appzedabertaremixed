@@ -1,4 +1,13 @@
-angular.module("Elifoot").controller('ClassificationController', function($scope, Classification, TeamPlayers) {
+angular.module("Elifoot").controller('ClassificationController', function($scope, Classification, TeamPlayers, $location) {
+
+  // INITIAL LOGIN module
+  $scope.username = sessionStorage.getItem('user');
+  $scope.password;
+
+  if($scope.username == undefined || $scope.username == '' || $scope.username == 'undefined') {
+    $location.path('/home');
+    return;
+  }
 
   $scope.teamMap;
   $scope.leagueTable = sessionStorage.getItem('leagueTable');

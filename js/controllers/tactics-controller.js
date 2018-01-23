@@ -1,5 +1,14 @@
 angular.module("Elifoot").controller('TacticsController',
-  function($scope, $cookies, Tactics, TeamPlayers, ngDialog, Fixtures, Tactics, CalendarInformation) {
+  function($scope, $cookies, Tactics, TeamPlayers, ngDialog, Fixtures, Tactics, CalendarInformation, $location) {
+
+    // INITIAL LOGIN module
+    $scope.username = sessionStorage.getItem('user');
+    $scope.password;
+
+    if($scope.username == undefined || $scope.username == '' || $scope.username == 'undefined') {
+      $location.path('/home');
+      return;
+    }
 
     $scope.teamId = sessionStorage.getItem('teamId');
     $scope.selectedGameId = sessionStorage.getItem('selectedGameId');

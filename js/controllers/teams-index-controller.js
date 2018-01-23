@@ -1,5 +1,13 @@
 angular.module("Elifoot").controller('TeamPlayersController', function($scope, $cookies, $location, $timeout, TeamPlayers, ngDialog) {
 
+  // INITIAL LOGIN module
+  $scope.username = sessionStorage.getItem('user');
+  $scope.password;
+
+  if($scope.username == undefined || $scope.username == '' || $scope.username == 'undefined') {
+    $location.path('/home');
+    return;
+  }
 
   //defining radar graphs
   $scope.physicalLabels =["Altura", "Resistência", "Agilidade", "Salto Altura", "Salto Comprimento"];

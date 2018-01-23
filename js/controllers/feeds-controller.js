@@ -1,12 +1,79 @@
-angular.module("Elifoot").controller('FeedsController', function($scope, $cookies, Feeds, ngDialog, CalendarInformation, Practices, TeamPlayers) {
+angular.module("Elifoot").controller('FeedsController', function($scope, $location, $cookies, Feeds, ngDialog, CalendarInformation, Practices, TeamPlayers, UserDetais) {
 
-  //initial configuration;
-  sessionStorage.setItem('user', 'José Amador');
 
-  //it's necessary to create a record in TEAM table with this ID
-  sessionStorage.setItem('leagueTable', '445');
-  sessionStorage.setItem('teamId', '57');
-  sessionStorage.setItem('effectiveTeamName', 'Arsenal FC');
+  // INITIAL LOGIN module
+  $scope.username = sessionStorage.getItem('user');
+  $scope.userValidationOk = sessionStorage.getItem('userValidationOk');
+  $scope.password;
+
+  if($scope.userValidationOk == undefined || $scope.userValidationOk == 'undefined' || $scope.userValidationOk || $scope.username == undefined
+      || $scope.username == '' || $scope.username == 'undefined') {
+    loginDialog();
+  }
+
+  function loginDialog() {
+    ngDialog.open({
+      template: 'loginPanel.html',
+      className: 'ngdialog-theme-default',
+      scope: $scope,
+      preserveScope: true,
+      showClose: false,
+      height: 300,
+      weight: 800
+    });
+  }
+
+  function loginErrorDialog() {
+    ngDialog.open({
+      template: 'loginError.html',
+      preCloseCallback: loginDialog(),
+      className: 'ngdialog-theme-default',
+      showClose: false,
+      height: 300,
+      weight: 800
+    });
+  }
+
+  $scope.processLogin = function() {
+
+    $scope.username = document.getElementById('username').value;
+    $scope.password = document.getElementById('password').value;
+
+    if($scope.username == '' || $scope.password == '') {
+      $scope.loginError = 'Por favor preencha todos os campos necessários.';
+      loginErrorDialog();
+      return;
+    }
+    UserDetais.validatePassword($scope.username, $scope.password).success(function (data) {
+      if(data == '') {
+        $scope.loginError = 'Utilizador/Password inválida.';
+        loginErrorDialog();
+        return;
+      }
+
+      UserDetais.getUserInformation($scope.username).success(function (data) {
+
+        $scope.userValidationOk = true;
+        //initial configuration;
+        sessionStorage.setItem('user', data[0].username);
+
+        $scope.name = data[0].name;
+        $scope.profile = data[0].profileType;
+        $scope.username = data[0].username;
+
+        //it's necessary to create a record in TEAM table with this ID
+        sessionStorage.setItem('leagueTable', data[0].leagueTable);
+        sessionStorage.setItem('teamId', data[0].teamId);
+        sessionStorage.setItem('effectiveTeamName', data[0].effectiveTeamName);
+        sessionStorage.setItem('userValidationOk', true);
+        $location.path('/home');
+        return;
+      });
+    });
+  }
+
+
+
   sessionStorage.setItem('selectedTeamId', '');
   sessionStorage.setItem('X-Auth-Token', 'db1386cd081342f8a0339d58d7a174e3');
 
