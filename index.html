@@ -90,10 +90,7 @@
                     <a href="#/home" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{name}} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#/home"><i class="fa fa-fw fa-user"></i> Perfil</a>
-                        </li>
-                        <li>
-                            <a href="#/home"><i class="fa fa-fw fa-gear"></i> Configurações</a>
+                            <a href="#/profile"><i class="fa fa-fw fa-user"></i> Perfil</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -254,6 +251,7 @@
     <script type="text/javascript" src="js/controllers/practices-controller.js"></script>
     <script type="text/javascript" src="js/controllers/tactics-controller.js"></script>
     <script type="text/javascript" src="js/controllers/mesocycle-controller.js"></script>
+    <script type="text/javascript" src="js/controllers/user-controller.js"></script>
 
     <!-- Services -->
     <script type="text/javascript" src="js/services/leagues.js"></script>
@@ -335,7 +333,7 @@
 
     <script type="text/ng-template" id="loginError.html">
       <div class="ngdialog-message" style="text-align: center !important;" >
-        <small ng-show="loginError != ''">{{loginError}}</small>
+        <small ng-show="loginError != ''"><i class="glyphicon glyphicon-alert" /> {{loginError}}</small>
       </div>
     </script>
 </body>

@@ -52,6 +52,10 @@ angular.module("Elifoot").config( ['$routeProvider', function($routeProvider) {
       templateUrl: './templates/pages/classification/index.html',
       controller: 'ClassificationController'
     })
+    .when('/profile', {
+      templateUrl: './templates/pages/user/profile.html',
+      controller: 'UserController'
+    })
     .when('/about', {
       templateUrl: './templates/pages/about/index.html'
     });

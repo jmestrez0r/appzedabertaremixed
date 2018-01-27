@@ -1,4 +1,4 @@
-angular.module("Elifoot").controller('FeedsController', function($scope, $location, $cookies, Feeds, ngDialog, CalendarInformation, Practices, TeamPlayers, UserDetais) {
+angular.module("Elifoot").controller('FeedsController', function($scope, $location, $cookies, Feeds, ngDialog, CalendarInformation, Practices, TeamPlayers, UserDetails) {
 
 
   // INITIAL LOGIN module
@@ -6,9 +6,28 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $locati
   $scope.userValidationOk = sessionStorage.getItem('userValidationOk');
   $scope.password;
 
-  if($scope.userValidationOk == undefined || $scope.userValidationOk == 'undefined' || $scope.userValidationOk || $scope.username == undefined
+  if($scope.userValidationOk == undefined || $scope.userValidationOk == 'undefined' || !$scope.userValidationOk || $scope.username == undefined
       || $scope.username == '' || $scope.username == 'undefined') {
     loginDialog();
+  } else {
+    UserDetails.getUserInformation($scope.username).success(function (data) {
+
+      $scope.userValidationOk = true;
+      //initial configuration;
+      sessionStorage.setItem('user', data[0].username);
+
+      $scope.userRealName = data[0].name;
+      $scope.profile = data[0].profileType;
+      $scope.username = data[0].username;
+      $scope.crestUrl = data[0].crestUrl;
+
+      //it's necessary to create a record in TEAM table with this ID
+      sessionStorage.setItem('leagueTable', data[0].leagueTable);
+      sessionStorage.setItem('teamId', data[0].teamId);
+      sessionStorage.setItem('effectiveTeamName', data[0].effectiveTeamName);
+      sessionStorage.setItem('userValidationOk', true);
+      return;
+    });
   }
 
   function loginDialog() {
@@ -27,9 +46,10 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $locati
     ngDialog.open({
       template: 'loginError.html',
       preCloseCallback: loginDialog(),
+      scope: $scope,
       className: 'ngdialog-theme-default',
       showClose: false,
-      height: 300,
+      height: 150,
       weight: 800
     });
   }
@@ -44,20 +64,20 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $locati
       loginErrorDialog();
       return;
     }
-    UserDetais.validatePassword($scope.username, $scope.password).success(function (data) {
-      if(data == '') {
+    UserDetails.validatePassword($scope.username, $scope.password).success(function (data) {
+      if(data[0] == '' || data[0] == null) {
         $scope.loginError = 'Utilizador/Password inválida.';
         loginErrorDialog();
         return;
       }
 
-      UserDetais.getUserInformation($scope.username).success(function (data) {
+      UserDetails.getUserInformation($scope.username).success(function (data) {
 
         $scope.userValidationOk = true;
         //initial configuration;
         sessionStorage.setItem('user', data[0].username);
 
-        $scope.name = data[0].name;
+        $scope.userRealName = data[0].name;
         $scope.profile = data[0].profileType;
         $scope.username = data[0].username;
 
@@ -71,8 +91,6 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $locati
       });
     });
   }
-
-
 
   sessionStorage.setItem('selectedTeamId', '');
   sessionStorage.setItem('X-Auth-Token', 'db1386cd081342f8a0339d58d7a174e3');
