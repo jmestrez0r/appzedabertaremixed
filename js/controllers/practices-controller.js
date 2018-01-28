@@ -505,16 +505,47 @@ angular.module("Elifoot").controller('PracticesController',
       }
     }
 
+    $scope.previousTopPosition;
+    $scope.previousLeftPosition;
+    $scope.idChanged;
+
+    $scope.hideElements = function () {
+      if($scope.userProfileType == 'player') {
+          var toDisable = document.getElementsByClassName('toDisable');
+
+          for(var i = 0; i < toDisable.length; i++) {
+            toDisable[i].disabled = true;
+          }
+      }
+    }
+
+    $scope.startPracticeCallback = function(event, ui, id) {
+      if($scope.userProfileType == 'player') {
+        $scope.previousTopPosition = ui.position.top;
+        $scope.previousLeftPosition = ui.position.left;
+        $scope.idChanged = event.currentTarget.id;
+      }
+    }
+
     $scope.dropPracticeCallback = function(event, ui) {
-      console.log("selected object with number: " + ui.helper.context.id);
-      console.log("selected player positions:");
-      console.log("TOP: " + ui.position.top);
-      console.log("TOP: " + ui.position.left);
 
-      updatePlayerPracticeLocationAndAddToList(ui.helper.context.id, ui.position.top, ui.position.left);
-      updateObjectPracticeLocationAndAddToList(ui.helper.context.id, ui.position.top, ui.position.left);
+      if($scope.userProfileType == 'player') {
+        //return to the previous position
+        console.log("you don't have permission!");
+        document.getElementById($scope.idChanged).setAttribute('style',
+          'top:' + $scope.previousTopPosition + 'px;' +
+          'left:' + $scope.previousLeftPosition + 'px');
+      } else {
+        console.log("selected object with number: " + ui.helper.context.id);
+        console.log("selected player positions:");
+        console.log("TOP: " + ui.position.top);
+        console.log("TOP: " + ui.position.left);
 
-      console.log($scope.players);
+        updatePlayerPracticeLocationAndAddToList(ui.helper.context.id, ui.position.top, ui.position.left);
+        updateObjectPracticeLocationAndAddToList(ui.helper.context.id, ui.position.top, ui.position.left);
+
+        console.log($scope.players);
+      }
     };
 
     function updatePlayerPracticeLocationAndAddToList(number, topPosition, leftPosition) {

@@ -23,7 +23,7 @@
 <div class="row">
   <div class="col-lg-12">
       <div class="alert alert-info alert-dismissable">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <button type="button" class="close toDisable" data-dismiss="alert" aria-hidden="true">&times;</button>
           <i class="fa fa-info-circle"></i> Implementa o teu treino.
       </div>
   </div>
@@ -31,10 +31,10 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <button class="btn btn-default dropdown-toggle col-lg-12" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    <button class="btn btn-default dropdown-toggle col-lg-12 toDisable" type="button" id="dropdownMenu1" data-toggle="dropdown">
       Seleccione um Treino previamente registado. <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <ul class="dropdown-menu toDisable" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation">
             <div class="input-group input-group-sm search-control">
                 <span class="input-group-addon">
@@ -57,7 +57,7 @@
   <div class="col-md-2">
     <div class="form-group">
         <label>Título:</label>
-        <input class="form-control" ng-model="selectedPractice.title"
+        <input class="form-control toDisable" ng-model="selectedPractice.title"
           value="{{selectedPractice.title}}" />
     </div>
   </div>
@@ -65,17 +65,17 @@
     <div class="form-group">
         <label>Exercicio:</label>
         <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+          <button class="btn btn-default dropdown-toggle toDisable" type="button" data-toggle="dropdown"
             ng-disabled="details" ng-click="newExerciseDialog()" ng-show="selectedPractice.exercise == undefined || selectedPractice.exercise == null ||
               selectedPractice.exercise == ''">
             Selecione o exercicio.
           <span class="caret"></span></button>
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+          <button class="btn btn-default dropdown-toggle toDisable" type="button" data-toggle="dropdown"
             ng-disabled="details" ng-show="!(selectedPractice.exercise == undefined || selectedPractice.exercise == null ||
               selectedPractice.exercise == '')">
             {{selectedPractice.exercise}}
           <span class="caret"></span></button>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu toDisable">
             <li ng-click="selectedExercise(exercise.exercise);"
               ng-repeat="exercise in allExercisesOfThisPractice">
               <a>{{exercise.exercise}}</a>
@@ -87,7 +87,7 @@
   <div class="col-md-2">
     <div class="form-group">
         <label>Data/Hora:</label>
-        <input type='text' value="{{selectedPractice.datetime}}" class="form-control"
+        <input type='text' value="{{selectedPractice.datetime}}" class="form-control toDisable"
           id='datetimepickerDate'
           ng-model="selectedPractice.datetime"/>
     </div>
@@ -95,14 +95,14 @@
   <div class="col-md-2">
     <div class="form-group">
         <label>Tipo:</label>
-        <input class="form-control" ng-model="selectedPractice.type"
+        <input class="form-control toDisable" ng-model="selectedPractice.type"
           value="{{selectedPractice.type}}" ng-click="selectPracticeType();"  />
     </div>
   </div>
   <div class="col-md-2">
     <div class="form-group">
         <label>Volume:</label>
-        <input class="form-control" ng-model="selectedPractice.volume" integer
+        <input class="form-control toDisable" ng-model="selectedPractice.volume" integer
           value="{{selectedPractice.volume}}" />
     </div>
   </div>
@@ -110,17 +110,17 @@
     <div class="form-group">
         <label>Intensidade:</label>
         <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+          <button class="btn btn-default dropdown-toggle toDisable" type="button" data-toggle="dropdown"
             ng-disabled="details" ng-show="selectedPractice.intensity == undefined || selectedPractice.intensity == null ||
               selectedPractice.intensity == ''">
             Selecione a posição
           <span class="caret"></span></button>
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+          <button class="btn btn-default dropdown-toggle toDisable" type="button" data-toggle="dropdown"
             ng-disabled="details" ng-show="!(selectedPractice.intensity == undefined || selectedPractice.intensity == null ||
               selectedPractice.intensity == '')">
             {{selectedPractice.intensity}}
           <span class="caret"></span></button>
-          <ul class="dropdown-menu" value="{{selectedPractice.intensity}}">
+          <ul class="dropdown-menu toDisable" value="{{selectedPractice.intensity}}">
             <li ng-click="selectedIntensity('Baixa');"><a>Baixa</a></li>
             <li ng-click="selectedIntensity('Média Baixa');"><a>Média Baixa</a></li>
             <li ng-click="selectedIntensity('Média');"><a>Média</a></li>
@@ -134,26 +134,26 @@
   <div class="col-md-2">
     <div class="form-group">
         <label>Densidade:</label>
-        <input class="form-control" ng-model="selectedPractice.density" integer
+        <input class="form-control toDisable" ng-model="selectedPractice.density" integer
           value="{{selectedPractice.density}}" min="0" max="100" />
     </div>
   </div>
   <div class="col-md-2">
     <div class="form-group">
         <label>Frequência:</label>
-        <input class="form-control" ng-model="selectedPractice.frequency" integer
+        <input class="form-control toDisable" ng-model="selectedPractice.frequency" integer
           value="{{selectedPractice.frequency}}" min="0" max="100" />
     </div>
   </div>
   <div class="col-md-6">
     <div class="form-group">
         <label>Descrição:</label>
-        <input class="form-control" ng-model="selectedPractice.description"
+        <input class="form-control toDisable" ng-model="selectedPractice.description"
           value="{{selectedPractice.description}}"  />
     </div>
   </div>
   <div class="col-lg-3">
-      <button type="button" class="btn" ng-click="practiceDialog()">
+      <button type="button" class="btn toDisable" ng-click="practiceDialog()">
         Gravar treino
       </button>
   </div>
@@ -175,7 +175,7 @@
     </div>
 
     <div ng-init="toggleField();">
-      <button type="button" class="btn"
+      <button type="button" class="btn toDisable"
         ng-click="toggleField();">
         Trocar visual do Campo
       </button>
@@ -193,7 +193,7 @@
               <div class="btn-draggable col-lg-4" ng-repeat="icon in icons"
                     data-drag="true" id="{{icon.identification}}"
                     data-jqyoui-options="{revert: 'invalid'}" ng-model="icons"
-                    jqyoui-draggable="{animate:true, onStop: 'dropPracticeCallback'}">
+                    jqyoui-draggable="{animate:true, onStart: 'startPracticeCallback', onStop: 'dropPracticeCallback'}">
                     <img ng-if="icon.image" src="./images/{{icon.fileName}}"
                       class="btn-draggable" width="65px" height="65px"/>
                     <i ng-if="!icon.image" class="{{icon.component}} fa-2x"> </i>
@@ -234,6 +234,7 @@
 
 <div>
   {{loadPlayersIntoThePracticeTable()}}
+  {{hideElements()}}
 </div>
 
 
