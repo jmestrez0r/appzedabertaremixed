@@ -4,6 +4,7 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
      // INITIAL LOGIN module
      $scope.username = sessionStorage.getItem('user');
      $scope.password;
+     $scope.userProfileType = sessionStorage.getItem('userProfile');
 
      if($scope.username == undefined || $scope.username == '' || $scope.username == 'undefined') {
        $location.path('/home');
@@ -43,11 +44,14 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
 
     //get the information of the events
     CalendarInformation.getEvents(teamId).success(function (data) {
-
       if(data[0] != null) {
         for(var i = 0; i < data.length; i++) {
           var colorVar = colorVerification(data[i].type);
           var urlVar = urlVerification(data[i].type);
+
+          if($scope.userProfileType == 'manager') {
+            urlVar = '';
+          }
 
           $scope.events.push({
             id: data[i].eventId,
@@ -64,13 +68,18 @@ var amodule = angular.module("Elifoot").controller('CalendarController',
       Fixtures.all(teamId).success(function(data) {
           for(var i = 0; i < data.fixtures.length; i++) {
             var game = data.fixtures[i];
+            var urlVar = '#/tactics';
+
+            if($scope.userProfileType == 'manager') {
+              urlVar = '';
+            }
 
             //verify if the event exists
             if(!eventExit(game)) {
               $scope.events.push({
                 id: '',
                 title: game.homeTeamName + ' vs ' + game.awayTeamName,
-                url:   '#/tactics',
+                url:   urlVar,
                 type: 'game',
                 start: game.date,
                 end: '',

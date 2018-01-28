@@ -4,6 +4,7 @@ angular.module("Elifoot").controller('PracticesController',
     // INITIAL LOGIN module
     $scope.username = sessionStorage.getItem('user');
     $scope.password;
+    $scope.userProfileType = sessionStorage.getItem('userProfile');
 
     if($scope.username == undefined || $scope.username == '' || $scope.username == 'undefined') {
       $location.path('/home');

@@ -40,12 +40,13 @@
 
     <!-- the fileinput plugin initialization -->
     <script type="text/javascript" src="js/avatar.js"></script>
-    <div class="col-lg-2" ></div>
+    <div class="col-lg-2" >
+    </div>
   </div>
 
-  <div class="col-lg-12">
-    <h1 class="page-header">
-        <img src="{{crestUrl}}" height="50px" width="50px" /> {{userTeam}} - <small>{{userProfileType}}</small>
+  <div class="col-lg-8" style="float: right">
+    <h1>
+        <img src="{{crestUrl}}" height="50px" width="50px" /> {{userTeam}} - {{userProfilePretty}}
     </h1>
   </div>
 
@@ -63,6 +64,9 @@
   </div>
 </div>
 
+<div class="row">
+  <p/>
+</div>
 
 <div class="row">
   <div class="col-md-2">
@@ -74,13 +78,13 @@
   <div class="col-md-2">
     <div class="form-group">
         <label>Password Actual:</label>
-        <input class="form-control" ng-model="oldPassword" placeholder="Password" />
+        <input class="form-control" ng-model="oldPassword" id="password" placeholder="Password" />
     </div>
   </div>
   <div class="col-md-2">
     <div class="form-group">
         <label>Nova Password:</label>
-        <input class="form-control" ng-model="newPassword"  placeholder="Password" />
+        <input class="form-control" ng-model="newPassword" id="newPassword" placeholder="Password" />
     </div>
   </div>
 </div>

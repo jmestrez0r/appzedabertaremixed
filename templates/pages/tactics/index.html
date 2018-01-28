@@ -23,7 +23,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row toRemove">
   <div class="col-lg-6">
       <button type="button" class="btn" ng-click="associateTacticToGameDialog()" ng-show="selectedGameId == null && selectedGameId != ''">
         <i class="glyphicon glyphicon-paperclip"></i> Associar tática a um evento
@@ -39,27 +39,27 @@
 
 <div class="row">
   <!-- CAMPO -->
-  <div class="col-lg-6" style="align:center">
+  <div class="col-lg-6 toDisable" style="align:center">
     <h3><i class="glyphicon glyphicon-wrench"></i><small> Quadro Tactico</small></h3>
     <!-- drop area -->
-    <div class="caption">
-      <div data-drag="true" data-drop="true" jqyoui-droppable="{multiple:true}">
+    <div class="caption toDisable">
+      <div data-drag="true" data-drop="true" jqyoui-droppable="{multiple:true}" class="toDisable">
             <img jqyoui-droppable="{multiple:true}" style="opacity: 100 !important"
-              jqyoui-draggable="{multiple:true, animate:true}"
+              jqyoui-draggable="{multiple:true, animate:true}" class="toDisable"
               src="./images/football_pitch90deg.jpeg" height="550px"/>
       </div>
     </div>
   </div>
 
 
-    <div class="col-lg-2" style="height: 1000px !important" ng-show="subplayers == null">
-      <div class='contentWrapper ng-cloak'>
-        <div class='content'>
+    <div class="col-lg-2 toDisable" style="height: 1000px !important" ng-show="subplayers == null">
+      <div class='contentWrapper ng-cloak toDisable'>
+        <div class='content toDisable'>
             <h3><i class="glyphicon glyphicon-th-list"></i><small>  Suplentes</small></h3>
             <!-- players area -->
             <div data-drop="true" ng-show="subplayers == null"
-                jqyoui-droppable="{multiple:true}">
-                <div class="btn-draggable div-circle-squre"
+                jqyoui-droppable="{multiple:true}" class="toDisable">
+                <div class="btn-draggable div-circle-squre toDisable"
                   data-drop="true"
                       data-drag="true" jqyoui-droppable="{multiple:true}"
                       data-jqyoui-options="{revert: 'invalid'}"
@@ -72,15 +72,15 @@
         </div>
       </div>
 
-  <div class="col-lg-2" style="500px !important" ng-show="subplayers != null">
-    <div class='contentWrapper ng-cloak'>
-      <div class='content'>
+  <div class="col-lg-2 toDisable" style="500px !important" ng-show="subplayers != null">
+    <div class='contentWrapper ng-cloak toDisable'>
+      <div class='content toDisable'>
           <h3><i class="glyphicon glyphicon-th-list"></i><small>  Suplentes</small></h3>
           <!-- loaded list -->
           <div data-drop="true"
               ng-model='subplayers' ng-show="subplayers != null"
-              jqyoui-droppable="{multiple:true}">
-              <div class="btn-draggable col-md-4 div-circle-squre"
+              jqyoui-droppable="{multiple:true}" class="toDisable">
+              <div class="btn-draggable col-md-4 div-circle-squre toDisable"
                     ng-repeat="subplayer in subplayers" data-drop="true"
                     data-drag="true" jqyoui-droppable="{multiple:true}"
                     data-jqyoui-options="{revert: 'invalid'}" ng-model="subplayers"
@@ -101,19 +101,19 @@
       </div>
     </div>
 
-  <div class="col-lg-3">
-    <div class='contentWrapper ng-cloak'>
-      <div class='content'>
+  <div class="col-lg-3 toDisable">
+    <div class='contentWrapper ng-cloak toDisable'>
+      <div class='content toDisable'>
           <h3><i class="glyphicon glyphicon-th-list"></i><small>  Jogadores</small></h3>
           <!-- players area -->
           <div data-drop="true"
               ng-model='players'
-              jqyoui-droppable="{multiple:true}">
-              <div class="btn-draggable col-md-4 div-circle-squre"
+              jqyoui-droppable="{multiple:true}" class="toDisable">
+              <div class="btn-draggable col-md-4 div-circle-squre toDisable"
                     ng-repeat="player in players | orderBy: 'number'"
                     data-drag="true"
                     data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
-                    jqyoui-draggable="{animate:true, onStop: 'dropCallback'}" id="{{player.number}}">
+                    jqyoui-draggable="{animate:true, onStart: 'startCallback', onStop: 'dropCallback'}" id="{{player.number}}">
                     <span class="fa-3x circle-span" >
                       <i class="fa fa-circle-o fa-circle-2x" style="circle"></i>
                       <small>
@@ -132,6 +132,7 @@
 
 <div>
   {{loadPlayersIntoTheTable()}}
+  {{hideElements()}}
 </div>
 
 <script type="text/ng-template" id="associateTacticDialog.html">

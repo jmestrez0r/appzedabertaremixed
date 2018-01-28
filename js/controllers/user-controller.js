@@ -24,6 +24,15 @@ angular.module("Elifoot").controller('UserController',
           //blocked fields
           $scope.userTeam = data[0].effectiveTeamName;
           $scope.userProfileType = data[0].profileType;
+
+          if($scope.userProfileType == 'coach') {
+            $scope.userProfilePretty = 'Treinador';
+          } else if($scope.userProfileType == 'player') {
+              $scope.userProfilePretty = 'Treinador';
+          } else if($scope.userProfileType == 'manager') {
+              $scope.userProfilePretty = 'Dirigente';
+          }
+
           $scope.crestUrl = data[0].crestUrl;
         }
       });

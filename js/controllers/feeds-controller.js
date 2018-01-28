@@ -1,10 +1,11 @@
-angular.module("Elifoot").controller('FeedsController', function($scope, $location, $cookies, Feeds, ngDialog, CalendarInformation, Practices, TeamPlayers, UserDetails) {
+angular.module("Elifoot").controller('FeedsController', function($scope, $location, $route, $cookies, Feeds, ngDialog, CalendarInformation, Practices, TeamPlayers, UserDetails) {
 
 
   // INITIAL LOGIN module
   $scope.username = sessionStorage.getItem('user');
   $scope.userValidationOk = sessionStorage.getItem('userValidationOk');
   $scope.password;
+  $scope.pageReload = sessionStorage.getItem('homepageReload');
 
   if($scope.userValidationOk == undefined || $scope.userValidationOk == 'undefined' || !$scope.userValidationOk || $scope.username == undefined
       || $scope.username == '' || $scope.username == 'undefined') {
@@ -17,17 +18,48 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $locati
       sessionStorage.setItem('user', data[0].username);
 
       $scope.userRealName = data[0].name;
-      $scope.profile = data[0].profileType;
+      $scope.userProfileType = data[0].profileType;
       $scope.username = data[0].username;
       $scope.crestUrl = data[0].crestUrl;
+      $scope.userPicture = data[0].picture;
+
+      if($scope.userProfileType == 'coach') {
+        $scope.userProfilePretty = 'Treinador';
+      } else if($scope.userProfileType == 'player') {
+          $scope.userProfilePretty = 'Treinador';
+      } else if($scope.userProfileType == 'manager') {
+          $scope.userProfilePretty = 'Dirigente';
+      }
 
       //it's necessary to create a record in TEAM table with this ID
       sessionStorage.setItem('leagueTable', data[0].leagueTable);
       sessionStorage.setItem('teamId', data[0].teamId);
       sessionStorage.setItem('effectiveTeamName', data[0].effectiveTeamName);
       sessionStorage.setItem('userValidationOk', true);
+      sessionStorage.setItem('userProfile', $scope.userProfileType);
+      if($scope.pageReload != 'true' || $scope.pageReload == 'undefined' || !$scope.pageReload || $scope.pageReload == null || $scope.pageReload == 'undefined') {
+        sessionStorage.setItem('homepageReload', true);
+        $route.reload();
+      }
+
+      hideElements($scope.userProfileType);
+
       return;
     });
+  }
+
+  function hideElements(profile) {
+    if(profile == 'manager' || profile == 'player') {
+      document.getElementById('practicesLi').style.display = 'none';
+      document.getElementById('addStaffLi').style.display = 'none';
+      document.getElementById('addPlayerLi').style.display = 'none';
+      document.getElementById('tacticsLi').style.display = 'none';
+      document.getElementById('tacticalBoardExpresso').style.display = 'none';
+    }
+
+    if(profile == 'manager') {
+      document.getElementById('gameCallLi').style.display = 'none';
+    }
   }
 
   function loginDialog() {
@@ -78,15 +110,23 @@ angular.module("Elifoot").controller('FeedsController', function($scope, $locati
         sessionStorage.setItem('user', data[0].username);
 
         $scope.userRealName = data[0].name;
-        $scope.profile = data[0].profileType;
+        $scope.userProfileType = data[0].profileType;
         $scope.username = data[0].username;
+
+        if($scope.userProfileType == 'coach') {
+          $scope.userProfilePretty = 'Treinador';
+        } else if($scope.userProfileType == 'player') {
+            $scope.userProfilePretty = 'Treinador';
+        } else if($scope.userProfileType == 'manager') {
+            $scope.userProfilePretty = 'Dirigente';
+        }
 
         //it's necessary to create a record in TEAM table with this ID
         sessionStorage.setItem('leagueTable', data[0].leagueTable);
         sessionStorage.setItem('teamId', data[0].teamId);
         sessionStorage.setItem('effectiveTeamName', data[0].effectiveTeamName);
         sessionStorage.setItem('userValidationOk', true);
-        $location.path('/home');
+        $route.reload();
         return;
       });
     });

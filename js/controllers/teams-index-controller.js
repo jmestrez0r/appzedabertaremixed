@@ -3,6 +3,8 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   // INITIAL LOGIN module
   $scope.username = sessionStorage.getItem('user');
   $scope.password;
+  $scope.otherTeamView = false;
+  $scope.userProfileType = sessionStorage.getItem('userProfile');
 
   if($scope.username == undefined || $scope.username == '' || $scope.username == 'undefined') {
     $location.path('/home');
@@ -60,7 +62,7 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
       sessionStorage.getItem('selectedTeamId') != '') {
       console.log('changing team id');
       $scope.teamId = sessionStorage.getItem('selectedTeamId');
-      sessionStorage.getItem('otherTeamView', false);
+      sessionStorage.setItem('otherTeamView', false);
   }
 
   if(sessionStorage.getItem('otherTeamView') == "true") {
@@ -109,7 +111,6 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     }
     $scope.selectedPlayer.position = value;
   }
-
 
   function loadPlayers(data) {
     var keepersIndex = 0;
@@ -678,4 +679,21 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     $scope.technicalLongShoot != '' &&  $scope.technicalLongShoot != undefined;
   }
 
+  $scope.hideElements = function() {
+    if(!$scope.otherTeamView) {
+        var edit = document.getElementsByClassName('playerEdit');
+
+        for(var i = 0; i < edit.length; i++) {
+          edit[i].style.display = 'none';
+        }
+    } else {
+      if($scope.userProfileType == 'manager' || $scope.userProfileType == 'player') {
+        var edit = document.getElementsByClassName('playerEdit');
+
+        for(var i = 0; i < edit.length; i++) {
+          edit[i].style.display = 'none';
+        }
+      }
+    }
+  };
 });

@@ -4,6 +4,7 @@ angular.module("Elifoot").controller('TacticsController',
     // INITIAL LOGIN module
     $scope.username = sessionStorage.getItem('user');
     $scope.password;
+    $scope.userProfileType = sessionStorage.getItem('userProfile');
 
     if($scope.username == undefined || $scope.username == '' || $scope.username == 'undefined') {
       $location.path('/home');
@@ -64,6 +65,22 @@ angular.module("Elifoot").controller('TacticsController',
       }
     }
 
+    $scope.hideElements = function () {
+      if($scope.userProfileType == 'player') {
+          var toRemove = document.getElementsByClassName('toRemove');
+          var toDisable = document.getElementsByClassName('toDisable');
+
+          for(var i = 0; i < toRemove.length; i++) {
+            toRemove[i].style.display = 'none';
+          }
+
+          for(var i = 0; i < toDisable.length; i++) {
+            toDisable[i].setAttribute('data-drag', 'disable');
+            toDisable[i].setAttribute('data-drop', 'disable');
+          }
+      }
+    }
+
     //available players
     TeamPlayers.all($scope.teamId).success(function(data) {
         var playerSpecs = [];
@@ -101,17 +118,39 @@ angular.module("Elifoot").controller('TacticsController',
     $scope.gamesList = [];
     $scope.droppedPlayers = [];
 
-    $scope.dropCallback = function(event, ui) {
-      console.log("selected object with number: " + ui.helper.context.id);
-      console.log("selected player positions:");
-      console.log("TOP: " + ui.position.top);
-      console.log("TOP: " + ui.position.left);
+    $scope.previousTopPosition;
+    $scope.previousLeftPosition;
+    $scope.idChanged;
 
-      updatePlayerObjectLocationAndAddToList(ui.helper.context.id, ui.position.top, ui.position.left);;
+    $scope.dropCallback = function(event, ui, id) {
+      if($scope.userProfileType == 'player') {
+        //return to the previous position
+        console.log("you don't have permission!");
 
-      console.log($scope.players);
+        document.getElementById($scope.idChanged).setAttribute('style',
+          'top:' + $scope.previousTopPosition + 'px;' +
+          'left:' + $scope.previousLeftPosition + 'px');
+
+      } else {
+        console.log("selected object with number: " + ui.helper.context.id);
+        console.log("selected player positions:");
+        console.log("TOP: " + ui.position.top);
+        console.log("LEFT: " + ui.position.left);
+
+        updatePlayerObjectLocationAndAddToList(ui.helper.context.id, ui.position.top, ui.position.left);;
+
+        console.log($scope.players);
+      }
     };
 
+
+    $scope.startCallback = function(event, ui, id) {
+      if($scope.userProfileType == 'player') {
+        $scope.previousTopPosition = ui.position.top;
+        $scope.previousLeftPosition = ui.position.left;
+        $scope.idChanged = event.currentTarget.id;
+      }
+    }
 
     function updatePlayerObjectLocationAndAddToList(number, topPosition, leftPosition) {
       for(var i = 0; i < $scope.players.length; i++) {
