@@ -56,6 +56,10 @@ angular.module("Elifoot").config( ['$routeProvider', function($routeProvider) {
       templateUrl: './templates/pages/user/profile.html',
       controller: 'UserController'
     })
+    .when('/logout', {
+      templateUrl: './templates/pages/home/index.html',
+      controller: 'FeedsController'
+    })
     .when('/about', {
       templateUrl: './templates/pages/about/index.html'
     });
