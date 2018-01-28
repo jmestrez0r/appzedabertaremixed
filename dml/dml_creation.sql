@@ -268,10 +268,10 @@ INSERT INTO PROFILES (PROFILE_TYPE, PROFILE_DESCRIPTION) VALUES ('player', 'Play
 INSERT INTO PROFILES (PROFILE_TYPE, PROFILE_DESCRIPTION) VALUES ('manager', 'Manager Profile');
 
 INSERT INTO USERS (USERNAME, PASSWORD, NAME, NATIONALITY,TEAM_ID, LEAGUE_TABLE, AGE, PLACE_OF_BIRTH, PROFILE_ID, CREATION_DATE, UPDATE_DATE)
-VALUES ('zeamador', 'pw12345', 'José Amador', 'PT', 57, 445, 30, 'Baleizão', 1, current timestamp, current timestamp);
+VALUES ('zeamador', 'pw12345', 'José Amador', 'PT', 57, 445, 30, 'Baleizão', 1, current_timestamp, current_timestamp);
 INSERT INTO USERS (USERNAME, PASSWORD, NAME, NATIONALITY,TEAM_ID, LEAGUE_TABLE, AGE, PLACE_OF_BIRTH, PROFILE_ID, CREATION_DATE, UPDATE_DATE)
-VALUES ('antoniofranco', 'pw12345', 'António Franco', 'PT', 57, 445, 30, 'Lisboa', 1, current timestamp, current timestamp);
+VALUES ('antoniofranco', 'pw12345', 'António Franco', 'PT', 57, 445, 30, 'Lisboa', 1, current_timestamp, current_timestamp);
 INSERT INTO USERS (USERNAME, PASSWORD, NAME, NATIONALITY,TEAM_ID, LEAGUE_TABLE, AGE, PLACE_OF_BIRTH, PROFILE_ID, CREATION_DATE, UPDATE_DATE)
-VALUES ('pauloramos', 'pw12345', 'Paulo Ramos', 'PT', 57, 445, 30, 'Lisboa', 2, current timestamp, current timestamp);
+VALUES ('pauloramos', 'pw12345', 'Paulo Ramos', 'PT', 57, 445, 30, 'Lisboa', 2, current_timestamp, current_timestamp);
 INSERT INTO USERS (USERNAME, PASSWORD, NAME, NATIONALITY,TEAM_ID, LEAGUE_TABLE, AGE, PLACE_OF_BIRTH, PROFILE_ID, CREATION_DATE, UPDATE_DATE)
-VALUES ('miguelsilva', 'pw12345', 'Miguel Silva', 'PT', 57, 445, 30, 'Lisboa', 3, current timestamp, current timestamp);
+VALUES ('miguelsilva', 'pw12345', 'Miguel Silva', 'PT', 57, 445, 30, 'Lisboa', 3, current_timestamp, current_timestamp);
