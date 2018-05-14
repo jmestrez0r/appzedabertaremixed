@@ -102,7 +102,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
         'jerseyNumber': player.jerseyNumber, 'nationality': player.nationality,
         'picture': player.pictureBlob, 'contractUntil': player.contractUntil,
         'marketValue': player.marketValue, 'attributesId': player.attributesId,
-        'age' : player.age});
+        'age' : player.age, 'weight' : player.weight });
     },
 
     updatePlayerInformation: function(player, physicalHeight, physicalResist, physicalAgility,
@@ -134,7 +134,7 @@ angular.module('Elifoot').factory('TeamPlayers', ['$http', function($http) {
         'playerId': player.playerId, 'teamId':player.teamId, 'name':player.name,
         'position':player.position, 'jerseyNumber':player.jerseyNumber, 'nationality':player.nationality,
         'picture':player.pictureBlob, 'contractUntil':player.contractUntil, 'marketValue':player.marketValue,
-        'age': player.age, 'attributesId': player.attributesId });
+        'age': player.age, 'attributesId': player.attributesId, 'weight': player.weight });
     },
 
     deletePlayer: function(player) {

@@ -238,10 +238,10 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
   //SAVE PLAYER INFORMATION
   $scope.savePlayer = function() {
 
-    if(!validateIfFieldsAreCorrect() && $scope.addStaffMember != true) {
-      alert('Por favor, preencha os campos todos!');
-      return;
-    }
+  //  if(!validateIfFieldsAreCorrect() && $scope.addStaffMember != true) {
+  //    alert('Por favor, preencha os campos todos!');
+  //    return;
+  //  }
 
     for(var i = 0; i < document.getElementById('avatar-2').files.length; i++) {
       if(document.getElementById('avatar-2').files[i].size/1024 > 100) {

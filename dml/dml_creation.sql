@@ -1,6 +1,13 @@
+Raspberry:
 rm -R /var/www/html/mypocketcoach
 cp -r appzedabertaremixed/ /var/www/html/
-mv appzedabertaremixed mypocketcoach
+sudo mv /var/www/html/appzedabertaremixed/ /var/www/html/mypocketcoach
+
+Localhost:
+sudo rm -R /opt/lampp/htdocs/appzedabertaremixed
+sudo cp -r /home/jmestre/Documents/appzedabertaremixed /opt/lampp/htdocs/
+sudo /opt/lampp/lampp stop
+sudo /opt/lampp/lampp start
 
 
 DROP TABLE TACTICS;
@@ -101,6 +108,7 @@ CREATE TABLE PLAYER (
 	POSITION VARCHAR(300) NOT NULL,
 	JERSEY_NUMBER VARCHAR(20) NOT NULL,
 	AGE VARCHAR(20) NOT NULL,
+	WEIGHT VARCHAR(5) NOT NULL,
 	NATIONALITY VARCHAR(50) NOT NULL,
 	PICTURE MEDIUMBLOB,
 	CONTRACT_UNTIL TIMESTAMP DEFAULT '2038-01-19 03:14:07',
