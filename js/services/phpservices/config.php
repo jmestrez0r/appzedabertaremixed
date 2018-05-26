@@ -3,7 +3,7 @@
 
 	$host = "127.0.0.1";
 	$user = "mypocketcoachUSR";
-	$pass = "mypocketcoachPW";
+	$pass = "mypocketcoachPW123!";
 	$db = "mypocketcoach";
 
 	$con = new mysqli($host, $user, $pass, $db);
