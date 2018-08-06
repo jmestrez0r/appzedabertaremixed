@@ -11,6 +11,53 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
     return;
   }
 
+  $scope.availablePositions = [{
+      selected: false,
+      name: 'Guarda-Redes',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Libero',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Defesa Central',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Defesa Lateral',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Médio Defensivo',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Médio Ofensivo',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Extremo',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Avançado',
+      esqSelected : false,
+      dirSelected : false
+    }, {
+      selected: false,
+      name: 'Ponta de Lança',
+      esqSelected : false,
+      dirSelected : false
+    }];
+
   //defining radar graphs
   $scope.physicalLabels =["Altura", "Resistência", "Agilidade", "Salto Altura", "Salto Comprimento"];
   $scope.velocityLabels =["Velocidade 10m", "Velocidade 20m", "Velocidade 50m", "Velocidade 100m"];
@@ -128,15 +175,17 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
         keepersIndex++;
         playerConfirmation = true;
       } else if ((a.position.includes('Centre') && !a.position.includes('Forward'))
-        || a.position.includes('Wing') || a.position.includes('Central') || a.position.includes('Midfield')) {
+        || a.position.includes('Wing') || a.position.includes('Central') || a.position.includes('Midfield')
+        || a.position.includes('Médio')) {
         $scope.middles[middlesIndex] = a;
         middlesIndex++;
         playerConfirmation = true;
-      } else if (a.position.includes('Back') || a.position.includes('Defensive')) {
+      } else if (a.position.includes('Back') || a.position.includes('Defensive') || a.position.includes('Defesa')) {
         $scope.defenses[defensesIndex] = a;
         defensesIndex++;
         playerConfirmation = true;
-      } else if (a.position.includes('Forward') || a.position.includes('Striker')) {
+      } else if (a.position.includes('Forward') || a.position.includes('Striker') || a.position.includes('Avançado')
+          || a.position.includes('Extremo') || a.position.includes('Ponta')) {
         $scope.strikers[strikersIndex] = a;
         strikersIndex++;
         playerConfirmation = true;
@@ -209,20 +258,24 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
 
   //DELETE PLAYER
   $scope.deletePlayer = function() {
-    if($scope.selectedPlayer.position.includes('Keeper')) {
+    if($scope.selectedPlayer.position.includes('Keeper') || $scope.selectedPlayer.position.includes('Guarda')) {
       var index = $scope.goalKeepers.indexOf($scope.selectedPlayer);
       $scope.goalKeepers.splice(index, 1);
     } else if (($scope.selectedPlayer.position.includes('Centre') &&
         !$scope.selectedPlayer.position.includes('Forward')) ||
-        $scope.selectedPlayer.position.includes('Wing')) {
+        $scope.selectedPlayer.position.includes('Wing') ||
+        $scope.selectedPlayer.position.includes('Médio')) {
       var index = $scope.middles.indexOf($scope.selectedPlayer);
       $scope.middles.splice(index, 1);
     } else if ($scope.selectedPlayer.position.includes('Back') ||
-        $scope.selectedPlayer.position.includes('Defensive')) {
+        $scope.selectedPlayer.position.includes('Defensive') ||
+            $scope.selectedPlayer.position.includes('Defesa')) {
        var index = $scope.defenses.indexOf($scope.selectedPlayer);
        $scope.defenses.splice(index, 1);
     } else if ($scope.selectedPlayer.position.includes('Forward') ||
-        $scope.selectedPlayer.position.includes('Striker')) {
+        $scope.selectedPlayer.position.includes('Striker') ||
+            $scope.selectedPlayer.position.includes('Avançado') ||
+                $scope.selectedPlayer.position.includes('Ponta')) {
       var index = $scope.strikers.indexOf($scope.selectedPlayer);
       $scope.strikers.splice(index, 1);
     }
@@ -256,39 +309,47 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
 
     //it exists
     if($scope.selectedPlayer.$$hashKey != null && $scope.selectedPlayer.$$hashKey != '') {
-        if($scope.selectedPlayer.position.includes('Keeper')) {
+        if($scope.selectedPlayer.position.includes('Keeper') || $scope.selectedPlayer.position.includes('Guarda')) {
           var index = $scope.goalKeepers.indexOf($scope.selectedPlayer);
           $scope.goalKeepers.splice(index, 1);
           $scope.goalKeepers.push(index, $scope.selectedPlayer);
         } else if (($scope.selectedPlayer.position.includes('Centre') &&
             !$scope.selectedPlayer.position.includes('Forward')) ||
-            $scope.selectedPlayer.position.includes('Wing')) {
+            $scope.selectedPlayer.position.includes('Wing') ||
+            $scope.selectedPlayer.position.includes('Médio')) {
           var index = $scope.middles.indexOf($scope.selectedPlayer);
           $scope.middles.splice(index, 1);
           $scope.middles.push(index, $scope.selectedPlayer);
         } else if ($scope.selectedPlayer.position.includes('Back') ||
-            $scope.selectedPlayer.position.includes('Defensive')) {
+            $scope.selectedPlayer.position.includes('Defensive') ||
+                $scope.selectedPlayer.position.includes('Defesa')) {
            var index = $scope.defenses.indexOf($scope.selectedPlayer);
            $scope.defenses.splice(index, 1);
            $scope.defenses.push(index, $scope.selectedPlayer);
         } else if ($scope.selectedPlayer.position.includes('Forward') ||
-            $scope.selectedPlayer.position.includes('Striker')) {
+            $scope.selectedPlayer.position.includes('Striker') ||
+                $scope.selectedPlayer.position.includes('Avançado') ||
+                    $scope.selectedPlayer.position.includes('Ponta')) {
           var index = $scope.strikers.indexOf($scope.selectedPlayer);
           $scope.strikers.splice(index, 1);
           $scope.strikers.push(index, $scope.selectedPlayer);
         }
     } else {
-      if($scope.selectedPlayer.position.includes('Keeper')) {
+      if($scope.selectedPlayer.position.includes('Keeper')|| $scope.selectedPlayer.position.includes('Guarda')) {
         $scope.goalKeepers.push($scope.selectedPlayer);
       } else if (($scope.selectedPlayer.position.includes('Centre') &&
           !$scope.selectedPlayer.position.includes('Forward')) ||
-          $scope.selectedPlayer.position.includes('Wing')) {
+          $scope.selectedPlayer.position.includes('Wing') ||
+          $scope.selectedPlayer.position.includes('Médio')) {
         $scope.middles.push($scope.selectedPlayer);
       } else if ($scope.selectedPlayer.position.includes('Back') ||
-          $scope.selectedPlayer.position.includes('Defensive')) {
+          $scope.selectedPlayer.position.includes('Defensive') ||
+              $scope.selectedPlayer.position.includes('Defesa')) {
          $scope.defenses.push($scope.selectedPlayer);
       } else if ($scope.selectedPlayer.position.includes('Forward') ||
-          $scope.selectedPlayer.position.includes('Striker')) {
+          $scope.selectedPlayer.position.includes('Striker') ||
+              $scope.selectedPlayer.position.includes('Avançado') ||
+                  $scope.selectedPlayer.position.includes('Ponta')) {
         $scope.strikers.push($scope.selectedPlayer);
       }
     }
@@ -566,52 +627,7 @@ angular.module("Elifoot").controller('TeamPlayersController', function($scope, $
       }
   }
 
-  $scope.availablePositions = [{
-      selected: false,
-      name: 'Guarda-Redes',
-      esqSelected : false,
-      dirSelected : false
-    }, {
-      selected: false,
-      name: 'Libero',
-      esqSelected : false,
-      dirSelected : false
-    }, {
-      selected: false,
-      name: 'Defesa Central',
-      esqSelected : false,
-      dirSelected : false
-    }, {
-      selected: false,
-      name: 'Defesa Lateral',
-      esqSelected : false,
-      dirSelected : false
-    }, {
-      selected: false,
-      name: 'Médio Defensivo',
-      esqSelected : false,
-      dirSelected : false
-    }, {
-      selected: false,
-      name: 'Médio Ofensivo',
-      esqSelected : false,
-      dirSelected : false
-    }, {
-      selected: false,
-      name: 'Extremo',
-      esqSelected : false,
-      dirSelected : false
-    }, {
-      selected: false,
-      name: 'Avançado',
-      esqSelected : false,
-      dirSelected : false
-    }, {
-      selected: false,
-      name: 'Ponta de Lança',
-      esqSelected : false,
-      dirSelected : false
-    }];
+
 
   $scope.addPositionsToPlayer = function() {
     $scope.selectedPlayer.position = '';

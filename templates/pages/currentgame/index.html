@@ -1,0 +1,70 @@
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            <i class="fa fa-fw fa-calendar"></i> Jogo
+        </h1>
+      </div>
+      <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li class="active">
+                <i class="fa fa-dashboard"></i> Dashboard / {{gameDescription}}
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div>
+  {{loadTacticalBoard()}}
+</div>
+
+<div class="row">
+  <h1><timer ng-show="minutes != ''">{{minutes}}:{{seconds}}</timer></h1>
+  <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timer</button>
+  <button ng-click="stopTimer()" ng-show="minutes != ''" ng-disabled="!timerRunning">Stop Timer</button>
+</div>
+
+<div class="row">
+  <!-- CAMPO -->
+  <div class="col-lg-6 toDisable" style="align:center">
+    <h3><i class="glyphicon glyphicon-wrench"></i><small> Quadro Tactico</small></h3>
+    <!-- drop area -->
+    <div class="caption toDisable">
+      <div data-drag="true" data-drop="true" jqyoui-droppable="{multiple:true}" class="toDisable">
+            <img jqyoui-droppable="{multiple:true}" style="opacity: 100 !important"
+              jqyoui-draggable="{multiple:true, animate:true}" class="toDisable"
+              src="./images/football_pitch90deg.jpeg" height="550px"/>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Jogadores -->
+  <div class="col-lg-3 toDisable">
+    <div class='contentWrapper ng-cloak toDisable'>
+      <div class='content toDisable'>
+          <h3><i class="glyphicon glyphicon-th-list"></i><small>  Jogadores</small></h3>
+          <!-- players area -->
+          <div data-drop="false"
+              ng-model='players' id="playersList"
+              jqyoui-droppable="{multiple:true}" class="toDisable">
+              <div class="col-md-4 div-circle-squre toDisable"
+                    ng-repeat="player in players | orderBy: 'number'"
+                    data-drag="false"
+                    data-jqyoui-options="{revert: 'invalid'}" ng-model="players"
+                    jqyoui-draggable="{animate:false}" id="{{player.number}}">
+                    <span class="fa-3x circle-span" >
+                      <i class="fa fa-circle-o fa-circle-2x" style="circle"></i>
+                      <small>
+                        <small class="fa-stack-1x calendar-text">{{player.number}}</small>
+                      </small>
+                      <div class="circle-text">
+                        {{player.name}}
+                      </div>
+                    </span>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

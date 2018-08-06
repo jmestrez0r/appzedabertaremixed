@@ -139,6 +139,9 @@
                           sessionStorage.setItem('selectedGameDescription', '');
                           sessionStorage.setItem('otherTeamView', true);"><i class="fa fa-fw fa-calendar"></i> Convocatória</a>
                     </li>
+                    <li id="currentGameLi">
+                        <a href="#/currentgame" onclick="sessionStorage.setItem('otherTeamView', true);"><i class="fa fa-fw fa-cogs"></i> Estatisticas de Jogos</a>
+                    </li>
                     <li>
 
                     </li>
@@ -252,6 +255,7 @@
     <script type="text/javascript" src="js/controllers/tactics-controller.js"></script>
     <script type="text/javascript" src="js/controllers/mesocycle-controller.js"></script>
     <script type="text/javascript" src="js/controllers/user-controller.js"></script>
+    <script type="text/javascript" src="js/controllers/currentgame-controller.js"></script>
 
     <!-- Services -->
     <script type="text/javascript" src="js/services/leagues.js"></script>
